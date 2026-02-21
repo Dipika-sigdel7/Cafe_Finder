@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+body {
+   margin: 0;
+      font-family: 'Merienda One', cursive;
+      background: linear-gradient(to bottom, #f4ede6, #fdf6f0);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .modal-content {
+      background: #fff8f0;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+      text-align: center;
+      width: 350px;
+      max-width: 90%;
+      position: relative;
+    }
+
+    /* Close button */
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #5a3e36;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .close-btn:hover {
+      color: #c59d5f;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 25px;
+      color: #5a3e36;
+      font-size: 28px;
+    }
+
+    .modal-content input[type="email"],
+    .modal-content input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 18px;
+      border: 1px solid #c59d5f;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .modal-content button {
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      border: none;
+      background-color: #c59d5f;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-content button:hover {
+      background-color: #a67c3d;
+    }
+
+    .forget-password {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #5a3e36;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .forget-password:hover {
+      color: #c59d5f;
+      text-decoration: underline;
+    }
+
+    .message-success {
+      color: green;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .message-error {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="modal">
+  <div class="modal-content">
+
+     <!-- Close button -->
+    <span class="close-btn" onclick="goHome()">&times;</span>
+
+    <h2>Admin Login</h2>
+    <form method="POST" id="admin-login-form">
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+      <a href="{{ url_for('admin_restore_password') }}" class="forget-password">Forgot Password?</a>
+      <!-- <a href="#" class="forget-password">Forgot Password?</a> -->
+    </form>
+    {% if error %}
+      <p class="message-error">{{ error }}</p>
+    {% endif %}
+  </div>
+</div>
+
+    <script>
+  function goHome() {
+    // Redirect to home page
+    window.location.href = "{{ url_for('home') }}";
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ cafe.name }}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+
+    /* GENERAL RESET */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f8f5f2;
+    color: #333;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: #3e2723;
+}
+
+.navbar .logo {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    color: #d7ccc8;
+}
+
+/* HERO  TOP IMAGE */
+.top-image {
+    position: relative;
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+}
+
+.top-image img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.top-image .overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+}
+
+.top-image .overlay h1 {
+    font-size: 32px;
+    margin: 0;
+}
+
+.top-image .overlay h2 {
+    font-size: 48px;
+    margin: 10px 0 0 0;
+}
+
+/* ABOUT SECTION */
+.about-section {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: auto;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-left, .about-right {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-left h2 {
+    color: #5d4037;
+    margin-bottom: 20px;
+}
+
+.about-left p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* CAFE INFO */
+.cafe-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 900px;
+    margin: 30px auto;
+    gap: 20px;
+}
+
+.cafe-info .info-item {
+    flex: 1 1 250px; /* responsive width */
+    background-color: #fff3e0;
+    padding: 20px 25px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cafe-info .info-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.cafe-info .info-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #5d4037;
+}
+
+.cafe-info .info-value {
+    font-size: 16px;
+    color: #6d4c41;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
+    .cafe-info {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .cafe-info .info-item {
+        justify-content: flex-start;
+    }
+}
+
+/* MENU / SERVICES SECTION */
+.services-section {
+    padding: 60px 20px;
+    background: #efebe9;
+}
+
+.services-section h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #5d4037;
+}
+
+.services-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.service-item {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: 0.3s;
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+}
+
+.service-item h3 {
+    margin-bottom: 10px;
+}
+
+.service-item p {
+    font-weight: bold;
+    color: #6d4c41;
+    font-size: 18px;
+}
+
+/* IMAGES */
+.cafe-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.cafe-images img {
+    width: 250px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .about-section {
+        flex-direction: column;
+    }
+    .top-image img {
+        height: 300px;
+    }
+    .top-image .overlay h2 {
+        font-size: 32px;
+    }
+}
+
+/* Reviews Section */
+.reviews-section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff9f4;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.reviews-section h2 {
+    text-align: center;
+    color: #5d4037;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+/* Individual Review */
+.review-item {
+    background: #fff;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ff7043;
+    transition: 0.3s;
+}
+
+.review-item:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.review-item p {
+    margin: 5px 0;
+    line-height: 1.5;
+}
+
+.review-item strong {
+    color: #3e2723;
+}
+
+/* Review Date */
+.review-date {
+    font-size: 12px;
+    color: #999;
+    text-align: right;
+}
+
+/* Review Button */
+.review-button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#reviewBtn {
+    padding: 12px 25px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #3e2723;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#reviewBtn:hover {
+    background-color: #5d4037;
+}
+
+/* Review Form */
+#reviewFormContainer {
+    max-width: 500px;
+    margin: 20px auto;
+    background: #fff3e0;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+#reviewFormContainer form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#reviewFormContainer label {
+    font-weight: 500;
+    color: #3e2723;
+}
+
+#reviewFormContainer input,
+#reviewFormContainer select,
+#reviewFormContainer textarea {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+#reviewFormContainer input:focus,
+#reviewFormContainer select:focus,
+#reviewFormContainer textarea:focus {
+    outline: none;
+    border-color: #ff7043;
+}
+
+#reviewFormContainer button {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #3e2723;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#reviewFormContainer button:hover {
+    background: #5d4037;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .reviews-section, #reviewFormContainer {
+        margin: 20px 10px;
+        padding: 15px;
+    }
+    #reviewBtn {
+        width: 100%;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">{{ cafe.name }}</div>
+  <ul class="nav-links">
+    {% for cafe in cafes %}
+        <li><a href="{{ url_for('cafe_details', cafe_id=cafe.id) }}">{{ cafe.name }}</a></li>
+    {% endfor %} 
+  </ul>
+</header>
+
+<!-- Hero Section -->
+<div class="top-image">
+  <img src="{{ images[0].image_path if images else 'default.jpg' }}" alt="{{ cafe.name }}">
+  <div class="overlay">
+    <h1>Welcome to</h1>
+    <h2>{{ cafe.name }}</h2>
+  </div>
+</div>
+
+<!-- About Section -->
+<div class="about-section" id="about">
+  <div class="about-left">
+    <h2>About Us</h2>
+    <p>{{ cafe.description }}</p>
+  </div>
+  <div class="about-right">
+    {% if images %}
+      <img src="{{ images[0].image_path }}" alt="{{ cafe.name }}">
+    {% endif %}
+  </div>
+</div>
+
+<!-- Cafe Info Section -->
+<div class="cafe-info">
+    <div class="info-item">
+        <span class="info-label">📍 Location:</span>
+        <span class="info-value">{{ cafe.location }}</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label">🕒 Open:</span>
+        <span class="info-value">{{ cafe.open_time }}</span>
+    </div>
+    <div class="info-item">
+        <span class="info-label">🕒 Close:</span>
+        <span class="info-value">{{ cafe.close_time }}</span>
+    </div>
+</div>
+
+<!-- Reviews Section -->
+<div class="reviews-section">
+    <h2>Reviews</h2>
+    {% if reviews %}
+        {% for review in reviews %}
+            <div class="review-item" style="margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+                <p><strong>{{ review.user_name }}</strong> 
+                {% for i in range(review.rating|int) %}⭐{% endfor %}</p>
+                <p>{{ review.comment }}</p>
+                <p class="review-date" style="font-size: 12px; color: #666;">{{ review.created_at.strftime("%b %d, %Y") }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No reviews yet.</p>
+    {% endif %}
+</div>
+
+<!-- Review Button -->
+<div class="review-button-container" style="margin-top:20px;">
+    <button id="reviewBtn">Write a Review</button>
+</div>
+
+<!-- Review Form (hidden by default) -->
+<div id="reviewFormContainer" style="display:none; margin-top:20px;">
+    <form action="{{ url_for('submit_review', cafe_id=cafe.id) }}" method="POST" style="display:flex; flex-direction:column; gap:10px; max-width:400px;">
+        <label for="user_name">Your Name:</label>
+        <input type="text" name="user_name" id="user_name" required style="padding:8px; border-radius:5px; border:1px solid #ccc;">
+
+        <label for="rating">Rating:</label>
+        <select name="rating" id="rating" required style="padding:8px; border-radius:5px; border:1px solid #ccc;">
+            <option value="1">1 ⭐</option>
+            <option value="2">2 ⭐⭐</option>
+            <option value="3">3 ⭐⭐⭐</option>
+            <option value="4">4 ⭐⭐⭐⭐</option>
+            <option value="5">5 ⭐⭐⭐⭐⭐</option>
+        </select>
+
+        <label for="comment">Comment:</label>
+        <textarea name="comment" id="comment" rows="4" required style="padding:8px; border-radius:5px; border:1px solid #ccc;"></textarea>
+
+        <button type="submit" style="padding:10px; border:none; border-radius:5px; background:#3e2723; color:#fff; cursor:pointer;">Submit Review</button>
+    </form>
+</div>
+
+<!-- Menu Section -->
+<div class="services-section" id="menu">
+  <h2>Menu</h2>
+  <div class="services-list">
+    {% for item in menu_items %}
+    <div class="service-item">
+      <h3>{{ item.item_name }}</h3>
+      <p>Rs{{ item.price }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Additional Images -->
+{% if images|length > 1 %}
+<div class="cafe-images">
+    {% for img in images[1:] %}
+    <img src="{{ img.image_path }}" alt="{{ cafe.name }}">
+    {% endfor %}
+</div>
+{% endif %}
+
+
+<script>
+document.getElementById("reviewBtn").addEventListener("click", function() {
+    const form = document.getElementById("reviewFormContainer");
+    if (form.style.display === "none") {
+        form.style.display = "block";
+        form.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        form.style.display = "none";
+    }
+});
+</script>
+
+</body>
+</html>

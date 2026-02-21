@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=Merienda+One:wght@300;400;700&display=swap');
+*{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Merienda One', Arial,  sans-serif;
+    }
+
+    /* Remove default margin & padding
+body {
+    margin: 0;
+} */
+
+/* Body and background */
+body {
+   background: #fdf6f0;
+    overflow-x: hidden;
+}
+
+/* Floating Coffee Beans Animation */
+@keyframes floatBean {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+.bean {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url('https://img.icons8.com/emoji/48/coffee-bean.png') no-repeat center/contain;
+    animation: floatBean linear infinite;
+}
+
+/* Random positions for beans */
+.bean:nth-child(1) { left: 10%; animation-duration: 12s; animation-delay: 0s; }
+.bean:nth-child(2) { left: 30%; animation-duration: 15s; animation-delay: 3s; }
+.bean:nth-child(3) { left: 50%; animation-duration: 10s; animation-delay: 1s; }
+.bean:nth-child(4) { left: 70%; animation-duration: 14s; animation-delay: 2s; }
+.bean:nth-child(5) { left: 90%; animation-duration: 16s; animation-delay: 0s; }
+
+/* Header background */
+header {
+    position: fixed;    /* stay on top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #3e2723;
+    padding: 15px 0;
+    z-index: 1000;
+}
+
+/* Make menu horizontal */
+.nav-links {
+    list-style: none;     /* Remove bullets */
+    display: flex;        /* IMPORTANT: makes horizontal */
+    justify-content: center;
+    gap: 40px;
+}
+
+/* Remove vertical block behavior */
+.nav-links li {
+    display: inline;
+}
+
+/* Style links */
+.nav-links li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    transition: color 0.3s, transform 0.2s;
+}
+
+.nav-links li a:hover {
+    color: #f39c12;
+    transform: scale(1.1);
+}
+
+/* Main Coffee Section */
+#main-content {
+    padding-top: 100px; /* space for fixed header */
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Coffee Section Layout */
+.coffee-section {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 20px;
+    gap: 40px;
+}
+
+/* Text Animations */
+.coffee-left h1, .coffee-right p, .coffee-left p {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: slideIn 1s forwards;
+}
+
+.coffee-left h1 {
+    animation-delay: 0.2s;
+    font-size: 48px;
+    color: #5d4037;
+    margin-bottom: 15px;
+}
+
+.coffee-left p {
+    animation-delay: 0.4s;
+    font-size: 20px;
+    color: #6d4c41;
+}
+
+.coffee-right p {
+    animation-delay: 0.6s;
+    font-size: 20px;
+    color: #6d4c41;
+    max-width: 350px;
+}
+
+/* Slide In Keyframes */
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Center Image */
+.coffee-center img {
+    width: 350px;
+    max-width: 90%;
+    border-radius: 15px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+    animation: popIn 1s ease forwards;
+    opacity: 0;
+}
+
+@keyframes popIn {
+    to { opacity: 1; transform: scale(1); }
+    from { opacity: 0; transform: scale(0.8); }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .coffee-left h1 { font-size: 42px; }
+    .coffee-left p, .coffee-right p { font-size: 18px; }
+}
+
+@media (max-width: 768px) {
+    .coffee-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .coffee-left, .coffee-right { max-width: 90%; }
+    .coffee-left h1 { font-size: 36px; }
+}
+
+@media (max-width: 480px) {
+    .coffee-left h1 { font-size: 28px; }
+    .coffee-left p, .coffee-right p { font-size: 16px; }
+}
+
+
+/* cafe Section */
+    .cafe{
+      height:100vh;
+      background: url("https://static.vecteezy.com/system/resources/previews/046/110/096/non_2x/two-hands-holding-two-cups-of-coffee-with-hearts-free-photo.jpeg") no-repeat center/cover;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      color:white;
+      position:relative;
+    }
+
+/* dhamilooo banako*/
+    .cafe::before{
+      content:"";
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.5);
+    }
+
+    .cafe-content{
+      position:relative;
+      max-width:600px;
+    }
+
+    .cafe h1{
+      font-family: 'Merienda', cursive;
+      font-size:40px;
+      margin-bottom:15px;
+    }
+
+    .cafe p{
+      font-size:18px;
+      margin-bottom:20px;
+      line-height:1.5;
+    }
+
+    .btn{
+      padding:12px 25px;
+      background:#c59d5f;
+      color:white;
+      border:none;
+      font-size:16px;
+      cursor:pointer;
+      border-radius:5px;
+      transition:0.3s;
+    }
+
+    .btn:hover{
+      background:#a67c3d;
+    }
+ 
+    /* nextpage */
+ .coffee-section{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:30px;  
+  flex-wrap:wrap;
+}
+
+.coffee-left{
+  max-width:200px;   
+  text-align:right;
+  color:#5a3e36;
+}
+
+.coffee-left h1{
+  font-family:'Merienda', cursive;
+  font-size:28px;  
+}
+
+.coffee-center img{
+  width:288px;  
+  max-width:100%;
+  height:auto;
+  border-radius:20px;
+  
+}
+
+.coffee-right{
+
+  max-width:200px;   
+  text-align:left;
+  color:#3e3e3e;
+}
+
+.coffee-right p{ 
+  font-family:'Merienda', cursive;
+  font-size:18px;   
+  line-height:1.4;
+}
+
+
+/* yo chae reccomendation kooo hai */
+.recommendation-section{
+  padding:60px 20px;
+  background: linear-gradient(135deg, #fdf6f0, #f4ede6);
+  text-align:center;
+  margin-top:80px;
+  border-radius:20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/* Section Title */
+.section-title{
+  font-family:'Merienda', cursive;
+  font-size:32px;
+  color:#5a3e36;
+  margin-bottom:40px;
+  position:relative;
+}
+
+.section-title::after{
+  content:"";
+  display:block;
+  width:60px;
+  height:4px;
+  background:#c59d5f;
+  margin:15px auto 0;
+  border-radius:2px;
+}
+
+/* Recommendation List */
+.recommendation-list{
+  list-style:none;
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:25px;
+  margin-bottom:50px;
+  padding:0;
+}
+
+.recommendation-link{
+  display:inline-block;
+  padding:12px 25px;
+  background:#fff;
+  color:#c59d5f;
+  font-weight:bold;
+  font-size:18px;
+  border-radius:12px;
+  text-decoration:none;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.recommendation-link:hover{
+  background:#c59d5f;
+  color:white;
+  transform:translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Search More */
+.search-more p{
+  font-size:18px;
+  margin-bottom:15px;
+  color:#3e3e3e;
+}
+
+.search-btn{
+  padding:12px 30px;
+  font-size:16px;
+  font-weight:bold;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:#c59d5f;
+  color:white;
+  transition:0.3s;
+}
+
+.search-btn:hover{
+  background:#a67c3d;
+  transform:translateY(-3px);
+}
+

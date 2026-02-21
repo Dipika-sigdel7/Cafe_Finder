@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Cafes</title>
+    <style>
+/* Container */
+.cafes-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff9f4;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+/* Header Styling */
+        .cafes-header {
+            font-weight: 700;         /* Bold */
+            font-size: 32px;          /* Larger font size */
+            color: #5d4037;           /* Dark brown */
+            text-align: center;       /* Centered */
+            margin-bottom: 30px;      /* Space below */
+            text-transform: uppercase; /* Optional: make all caps */
+            border-bottom: 2px solid #ffccbc; /* Optional underline */
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+/* Cafe List */
+.cafes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cafes-list li {
+    margin-bottom: 15px;
+    transition: transform 0.2s, background 0.2s;
+    border-radius: 8px;
+}
+
+.cafes-list li a {
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    color: #3e2723;
+    background: #fff3e0;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.cafes-list li a:hover {
+    background: #ffccbc;
+    transform: translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .cafes-container h2 {
+        font-size: 24px;
+    }
+    .cafes-list li a {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="cafes-container">
+    <h2>Cafes</h2>
+    <ul class="cafes-list">
+        {% for cafe in cafes %}
+        <li>
+            <a href="{{ url_for('cafe_details', cafe_id=cafe.id) }}">
+                {{ cafe.name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>
