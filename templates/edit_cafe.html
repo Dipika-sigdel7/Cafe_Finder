@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Edit Cafe</title>
+</head>
+
+<body>
+
+<h1>Edit Cafe Details</h1>
+
+
+<form method="POST">
+
+<label>Name</label>
+<input type="text" 
+name="name"
+value="{{ cafe.name }}">
+
+
+<label>Description</label>
+<textarea name="description">{{ cafe.description }}</textarea>
+
+
+<label>Location</label>
+<input type="text"
+name="location"
+value="{{ cafe.location }}">
+
+
+<label>Open Time</label>
+<input type="text"
+name="open_time"
+value="{{ cafe.open_time }}">
+
+
+<label>Close Time</label>
+<input type="text"
+name="close_time"
+value="{{ cafe.close_time }}">
+
+
+<button type="submit">
+Update Cafe
+</button>
+
+
+</form>
+
+</body>
+
+</html>

@@ -84,73 +84,104 @@ def cafe_details(cafe_id):
 # Admin Dashboard
 @app.route("/admin/dashboard", methods=["GET", "POST"])
 def admin_dashboard():
+
     if "admin_id" not in session:
         return redirect(url_for("admin_login"))
 
     error = None
 
+    cursor = db.cursor(dictionary=True)
+
     if request.method == "POST":
-        # Get cafe info
+
         name = request.form["name"].strip()
         description = request.form["description"].strip()
         location = request.form["location"].strip()
         open_time = request.form["open_time"].strip()
         close_time = request.form["close_time"].strip()
 
-        cursor = db.cursor(dictionary=True)
 
-        # Check if cafe already exists (prevents duplicates)
-        cursor.execute("SELECT id FROM cafes WHERE name=%s", (name,))
+        cursor.execute(
+            "SELECT id FROM cafes WHERE name=%s",
+            (name,)
+        )
+
         existing_cafe = cursor.fetchone()
+
         if existing_cafe:
             error = "A cafe with this name already exists."
-            return render_template("admin_dashboard.html", error=error)
 
-        # Insert cafe into DB
-        cursor.execute(
-            """
-            INSERT INTO cafes (name, description, location, open_time, close_time)
-            VALUES (%s, %s, %s, %s, %s)
-            """,
-            (name, description, location, open_time, close_time),
-        )
-        db.commit()
-        cafe_id = cursor.lastrowid
+        else:
 
-        # Handle menu items
-        item_names = request.form.getlist("item_name[]")
-        item_prices = request.form.getlist("item_price[]")
-        for item, price in zip(item_names, item_prices):
-            if item.strip() and price.strip():
-                cursor.execute(
-                    """
-                    INSERT INTO menu_items (cafe_id, item_name, price)
-                    VALUES (%s, %s, %s)
-                    """,
-                    (cafe_id, item.strip(), price.strip()),
+            cursor.execute(
+                """
+                INSERT INTO cafes 
+                (name, description, location, open_time, close_time)
+                VALUES (%s,%s,%s,%s,%s)
+                """,
+                (
+                    name,
+                    description,
+                    location,
+                    open_time,
+                    close_time
                 )
-        db.commit()
+            )
 
-        # Handle images (optional)
-        if "images" in request.files:
-            images = request.files.getlist("images")
-            for image in images:
-                if image.filename:
-                    filepath = f"static/uploads/{image.filename}"
-                    image.save(filepath)
+            db.commit()
+
+            cafe_id = cursor.lastrowid
+
+
+            # Add menu items
+            item_names = request.form.getlist("item_name[]")
+            item_prices = request.form.getlist("item_price[]")
+
+            for item, price in zip(item_names, item_prices):
+
+                if item.strip() and price.strip():
+
                     cursor.execute(
                         """
-                        INSERT INTO cafe_images (cafe_id, image_path)
-                        VALUES (%s, %s)
+                        INSERT INTO menu_items
+                        (cafe_id,item_name,price)
+                        VALUES (%s,%s,%s)
                         """,
-                        (cafe_id, filepath),
+                        (
+                            cafe_id,
+                            item.strip(),
+                            price.strip()
+                        )
                     )
-        db.commit()
 
-        # Redirect after POST to prevent resubmission
-        return redirect(url_for("admin_dashboard"))
+            db.commit()
 
-    return render_template("admin_dashboard.html", error=None)
+            return redirect(url_for("admin_dashboard"))
+
+
+    # Load existing cafes
+    cursor.execute("SELECT * FROM cafes")
+    cafes = cursor.fetchall()
+
+
+    for cafe in cafes:
+
+        cursor.execute(
+            "SELECT * FROM menu_items WHERE cafe_id=%s",
+            (cafe["id"],)
+        )
+
+        cafe["menu_items"] = cursor.fetchall()
+
+
+
+    return render_template(
+        "admin_dashboard.html",
+        cafes=cafes,
+        error=error
+    )
+
+
 
 
 @app.route("/")
@@ -238,6 +269,60 @@ def search_cafe():
         return {"found": True, "cafe_id": cafe["id"]}
     else:
         return {"found": False}
+
+# Edit Cafe Details
+@app.route("/admin/edit_cafe/<int:cafe_id>", methods=["GET", "POST"])
+def edit_cafe(cafe_id):
+
+    if "admin_id" not in session:
+        return redirect(url_for("admin_login"))
+
+    cursor = db.cursor(dictionary=True)
+
+    if request.method == "POST":
+
+        name = request.form["name"]
+        description = request.form["description"]
+        location = request.form["location"]
+        open_time = request.form["open_time"]
+        close_time = request.form["close_time"]
+
+        cursor.execute("""
+            UPDATE cafes
+            SET name=%s,
+                description=%s,
+                location=%s,
+                open_time=%s,
+                close_time=%s
+            WHERE id=%s
+        """,
+        (
+            name,
+            description,
+            location,
+            open_time,
+            close_time,
+            cafe_id
+        ))
+
+        db.commit()
+
+        return redirect(url_for("admin_dashboard"))
+
+
+    cursor.execute(
+        "SELECT * FROM cafes WHERE id=%s",
+        (cafe_id,)
+    )
+
+    cafe = cursor.fetchone()
+
+    return render_template(
+        "edit_cafe.html",
+        cafe=cafe
+    )
+
+
     
 # LOGOUT
 @app.route("/admin/logout")

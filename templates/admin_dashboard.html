@@ -112,6 +112,36 @@ body.admin-dashboard {
 .logout-btn:hover {
     background: #a67c3d;
 }
+.menu-list{
+    display:none;
+    padding-left:20px;
+}
+
+
+.cafe-name{
+    cursor:pointer;
+    color:#333;
+}
+
+
+.cafe-name:hover{
+    color:#c89b4a;
+}
+
+
+.cafe-box{
+    margin-bottom:20px;
+}
+
+.menu-list {
+    display: none;
+}
+
+.cafe-name {
+    cursor: pointer;
+}
+
+
 
 /* Responsive */
 @media(max-width:900px){
@@ -121,6 +151,24 @@ body.admin-dashboard {
 }
 </style>
 </head>
+<script>
+
+function toggleMenu(id){
+
+    let menu = document.getElementById("menu-" + id);
+
+    if(menu.style.display === "block"){
+        menu.style.display = "none";
+    }
+    else{
+        menu.style.display = "block";
+    }
+
+}
+
+
+</script>
+
 <body class="admin-dashboard">
 
 <header class="admin-header">
@@ -164,22 +212,52 @@ body.admin-dashboard {
 
     <!-- Right side: Manage menu items -->
     <div class="manage-menu">
-        <h2>Manage Existing Cafe</h2>
-        <!-- You can loop existing cafes & menu items here -->
-        {% for cafe in cafes %}
-        <div class="cafe-menu">
-            <h3>{{ cafe.name }}</h3>
-            <ul>
-                {% for item in cafe.menu_items %}
-                <li>{{ item.item_name }} - ${{ item.price }}</li>
-                {% endfor %}
-            </ul>
-            <a href="{{ url_for('edit_menu', cafe_id=cafe.id) }}" class="cafe-btn">Edit Menu</a>
-        </div>
+    <h2>Manage Existing Cafe</h2>
+    {% for cafe in cafes %}
+<div class="cafe-box">
+
+    <h3>{{ cafe.name }}</h3>
+
+    <button
+        type="button"
+        onclick="toggleMenu('{{ cafe.id }}')">
+        Menu Items
+    </button>
+
+    <a href="{{ url_for('edit_cafe', cafe_id=cafe.id) }}">
+        Edit Cafe Details
+    </a>
+
+    <div id="menu-{{ cafe.id }}" class="menu-list" style="display:none;">
+
+        {% for item in cafe.menu_items %}
+
+        <form method="POST"
+              action="{{ url_for('update_menu_item', item_id=item.id) }}">
+
+            <input
+                type="text"
+                name="item_name"
+                value="{{ item.item_name }}">
+
+            <input
+                type="number"
+                name="price"
+                step="0.01"
+                value="{{ item.price }}">
+
+            <button type="submit">
+                Save
+            </button>
+
+        </form>
+
         {% endfor %}
+
     </div>
 
 </div>
+{% endfor %}
 
 <!-- Logout button -->
 <a href="{{ url_for('admin_logout') }}" class="logout-btn">Logout</a>
