@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Manage Menu</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    padding:40px;
+}
+
+
+.menu-container{
+    width:600px;
+    margin:auto;
+}
+
+
+.menu-list{
+    max-height:400px;
+    overflow-y:auto;
+    border:1px solid #ccc;
+    padding:15px;
+}
+
+
+.menu-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #ddd;
+    padding:15px;
+}
+
+
+button{
+    padding:7px 12px;
+    margin:3px;
+}
+
+
+.edit{
+    background:green;
+    color:white;
+}
+
+
+.delete{
+    background:red;
+    color:white;
+}
+
+
+.add-box{
+    margin-top:30px;
+    border:1px solid #ccc;
+    padding:20px;
+}
+
+
+input{
+    padding:8px;
+    margin:5px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="menu-container">
+
+
+<h1>
+{{cafe.name}} Menu
+</h1>
+
+
+<!-- EXISTING MENU FIRST -->
+
+<h2>
+Existing Menu Items
+</h2>
+
+
+<div class="menu-list">
+
+
+{% for item in menu_items %}
+
+
+<div class="menu-item">
+
+
+<div>
+
+<strong>
+{{item.item_name}}
+</strong>
+
+<br>
+
+Price: NPR {{item.price}}
+
+
+</div>
+
+
+
+<div>
+
+
+<button class="edit"
+onclick="editPrice('{{item.id}}','{{item.price}}')">
+
+Edit Price
+
+</button>
+
+
+
+<a href="{{url_for('delete_menu_item',
+item_id=item.id,
+cafe_id=cafe.id)}}"
+onclick="return confirm('Remove this item?')">
+
+<button class="delete">
+Remove
+</button>
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+{% endfor %}
+
+
+</div>
+
+
+
+
+
+<!-- ADD ITEM AFTER EXISTING -->
+
+<div class="add-box">
+
+
+<h2>
+Add New Menu Item
+</h2>
+
+
+<form method="POST"
+action="{{url_for('add_menu_item', cafe_id=cafe.id)}}">
+
+
+<input type="text"
+name="item_name"
+placeholder="Item Name"
+required>
+
+
+<input type="number"
+step="0.01"
+name="price"
+placeholder="Price"
+required>
+
+
+<button type="submit">
+Add Item
+</button>
+
+
+</form>
+
+
+</div>
+
+
+
+<br>
+
+
+<a href="{{url_for('admin_dashboard')}}">
+Back to Dashboard
+</a>
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+function editPrice(id,oldPrice){
+
+
+let price = prompt(
+"Enter new price:",
+oldPrice
+);
+
+
+if(price != null){
+
+
+window.location.href =
+"/admin/update_price/"
++id+
+"/"
++price;
+
+
+}
+
+
+}
+
+</script>
+
+
+</body>
+
+</html>

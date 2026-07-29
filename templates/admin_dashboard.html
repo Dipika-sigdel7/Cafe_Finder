@@ -141,6 +141,14 @@ body.admin-dashboard {
     cursor: pointer;
 }
 
+/*delete button*/
+.delete-btn{
+    background:red;
+    color:white;
+    padding:8px 15px;
+    border:none;
+    cursor:pointer;
+}
 
 
 /* Responsive */
@@ -191,10 +199,10 @@ function toggleMenu(id){
             <input type="text" name="location">
 
             <label>Open Time</label>
-            <input type="text" name="open_time">
+            <input type="time" name="open_time" required>
 
             <label>Close Time</label>
-            <input type="text" name="close_time">
+            <input type="time" name="close_time" required>
 
             <label>Upload Cafe Images</label>
             <input type="file" name="images" multiple>
@@ -218,43 +226,27 @@ function toggleMenu(id){
 
     <h3>{{ cafe.name }}</h3>
 
-    <button
-        type="button"
-        onclick="toggleMenu('{{ cafe.id }}')">
+  <a href="{{ url_for('manage_menu', cafe_id=cafe.id) }}">
+    <button type="button">
         Menu Items
     </button>
+</a>
 
-    <a href="{{ url_for('edit_cafe', cafe_id=cafe.id) }}">
+   <a href="{{ url_for('edit_cafe', cafe_id=cafe.id) }}">
+    <button type="button">
         Edit Cafe Details
-    </a>
+    </button>
+</a>
 
-    <div id="menu-{{ cafe.id }}" class="menu-list" style="display:none;">
 
-        {% for item in cafe.menu_items %}
+<a href="{{ url_for('delete_cafe', cafe_id=cafe.id) }}"
+   onclick="return confirm('Are you sure you want to remove this cafe?')">
 
-        <form method="POST"
-              action="{{ url_for('update_menu_item', item_id=item.id) }}">
+    <button type="button" class="delete-btn">
+        Remove Cafe
+    </button>
 
-            <input
-                type="text"
-                name="item_name"
-                value="{{ item.item_name }}">
-
-            <input
-                type="number"
-                name="price"
-                step="0.01"
-                value="{{ item.price }}">
-
-            <button type="submit">
-                Save
-            </button>
-
-        </form>
-
-        {% endfor %}
-
-    </div>
+</a>
 
 </div>
 {% endfor %}

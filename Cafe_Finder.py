@@ -181,16 +181,89 @@ def admin_dashboard():
         error=error
     )
 
+#Delete
+@app.route("/admin/delete_cafe/<int:cafe_id>")
+def delete_cafe(cafe_id):
 
+    if "admin_id" not in session:
+        return redirect(url_for("admin_login"))
+
+
+    cursor = db.cursor()
+
+
+    # Delete cafe
+    cursor.execute(
+        "DELETE FROM cafes WHERE id=%s",
+        (cafe_id,)
+    )
+
+
+    db.commit()
+
+
+    cursor.close()
+
+
+    return redirect(
+        url_for("admin_dashboard")
+    )
 
 
 @app.route("/")
 def home():
-    cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM cafes")
-    cafes = cursor.fetchall()
 
-    return render_template("index.html", cafes=cafes)
+    cursor = db.cursor(dictionary=True)
+
+
+    cursor.execute("SELECT * FROM cafes")
+
+    cafes = cursor.fetchall()
+    return render_template(
+        "index.html",
+        cafes=cafes
+    )
+
+#update price
+@app.route("/admin/update_price/<int:item_id>/<price>")
+def update_price(item_id, price):
+
+    if "admin_id" not in session:
+        return redirect(url_for("admin_login"))
+
+
+    cursor = db.cursor()
+
+
+    cursor.execute("""
+        UPDATE menu_items
+        SET price=%s
+        WHERE id=%s
+    """,
+    (
+        price,
+        item_id
+    ))
+
+
+    db.commit()
+
+
+    cursor.execute(
+        "SELECT cafe_id FROM menu_items WHERE id=%s",
+        (item_id,)
+    )
+
+    cafe_id = cursor.fetchone()[0]
+
+
+    return redirect(
+        url_for(
+            "manage_menu",
+            cafe_id=cafe_id
+        )
+    )
+
 
 # password restore
 @app.route("/admin/restore-password", methods=["GET", "POST"])
@@ -219,30 +292,111 @@ def admin_restore_password():
 # Manage Menu
 @app.route("/admin/manage_menu/<int:cafe_id>", methods=["GET", "POST"])
 def manage_menu(cafe_id):
+
     if "admin_id" not in session:
         return redirect(url_for("admin_login"))
 
     cursor = db.cursor(dictionary=True)
-# Fetch cafe info
-    cursor.execute("SELECT * FROM cafes WHERE id=%s", (cafe_id,))
+
+
+    # Get cafe information
+    cursor.execute(
+        "SELECT * FROM cafes WHERE id=%s",
+        (cafe_id,)
+    )
+
     cafe = cursor.fetchone()
 
-# Fetch menu items
-    cursor.execute("SELECT * FROM menu_items WHERE cafe_id=%s", (cafe_id,))
+
+    # Get menu items
+    cursor.execute(
+        "SELECT * FROM menu_items WHERE cafe_id=%s",
+        (cafe_id,)
+    )
+
     menu_items = cursor.fetchall()
 
-    if request.method == "POST":
-# Update existing menu item
-        for item_id, name, price in zip(request.form.getlist("item_id[]"),
-                                        request.form.getlist("item_name[]"),
-                                        request.form.getlist("item_price[]")):
-            cursor.execute(
-                "UPDATE menu_items SET item_name=%s, price=%s WHERE id=%s",
-                (name, price, item_id)
-            )
-        db.commit()
-        return redirect(url_for("manage_menu", cafe_id=cafe_id))
-    return render_template("manage_menu.html", cafe=cafe, menu_items=menu_items)
+
+    print("Cafe ID:", cafe_id)
+    print("Cafe:", cafe)
+    print("Items:", menu_items)
+
+
+    cursor.close()
+
+
+    return render_template(
+        "manage_menu.html",
+        cafe=cafe,
+        menu_items=menu_items
+    )
+#Adding new items
+@app.route("/admin/add_menu_item/<int:cafe_id>", methods=["POST"])
+def add_menu_item(cafe_id):
+
+    if "admin_id" not in session:
+        return redirect(url_for("admin_login"))
+
+
+    item_name = request.form["item_name"]
+    price = request.form["price"]
+
+
+    cursor = db.cursor()
+
+
+    cursor.execute("""
+        INSERT INTO menu_items
+        (cafe_id,item_name,price)
+        VALUES(%s,%s,%s)
+    """,
+    (
+        cafe_id,
+        item_name,
+        price
+    ))
+
+
+    db.commit()
+
+
+    return redirect(
+        url_for(
+            "manage_menu",
+            cafe_id=cafe_id
+        )
+    )
+
+
+#Delete menu item
+@app.route("/admin/delete_menu_item/<int:item_id>/<int:cafe_id>")
+def delete_menu_item(item_id,cafe_id):
+
+    if "admin_id" not in session:
+        return redirect(url_for("admin_login"))
+
+
+    cursor = db.cursor()
+
+
+    cursor.execute(
+        """
+        DELETE FROM menu_items
+        WHERE id=%s
+        """,
+        (item_id,)
+    )
+
+
+    db.commit()
+
+
+    return redirect(
+        url_for(
+            "manage_menu",
+            cafe_id=cafe_id
+        )
+    )
 
 
 @app.route('/cafes')
