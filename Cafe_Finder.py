@@ -1,14 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
+import os
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
 
 # Database Connection
-db = mysql.connector.connect(
-    host="localhost", user="root", password="deepika@", database="Cafe_Finder"
-)
+def get_db():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="deepika@",
+        database="Cafe_Finder"
+    )
 
 
 # ADMIN LOGIN ROUTE
@@ -20,37 +27,60 @@ def admin_login():
         email = request.form["email"]
         password = request.form["password"]
 
+        db = get_db()
         cursor = db.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM admins WHERE email = %s", (email,))
+
+        cursor.execute(
+            "SELECT * FROM admins WHERE email = %s", 
+            (email,)
+        )
+
         admin = cursor.fetchone()
 
         if admin and check_password_hash(admin["password"], password):
+
+            cursor.close()
+            db.close()
+
             session["admin_id"] = admin["id"]
+
             return redirect(url_for("admin_dashboard"))
+        
         else:
             error = "Invalid Email or Password"
+
+        cursor.close()
+        db.close()
+
 
     return render_template("admin_login.html", error=error)
 
 
+#Review
 @app.route("/cafe/<int:cafe_id>/review", methods=["POST"])
 def submit_review(cafe_id):
     user_name = request.form['user_name']
     rating = int(request.form['rating'])
     comment = request.form['comment']
 
-    cursor = db.cursor()
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
     cursor.execute(
         "INSERT INTO reviews (cafe_id, user_name, rating, comment, created_at) VALUES (%s, %s, %s, %s, NOW())",
         (cafe_id, user_name, rating, comment)
     )
     db.commit()
+
+    cursor.close()
+    db.close()
+
     return redirect(url_for('cafe_details', cafe_id=cafe_id))
 
 
 
 @app.route("/cafe/<int:cafe_id>")
 def cafe_details(cafe_id):
+    db = get_db()
     cursor = db.cursor(dictionary=True)
 
     # Fetch cafe info
@@ -78,6 +108,9 @@ def cafe_details(cafe_id):
         avg_rating=0
     cafe['rating'] = avg_rating
 
+    cursor.close()
+    db.close()
+
     return render_template("cafe_details.html", cafe=cafe, menu_items=menu_items, images=images, reviews=reviews)
 
 
@@ -90,7 +123,9 @@ def admin_dashboard():
 
     error = None
 
+    db = get_db()
     cursor = db.cursor(dictionary=True)
+
 
     if request.method == "POST":
 
@@ -131,6 +166,56 @@ def admin_dashboard():
             db.commit()
 
             cafe_id = cursor.lastrowid
+
+            # Upload cafe images
+            images = request.files.getlist("images")
+
+            print("==============================")
+            print("FILES:", request.files)
+            print("IMAGE LIST:", images)
+            print("IMAGE COUNT:", len(images))
+            print("==============================")
+
+            for image in images:
+
+                print("PROCESSING IMAGE:", image.filename)
+
+                if image.filename:
+
+                    filename = secure_filename(image.filename)
+
+                    print("SECURE NAME:", filename)
+
+                    upload_folder = os.path.join(
+                        app.static_folder,
+                        "uploads"
+                    )
+
+                    os.makedirs(upload_folder, exist_ok=True)
+
+                    filepath = os.path.join(
+                        upload_folder,
+                        filename
+                    )
+
+                    image.save(filepath)
+
+                    print("SAVED FILE:", filepath)
+
+
+                    cursor.execute(
+                        """
+                        INSERT INTO cafe_images
+                        (cafe_id, image_path)
+                        VALUES (%s,%s)
+                        """,
+                        (
+                            cafe_id,
+                            "uploads/" + filename
+                        )
+                    )
+
+                    print("Inserted into cafe_images table")
 
 
             # Add menu items
@@ -173,7 +258,8 @@ def admin_dashboard():
 
         cafe["menu_items"] = cursor.fetchall()
 
-
+    cursor.close()
+    db.close()
 
     return render_template(
         "admin_dashboard.html",
@@ -189,7 +275,8 @@ def delete_cafe(cafe_id):
         return redirect(url_for("admin_login"))
 
 
-    cursor = db.cursor()
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
 
 
     # Delete cafe
@@ -201,9 +288,8 @@ def delete_cafe(cafe_id):
 
     db.commit()
 
-
     cursor.close()
-
+    db.close()
 
     return redirect(
         url_for("admin_dashboard")
@@ -213,12 +299,18 @@ def delete_cafe(cafe_id):
 @app.route("/")
 def home():
 
+
+    db = get_db()
     cursor = db.cursor(dictionary=True)
 
 
     cursor.execute("SELECT * FROM cafes")
-
+ 
     cafes = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
     return render_template(
         "index.html",
         cafes=cafes
@@ -232,7 +324,8 @@ def update_price(item_id, price):
         return redirect(url_for("admin_login"))
 
 
-    cursor = db.cursor()
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
 
 
     cursor.execute("""
@@ -254,8 +347,11 @@ def update_price(item_id, price):
         (item_id,)
     )
 
-    cafe_id = cursor.fetchone()[0]
+    result = cursor.fetchone()
+    cafe_id = result["cafe_id"]
 
+    cursor.close()
+    db.close()
 
     return redirect(
         url_for(
@@ -265,7 +361,7 @@ def update_price(item_id, price):
     )
 
 
-# password restore
+#  Admin password restore
 @app.route("/admin/restore-password", methods=["GET", "POST"])
 def admin_restore_password():
     message = None
@@ -274,6 +370,7 @@ def admin_restore_password():
     if request.method == "POST":
         email = request.form["email"]
 
+        db = get_db()
         cursor = db.cursor(dictionary=True)
         cursor.execute("SELECT * FROM admins WHERE email=%s", (email,))
         admin = cursor.fetchone()
@@ -286,7 +383,15 @@ def admin_restore_password():
         else:
             error = "Email not found."
 
-    return render_template("admin_restore_password.html")
+        if 'cursor' in locals():
+            cursor.close()
+            db.close()
+
+        return render_template(
+            "admin_restore_password.html",
+            message=message,
+            error=error
+        )
 
 
 # Manage Menu
@@ -296,6 +401,7 @@ def manage_menu(cafe_id):
     if "admin_id" not in session:
         return redirect(url_for("admin_login"))
 
+    db = get_db()
     cursor = db.cursor(dictionary=True)
 
 
@@ -324,6 +430,8 @@ def manage_menu(cafe_id):
 
     cursor.close()
 
+    cursor.close()
+    db.close()
 
     return render_template(
         "manage_menu.html",
@@ -342,7 +450,8 @@ def add_menu_item(cafe_id):
     price = request.form["price"]
 
 
-    cursor = db.cursor()
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
 
 
     cursor.execute("""
@@ -359,6 +468,8 @@ def add_menu_item(cafe_id):
 
     db.commit()
 
+    cursor.close()
+    db.close()
 
     return redirect(
         url_for(
@@ -376,7 +487,8 @@ def delete_menu_item(item_id,cafe_id):
         return redirect(url_for("admin_login"))
 
 
-    cursor = db.cursor()
+    db = get_db()
+    cursor = db.cursor(dictionary=True)
 
 
     cursor.execute(
@@ -390,6 +502,8 @@ def delete_menu_item(item_id,cafe_id):
 
     db.commit()
 
+    cursor.close()
+    db.close()
 
     return redirect(
         url_for(
@@ -399,15 +513,22 @@ def delete_menu_item(item_id,cafe_id):
     )
 
 
+#Cafes
 @app.route('/cafes')
 def cafes():
+    db = get_db()
     cursor = db.cursor(dictionary=True)
     cursor.execute("SELECT id, name FROM cafes ORDER BY name")
     all_cafes = cursor.fetchall()
+
     cursor.close()
+    db.close()
+
     return render_template("cafes.html", cafes=all_cafes)
 
 
+
+#Search Cafe
 @app.route("/search_cafe")
 def search_cafe():
     cafe_name = request.args.get("name", "").strip()
@@ -415,40 +536,49 @@ def search_cafe():
     if not cafe_name:
         return{"found":False}
     
+    db = get_db()
     cursor = db.cursor(dictionary=True)
     cursor.execute("SELECT id FROM cafes WHERE name LIKE %s", (f"%{cafe_name}%",))
     cafe = cursor.fetchone()
 
     if cafe:
-        return {"found": True, "cafe_id": cafe["id"]}
+        result= {"found": True, "cafe_id": cafe["id"]}
     else:
-        return {"found": False}
+        result= {"found": False}
+
+    cursor.close()
+    db.close()
+
+    return result   
+
 
 # Edit Cafe Details
-@app.route("/admin/edit_cafe/<int:cafe_id>", methods=["GET", "POST"])
+@app.route('/admin/edit_cafe/<int:cafe_id>', methods=['GET','POST'])
 def edit_cafe(cafe_id):
 
-    if "admin_id" not in session:
-        return redirect(url_for("admin_login"))
+    conn = get_db()
+    cursor = conn.cursor(dictionary=True)
 
-    cursor = db.cursor(dictionary=True)
 
     if request.method == "POST":
 
-        name = request.form["name"]
-        description = request.form["description"]
-        location = request.form["location"]
-        open_time = request.form["open_time"]
-        close_time = request.form["close_time"]
+
+        # Update cafe details
+        name = request.form['name']
+        description = request.form['description']
+        location = request.form['location']
+        open_time = request.form['open_time']
+        close_time = request.form['close_time']
+
 
         cursor.execute("""
-            UPDATE cafes
-            SET name=%s,
-                description=%s,
-                location=%s,
-                open_time=%s,
-                close_time=%s
-            WHERE id=%s
+        UPDATE cafes
+        SET name=%s,
+            description=%s,
+            location=%s,
+            open_time=%s,
+            close_time=%s
+        WHERE id=%s
         """,
         (
             name,
@@ -459,24 +589,136 @@ def edit_cafe(cafe_id):
             cafe_id
         ))
 
-        db.commit()
 
-        return redirect(url_for("admin_dashboard"))
 
+        # Delete selected images
+
+        delete_images = request.form.getlist("delete_images")
+
+
+        for img_id in delete_images:
+
+
+            cursor.execute(
+            """
+            SELECT image_path 
+            FROM cafe_images
+            WHERE id=%s
+            """,
+            (img_id,)
+            )
+
+            img = cursor.fetchone()
+
+
+            if img:
+
+                filepath = os.path.join(
+                    app.static_folder,
+                    img['image_path']
+                )
+
+
+                if os.path.exists(filepath):
+                    os.remove(filepath)
+
+
+
+                cursor.execute(
+                """
+                DELETE FROM cafe_images
+                WHERE id=%s
+                """,
+                (img_id,)
+                )
+
+
+
+        # Add new multiple images
+
+        new_images = request.files.getlist("new_images")
+
+
+        for image in new_images:
+
+
+            if image.filename:
+
+
+                filename = secure_filename(image.filename)
+
+
+                upload_folder = os.path.join(
+                    app.static_folder,
+                    "uploads"
+                )
+
+
+                os.makedirs(
+                    upload_folder,
+                    exist_ok=True
+                )
+
+
+                image.save(
+                    os.path.join(
+                        upload_folder,
+                        filename
+                    )
+                )
+
+
+                cursor.execute(
+                """
+                INSERT INTO cafe_images
+                (cafe_id,image_path)
+                VALUES(%s,%s)
+                """,
+                (
+                    cafe_id,
+                    "uploads/"+filename
+                )
+                )
+
+
+
+        conn.commit()
+
+
+        return redirect(
+            url_for('admin_dashboard')
+        )
+
+
+
+    # GET request
 
     cursor.execute(
-        "SELECT * FROM cafes WHERE id=%s",
-        (cafe_id,)
+    "SELECT * FROM cafes WHERE id=%s",
+    (cafe_id,)
     )
 
     cafe = cursor.fetchone()
 
-    return render_template(
-        "edit_cafe.html",
-        cafe=cafe
+
+
+    cursor.execute(
+    """
+    SELECT * FROM cafe_images
+    WHERE cafe_id=%s
+    """,
+    (cafe_id,)
     )
 
+    images = cursor.fetchall()
 
+
+
+    return render_template(
+        "edit_cafe.html",
+        cafe=cafe,
+        images=images
+    )
     
 # LOGOUT
 @app.route("/admin/logout")

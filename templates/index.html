@@ -46,22 +46,31 @@
     <button class="search-btn" id="searchBtn" style="padding:10px 20px; border:none; border-radius:5px; background:#c59d5f; color:white; font-weight:bold; cursor:pointer;">Search</button>
   </section>
 
-      <!-- Our Recommendation Section at bottom -->
-      <section class="recommendation-section">
-        <h2 class="section-title">Our Recommendation</h2>
-        <ul class="recommendation-list">
-          {% for cafe in cafes[:5] %}
-          <li>
-            <a
-              href="{{ url_for('cafe_details', cafe_id=cafe.id) }}"
-              class="recommendation-link"
-            >
-              {{ cafe.name }}
-            </a>
-          </li>
-          {% endfor %}
-      </section>
-    </div>
+      <!-- Our Recommendation Section -->
+<section class="recommendation-section">
+
+    <h2 class="section-title">Our Recommendation</h2>
+
+    <ul class="recommendation-list">
+
+        {% for cafe in cafes[:5] %}
+
+        <li>
+    <a 
+    href="{{ url_for('cafe_details', cafe_id=cafe.id) }}"
+    class="recommendation-link">
+
+        {{ cafe.name }}
+
+    </a>
+</li>
+        {% endfor %}
+
+    </ul>
+
+</section>
+
+
 
 <!-- For search button -->
     <script>
@@ -89,7 +98,9 @@ document.getElementById("searchBtn").addEventListener("click", function() {
                     alert("Something went wrong. Please try again.");
         });
 });
-</script>
 
+
+
+</script>
   </body>
 </html>

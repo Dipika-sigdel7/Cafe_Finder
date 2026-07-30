@@ -274,6 +274,47 @@ header {
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
+.popup{
+
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    z-index:1000;
+
+}
+
+
+.popup-box{
+
+    background:white;
+    width:400px;
+    padding:30px;
+    margin:15% auto;
+    border-radius:15px;
+    text-align:center;
+
+}
+
+
+.popup-box h2{
+
+    color:#5d4037;
+
+}
+
+
+.close-btn{
+
+    float:right;
+    font-size:30px;
+    cursor:pointer;
+
+}
+
 /* Section Title */
 .section-title{
   font-family:'Merienda', cursive;

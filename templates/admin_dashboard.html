@@ -205,7 +205,17 @@ function toggleMenu(id){
             <input type="time" name="close_time" required>
 
             <label>Upload Cafe Images</label>
-            <input type="file" name="images" multiple>
+
+<input 
+    type="file" 
+    name="images" 
+    id="images"
+    multiple
+    accept="image/*"
+>
+
+<!-- Image Preview -->
+<div id="image-preview"></div>
 
             <h4>Menu Items</h4>
             <div id="menu-items">
@@ -254,6 +264,8 @@ function toggleMenu(id){
 <!-- Logout button -->
 <a href="{{ url_for('admin_logout') }}" class="logout-btn">Logout</a>
 
+
+<!-- menu item javascript -->
 <script>
 function addMenuItem() {
     const container = document.getElementById("menu-items");
@@ -263,6 +275,5 @@ function addMenuItem() {
     `);
 }
 </script>
-
 </body>
 </html>
