@@ -226,6 +226,29 @@
         color: #6d4c41;
         font-size: 18px;
       }
+      .category{
+    font-size:25px;
+    font-weight:bold;
+    margin:25px;
+    cursor:pointer;
+}
+
+
+.menu-items{
+    display:none;
+    margin-left:40px;
+}
+
+
+.menu-card{
+    background:white;
+    padding:15px;
+    margin:10px;
+    width:250px;
+    border-radius:10px;
+}
+
+      
 
       /* IMAGES */
       .cafe-images {
@@ -490,18 +513,6 @@
     </style>
   </head>
   <body>
-    <!-- <header class="navbar">
-      <div class="logo">{{ cafe.name }}</div>
-      <ul class="nav-links">
-        {% for cafe in cafes %}
-        <li>
-          <a href="{{ url_for('cafe_details', cafe_id=cafe.id) }}"
-            >{{ cafe.name }}</a
-          >
-        </li>
-        {% endfor %}
-      </ul>
-    </header> -->
 
     <!-- Welcome section -->
     <section class="welcome-section">
@@ -638,17 +649,74 @@
     </div>
 
     <!-- Menu Section -->
-    <div class="services-section" id="menu">
-      <h2>Menu</h2>
-      <div class="services-list">
-        {% for item in menu_items %}
-        <div class="service-item">
-          <h3>{{ item.item_name }}</h3>
-          <p>Rs{{ item.price }}</p>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
+    <section class="menu-section">
+
+<h2>Menu</h2>
+
+<div class="category-btn" onclick="showMenu('Food')">
+    🍛 <span>Food</span>
+</div>
+
+<div class="category-btn" onclick="showMenu('Drinks')">
+    ☕ <span>Drinks</span>
+</div>
+
+<div class="category-btn" onclick="showMenu('Desserts')">
+    🍰 <span>Desserts</span>
+</div>
+
+
+<div id="Food" class="menu-items">
+
+{% for item in menu_items %}
+{% if item.category == "Food" %}
+
+<div class="menu-card">
+    <h3>{{ item.item_name }}</h3>
+    <p>Rs. {{ item.price }}</p>
+</div>
+
+{% endif %}
+{% endfor %}
+
+</div>
+
+
+
+<div id="Drinks" class="menu-items">
+
+{% for item in menu_items %}
+{% if item.category == "Drinks" %}
+
+<div class="menu-card">
+    <h3>{{ item.item_name }}</h3>
+    <p>Rs. {{ item.price }}</p>
+</div>
+
+{% endif %}
+{% endfor %}
+
+</div>
+
+
+
+<div id="Desserts" class="menu-items">
+
+{% for item in menu_items %}
+{% if item.category == "Desserts" %}
+
+<div class="menu-card">
+    <h3>{{ item.item_name }}</h3>
+    <p>Rs. {{ item.price }}</p>
+</div>
+
+{% endif %}
+{% endfor %}
+
+</div>
+
+
+</section>
 
     <script>
       document
@@ -728,6 +796,23 @@ function closeGallery(){
     document.getElementById("imageModal").style.display="none";
 
 }
+</script>
+
+<script>
+
+function showMenu(category){
+
+    let menuSection = document.querySelectorAll(".menu-items");
+
+    menuSections.forEach(section=>{
+        section.style.display="none";
+    });
+
+
+    document.getElementById(category).style.display="grid";
+
+}
+
 </script>
 
   </body>

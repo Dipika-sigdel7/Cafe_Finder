@@ -221,23 +221,25 @@ def admin_dashboard():
             # Add menu items
             item_names = request.form.getlist("item_name[]")
             item_prices = request.form.getlist("item_price[]")
+            item_categories = request.form.getlist("item_category[]")
 
-            for item, price in zip(item_names, item_prices):
+            for item, price, category in zip(item_names, item_prices, item_categories):
 
                 if item.strip() and price.strip():
 
-                    cursor.execute(
-                        """
+                    cursor.execute("""
                         INSERT INTO menu_items
-                        (cafe_id,item_name,price)
-                        VALUES (%s,%s,%s)
+                        (cafe_id,item_name,category,price)
+                        VALUES(%s,%s,%s,%s)
                         """,
                         (
-                            cafe_id,
-                            item.strip(),
-                            price.strip()
-                        )
-                    )
+                           (
+                                cafe_id,
+                                name,
+                                price,
+                                category
+                            )  
+                        ))
 
             db.commit()
 
