@@ -201,27 +201,34 @@ Existing Menu Items
 
 <div class="menu-list">
 
-
 {% for item in menu_items %}
-
 
 <div class="menu-item">
 
-
 <div>
 
+<h4>
+{% if item.category == "Food" %}
+🍛 Food
+{% elif item.category == "Drinks" %}
+☕ Drinks
+{% elif item.category == "Desserts" %}
+🍰 Desserts
+{% elif item.category == "Snacks" %}
+🍟 Snacks
+{% endif %}
+</h4>
+
+
 <strong>
-{{item.item_name}}
+{{ item.item_name }}
 </strong>
 
 <br>
 
-Price: NPR {{item.price}}
-
+Price: NPR {{ item.price }}
 
 </div>
-
-
 
 <div>
 

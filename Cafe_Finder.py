@@ -57,24 +57,66 @@ def admin_login():
 
 
 #Review
-@app.route("/cafe/<int:cafe_id>/review", methods=["POST"])
+@app.route('/cafe/<int:cafe_id>/review', methods=['POST'])
 def submit_review(cafe_id):
-    user_name = request.form['user_name']
-    rating = int(request.form['rating'])
-    comment = request.form['comment']
 
     db = get_db()
-    cursor = db.cursor(dictionary=True)
-    cursor.execute(
-        "INSERT INTO reviews (cafe_id, user_name, rating, comment, created_at) VALUES (%s, %s, %s, %s, NOW())",
-        (cafe_id, user_name, rating, comment)
-    )
+    cursor = db.cursor()
+
+
+    user_name = request.form['user_name']
+    rating = request.form['rating']
+    comment = request.form['comment']
+
+
+    image_path = None
+
+
+    if 'review_image' in request.files:
+
+        file = request.files['review_image']
+
+
+        if file.filename != "":
+
+            filename = secure_filename(file.filename)
+
+            file.save(
+                os.path.join(
+                    "static/uploads",
+                    filename
+                )
+            )
+
+
+            image_path = "uploads/" + filename
+
+
+
+    cursor.execute("""
+        INSERT INTO reviews
+        (cafe_id,user_name,rating,comment,image_path)
+
+        VALUES(%s,%s,%s,%s,%s)
+
+    """,
+    (
+        cafe_id,
+        user_name,
+        rating,
+        comment,
+        image_path
+    ))
+
+
     db.commit()
 
-    cursor.close()
-    db.close()
-
-    return redirect(url_for('cafe_details', cafe_id=cafe_id))
+    return redirect(
+        url_for(
+            "cafe_details",
+            cafe_id=cafe_id
+        )
+    )
 
 
 
@@ -232,15 +274,12 @@ def admin_dashboard():
                         (cafe_id,item_name,category,price)
                         VALUES(%s,%s,%s,%s)
                         """,
-                        (
                            (
                                 cafe_id,
-                                name,
-                                price,
-                                category
-                            )  
-                        ))
-
+                                item,
+                                category,
+                                price
+                            )) 
             db.commit()
 
             return redirect(url_for("admin_dashboard"))
@@ -297,7 +336,7 @@ def delete_cafe(cafe_id):
         url_for("admin_dashboard")
     )
 
-
+# Home Page
 @app.route("/")
 def home():
 
