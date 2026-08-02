@@ -80,10 +80,12 @@ def submit_review(cafe_id):
         if file.filename != "":
 
             filename = secure_filename(file.filename)
+            upload_folder = "static/uploads"
 
+            os.makedirs(upload_folder, exist_ok=True)
             file.save(
                 os.path.join(
-                    "static/uploads",
+                    upload_folder,
                     filename
                 )
             )
@@ -96,9 +98,7 @@ def submit_review(cafe_id):
     cursor.execute("""
         INSERT INTO reviews
         (cafe_id,user_name,rating,comment,image_path)
-
         VALUES(%s,%s,%s,%s,%s)
-
     """,
     (
         cafe_id,
@@ -110,6 +110,8 @@ def submit_review(cafe_id):
 
 
     db.commit()
+    cursor.close()
+    db.close()
 
     return redirect(
         url_for(
@@ -140,16 +142,29 @@ def cafe_details(cafe_id):
     images = cursor.fetchall()
 
     # Fetch public reviews
-    cursor.execute("SELECT user_name, comment, rating, created_at FROM reviews WHERE cafe_id=%s ORDER BY created_at DESC", (cafe_id,))
+    cursor.execute("SELECT user_name, comment, rating, created_at, image_path FROM reviews WHERE cafe_id=%s ORDER BY created_at DESC", (cafe_id,))
     reviews = cursor.fetchall()
 
     # Calculate average rating
     if reviews:
-        avg_rating = round(sum(r['rating'] for r in reviews)/len(reviews), 1) 
+        avg_rating = round(sum(int(r['rating']) for r in reviews)/len(reviews), 1) 
     else:
         avg_rating=0
     cafe['rating'] = avg_rating
+    from datetime import datetime
 
+    if cafe['open_time']:
+        cafe['open_time'] = datetime.strptime(
+            str(cafe['open_time']),
+            "%H:%M:%S"
+        ).strftime("%I:%M %p")
+
+
+    if cafe['close_time']:
+        cafe['close_time'] = datetime.strptime(
+            str(cafe['close_time']),
+        "%H:%M:%S"
+        ).strftime("%I:%M %p")
     cursor.close()
     db.close()
 
