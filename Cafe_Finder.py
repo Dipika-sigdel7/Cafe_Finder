@@ -170,6 +170,54 @@ def cafe_details(cafe_id):
 
     return render_template("cafe_details.html", cafe=cafe, menu_items=menu_items, images=images, reviews=reviews)
 
+# Reservation
+@app.route('/reservation/<int:cafe_id>', methods=['POST'])
+def reservation(cafe_id):
+
+    db = get_db()
+    cursor = db.cursor()
+
+
+    name = request.form['customer_name']
+    email = request.form['email']
+    phone = request.form['phone']
+    reservation_date = request.form['reservation_date']
+    time = request.form['reservation_time']
+    people = request.form['people']
+    message = request.form['message']
+
+
+    cursor.execute("""
+    INSERT INTO reservations
+    (cafe_id,customer_name,email,phone,reservation_date,reservation_time,people,message)
+
+    VALUES(%s,%s,%s,%s,%s,%s,%s,%s)
+
+    """,
+    (
+        cafe_id,
+        name,
+        email,
+        phone,
+        reservation_date,
+        time,
+        people,
+        message
+    ))
+
+
+    db.commit()
+
+    cursor.close()
+    db.close()
+
+
+    return redirect(
+        url_for(
+            'cafe_details',
+            cafe_id=cafe_id
+        )
+    )
 
 # Admin Dashboard
 @app.route("/admin/dashboard", methods=["GET", "POST"])

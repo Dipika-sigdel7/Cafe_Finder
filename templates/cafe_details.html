@@ -6,9 +6,12 @@
     <title>{{ cafe.name }}</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
-    />
+      href="{{ url_for('static', filename='style.css') }}"/>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nepali-datepicker@2.0.5/dist/css/nepali-datepicker.min.css">
+     <script src="https://cdn.jsdelivr.net/npm/nepali-datepicker@2.0.5/dist/js/nepali-datepicker.min.js"></script>
     <style>
+
       /* Welcome Section */
 
       .welcome-section {
@@ -135,13 +138,43 @@
 
       /* CAFE INFO */
       .cafe-info {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        max-width: 900px;
-        margin: 30px auto;
-        gap: 20px;
-      }
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:20px;
+
+    max-width:1200px;
+
+    margin:30px auto;
+
+}
+
+
+.cafe-info .info-item {
+
+    flex:1;
+
+    background-color:#fff3e0;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    min-width:200px;
+
+}
 
       .cafe-info .info-item {
         flex: 1 1 250px; /* responsive width */
@@ -172,6 +205,102 @@
         font-size: 16px;
         color: #6d4c41;
       }
+
+      /* Reservation Button */
+.reservation-btn{
+    border:none;
+    background:none;
+    color:#5d4037;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+
+
+}
+
+
+.reservation-btn:hover{
+
+    color:#c59d5f;
+
+}
+
+
+
+/* Reservation Form */
+
+.reservation-form{
+
+    display:none;
+
+    max-width:500px;
+
+    margin:30px auto;
+
+    padding:25px;
+
+    background:#fff3e0;
+
+    border-radius:12px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+
+}
+
+
+
+.reservation-form h2{
+
+    text-align:center;
+
+    color:#5d4037;
+
+}
+
+
+
+.reservation-form form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+
+
+.reservation-form input,
+.reservation-form textarea{
+
+    padding:10px;
+
+    border-radius:6px;
+
+    border:1px solid #ccc;
+
+}
+
+
+
+.reservation-form button{
+
+    background:#3e2723;
+
+    color:white;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
 
       /* Responsive for smaller screens */
       @media (max-width: 768px) {
@@ -395,159 +524,127 @@
 
       /* Menu Section */
 
-.menu-section{
+      .menu-section {
+        padding: 50px 8%;
+        text-align: center;
+      }
 
-    padding:50px 8%;
-    text-align:center;
+      .menu-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 900;
+        color: #4e342e;
+        margin-bottom: 30px;
+      }
 
-}
-
-
-.menu-title{
-
-    text-align:center;
-    font-size:40px;
-    font-weight:900;
-    color:#4e342e;
-    margin-bottom:30px;
-
-}
-
-     
       /*   CATEGORY buttons */
 
-  .menu-categories{
+      .menu-categories {
+        text-align: center;
+      }
 
-    text-align:center;
+      .category-btn {
+        display: inline-block;
+        padding: 15px30px;
+        margin: 10px;
 
-}
+        background: #efebe9;
 
-.category-btn {
+        border-radius: 10px;
 
-    display: inline-block;
-    padding: 15px30px;
-    margin: 10px;
+        font-size: 20px;
 
-    background:#efebe9;
+        font-weight: bold;
 
-    border-radius:10px;
+        cursor: pointer;
+      }
 
-    font-size:20px;
+      .category-btn:hover {
+        background: #d7ccc8;
+      }
 
-    font-weight:bold;
+      /* Hide menu initially */
 
-    cursor:pointer;
+      .menu-category {
+        display: none;
 
-}
+        width: 80%;
 
+        margin: 30px auto;
+      }
 
-.category-btn:hover{
+      /* MENU TABLE */
 
-    background:#d7ccc8;
+      .menu-table {
+        width: 100%;
 
-}
+        border-collapse: collapse;
 
-/* Hide menu initially */
+        background: white;
 
-.menu-category{
+        border-radius: 10px;
 
-    display:none;
+        overflow: hidden;
+      }
 
-    width:80%;
+      .menu-table th {
+        text-align: left;
+        padding: 15px;
+        background: #3e2723;
+        color: white;
+      }
 
-    margin:30px auto;
+      .menu-table td {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        font-size: 18px;
+      }
+      /*  Equal Spacing */
+      .menu-table th:first-child,
+      .menu-table td:first-child {
+        width: 70%;
+      }
 
-}
+      .menu-table th:last-child,
+      .menu-table td:last-child {
+        width: 30%;
 
-/* MENU TABLE */
+        text-align: right;
+      }
 
-.menu-table {
+      .no-item {
+        background: white;
 
-    width:100%;
+        padding: 20px;
 
-    border-collapse: collapse;
+        text-align: center;
 
-    background: white;
+        border-radius: 10px;
 
-    border-radius: 10px;
+        font-size: 18px;
 
-    overflow: hidden;
+        font-weight: bold;
 
-}
+        color: #6d4c41;
+      }
 
-.menu-table th {
-    text-align: left;
-    padding: 15px;
-    background: #3e2723;
-    color: white;
-}
+      /* Equal column width */
 
-.menu-table td {
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-    font-size: 18px;
-}
-/*  Equal Spacing */
-.menu-table th:first-child,
-.menu-table td:first-child{
+      .menu-table th:first-child,
+      .menu-table td:first-child {
+        width: 70%;
+      }
 
-    width:70%;
+      .menu-table th:last-child,
+      .menu-table td:last-child {
+        width: 30%;
 
-}
+        text-align: right;
+      }
 
-.menu-table th:last-child,
-.menu-table td:last-child{
-
-    width:30%;
-
-    text-align:right;
-
-}
-
-.no-item{
-
-    background:white;
-
-    padding:20px;
-
-    text-align:center;
-
-    border-radius:10px;
-
-    font-size:18px;
-
-    font-weight:bold;
-
-    color:#6d4c41;
-
-}
-
-
-/* Equal column width */
-
-.menu-table th:first-child,
-.menu-table td:first-child {
-
-    width: 70%;
-
-}
-
-
-.menu-table th:last-child,
-.menu-table td:last-child {
-
-    width: 30%;
-
-    text-align: right;
-
-}
-
-
-.menu-table tr:hover {
-
-    background:#f8f5f2;
-
-}
+      .menu-table tr:hover {
+        background: #f8f5f2;
+      }
 
       /* Responsive */
       @media (max-width: 600px) {
@@ -590,21 +687,251 @@
       </div>
     </div>
 
-    <!-- Cafe Info Section -->
-    <div class="cafe-info">
-      <div class="info-item">
+<!-- Cafe Info Section -->
+<div class="cafe-info">
+
+    <div class="info-item">
         <span class="info-label">📍 Location:</span>
         <span class="info-value">{{ cafe.location }}</span>
-      </div>
-      <div class="info-item">
+    </div>
+
+
+    <div class="info-item">
         <span class="info-label">🕒 Open:</span>
         <span class="info-value">{{ cafe.open_time }}</span>
-      </div>
-      <div class="info-item">
+    </div>
+
+
+    <div class="info-item">
         <span class="info-label">🕒 Close:</span>
         <span class="info-value">{{ cafe.close_time }}</span>
-      </div>
     </div>
+
+
+    <!-- Reservation Button -->
+    <div class="info-item">
+
+       <button class="reservation-btn" onclick="showReservation()">
+    🪑 Reservation
+</button>
+
+    </div>
+
+
+</div>
+
+
+<!-- Reservation Form (Hidden) -->
+
+<div id="reservation" class="reservation-form" style="display:none;">
+
+    <h2>Make Reservation</h2>
+
+    <form action="{{ url_for('reservation', cafe_id=cafe.id) }}" method="POST">
+
+        <input type="text" 
+               name="customer_name"
+               placeholder="Your Name"
+               required>
+
+
+        <input type="email"
+               name="email"
+               placeholder="Email"
+               required>
+
+
+        <input type="text"
+               name="phone"
+               placeholder="Phone Number"
+               required>
+
+
+        <input type="date"
+              id="nepali-date"
+               name="reservation_date"
+               placeholder="Select Nepali Date"
+               required>
+
+
+        <input type="time"
+               name="reservation_time"
+               placeholder="Example: 6:30 PM"
+               required>
+
+
+        <input type="number"
+               name="people"
+               placeholder="Number of People"
+               min="1"
+               required>
+
+
+        <textarea name="message"
+                  placeholder="Message"></textarea>
+
+
+        <button type="submit">
+            Confirm Reservation
+        </button>
+
+
+    </form>
+
+</div>
+
+
+    <!-- Menu Section -->
+
+    <section class="menu-section">
+      <h2>Our Menu</h2>
+
+      <!-- Categories -->
+
+      <div class="category-btn" onclick="showMenu('Drinks')">☕ Drinks</div>
+
+      <div class="category-btn" onclick="showMenu('Food')">🍛 Food</div>
+
+      <div class="category-btn" onclick="showMenu('Desserts')">🍰 Dessert</div>
+
+      <div class="category-btn" onclick="showMenu('Snacks')">🍟 Snacks</div>
+
+      <!-- Drinks -->
+
+      <div id="Drinks" class="menu-category">
+        {% set drinks = [] %} {% for item in menu_items %} {% if item.category
+        == "Drinks" %} {% set _ = drinks.append(item) %} {% endif %} {% endfor
+        %} {% if drinks %}
+
+        <table class="menu-table">
+          <tr>
+            <th>Items</th>
+            <th>Price</th>
+          </tr>
+
+          {% for item in drinks %}
+
+          <tr>
+            <td>{{item.item_name}}</td>
+
+            <td>Rs. {{item.price}}</td>
+          </tr>
+
+          {% endfor %}
+        </table>
+
+        {% else %}
+
+        <p class="no-item">Items not available</p>
+
+        {% endif %}
+      </div>
+
+      <!-- Food -->
+
+      <div id="Food" class="menu-category">
+        {% set foods = [] %} {% for item in menu_items %} {% if item.category ==
+        "Food" %} {% set _ = foods.append(item) %} {% endif %} {% endfor %} {%
+        if foods %}
+
+        <table class="menu-table">
+          <tr>
+            <th>Items</th>
+            <th>Price</th>
+          </tr>
+
+          {% for item in foods %}
+
+          <tr>
+            <td>{{item.item_name}}</td>
+
+            <td>Rs. {{item.price}}</td>
+          </tr>
+
+          {% endfor %}
+        </table>
+
+        {% else %}
+
+        <p class="no-item">Items not available</p>
+
+        {% endif %}
+      </div>
+
+      <!-- Desserts -->
+
+      <div id="Desserts" class="menu-category">
+        {% set desserts = [] %} {% for item in menu_items %} {% if item.category
+        == "Desserts" %} {% set _ = desserts.append(item) %} {% endif %} {%
+        endfor %} {% if desserts %}
+
+        <table class="menu-table">
+          <tr>
+            <th>Items</th>
+            <th>Price</th>
+          </tr>
+
+          {% for item in desserts %}
+
+          <tr>
+            <td>{{item.item_name}}</td>
+
+            <td>Rs. {{item.price}}</td>
+          </tr>
+
+          {% endfor %}
+        </table>
+
+        {% else %}
+
+        <p class="no-item">Items not available</p>
+
+        {% endif %}
+      </div>
+
+      <!-- Snacks -->
+
+      <div id="Snacks" class="menu-category">
+        {% set snacks = [] %} {% for item in menu_items %} {% if item.category
+        == "Snacks" %} {% set _ = snacks.append(item) %} {% endif %} {% endfor
+        %} {% if snacks %}
+
+        <table class="menu-table">
+          <tr>
+            <th>Items</th>
+            <th>Price</th>
+          </tr>
+
+          {% for item in snacks %}
+
+          <tr>
+            <td>{{item.item_name}}</td>
+
+            <td>Rs. {{item.price}}</td>
+          </tr>
+
+          {% endfor %}
+        </table>
+
+        {% else %}
+
+        <p class="no-item">Items not available</p>
+
+        {% endif %}
+      </div>
+    </section>
+
+    <script>
+      function showMenu(category) {
+        let sections = document.querySelectorAll(".menu-category");
+
+        sections.forEach(function (section) {
+          section.style.display = "none";
+        });
+
+        document.getElementById(category).style.display = "block";
+      }
+    </script>
 
     <!-- Reviews Section -->
     <div class="reviews-section">
@@ -714,328 +1041,6 @@
       </form>
     </div>
 
-  
-<!-- Menu Section -->
-
-<section class="menu-section">
-
-<h2>Our Menu</h2>
-
-
-<!-- Categories -->
-
-<div class="category-btn" onclick="showMenu('Drinks')">
-☕ Drinks
-</div>
-
-
-<div class="category-btn" onclick="showMenu('Food')">
-🍛 Food
-</div>
-
-
-<div class="category-btn" onclick="showMenu('Desserts')">
-🍰 Dessert
-</div>
-
-
-<div class="category-btn" onclick="showMenu('Snacks')">
-🍟 Snacks
-</div>
-
-
-
-
-
-<!-- Drinks -->
-
-<div id="Drinks" class="menu-category">
-
-
-{% set drinks = [] %}
-
-{% for item in menu_items %}
-
-{% if item.category == "Drinks" %}
-
-{% set _ = drinks.append(item) %}
-
-{% endif %}
-
-{% endfor %}
-
-
-
-{% if drinks %}
-
-
-<table class="menu-table">
-
-<tr>
-<th>Items</th>
-<th>Price</th>
-</tr>
-
-
-{% for item in drinks %}
-
-<tr>
-
-<td>
-{{item.item_name}}
-</td>
-
-
-<td>
-Rs. {{item.price}}
-</td>
-
-
-</tr>
-
-{% endfor %}
-
-
-</table>
-
-
-{% else %}
-
-<p class="no-item">
-Items not available
-</p>
-
-{% endif %}
-
-
-</div>
-
-
-
-
-
-<!-- Food -->
-
-<div id="Food" class="menu-category">
-
-
-{% set foods = [] %}
-
-{% for item in menu_items %}
-
-{% if item.category == "Food" %}
-
-{% set _ = foods.append(item) %}
-
-{% endif %}
-
-{% endfor %}
-
-
-
-{% if foods %}
-
-
-<table class="menu-table">
-
-<tr>
-<th>Items</th>
-<th>Price</th>
-</tr>
-
-
-{% for item in foods %}
-
-<tr>
-
-<td>
-{{item.item_name}}
-</td>
-
-
-<td>
-Rs. {{item.price}}
-</td>
-
-
-</tr>
-
-{% endfor %}
-
-
-</table>
-
-
-{% else %}
-
-<p class="no-item">
-Items not available
-</p>
-
-{% endif %}
-
-
-</div>
-
-
-
-
-
-<!-- Desserts -->
-
-<div id="Desserts" class="menu-category">
-
-
-{% set desserts = [] %}
-
-{% for item in menu_items %}
-
-{% if item.category == "Desserts" %}
-
-{% set _ = desserts.append(item) %}
-
-{% endif %}
-
-{% endfor %}
-
-
-
-{% if desserts %}
-
-
-<table class="menu-table">
-
-<tr>
-<th>Items</th>
-<th>Price</th>
-</tr>
-
-
-{% for item in desserts %}
-
-<tr>
-
-<td>
-{{item.item_name}}
-</td>
-
-
-<td>
-Rs. {{item.price}}
-</td>
-
-
-</tr>
-
-{% endfor %}
-
-
-</table>
-
-
-{% else %}
-
-<p class="no-item">
-Items not available
-</p>
-
-{% endif %}
-
-
-</div>
-
-
-
-
-
-<!-- Snacks -->
-
-<div id="Snacks" class="menu-category">
-
-
-{% set snacks = [] %}
-
-{% for item in menu_items %}
-
-{% if item.category == "Snacks" %}
-
-{% set _ = snacks.append(item) %}
-
-{% endif %}
-
-{% endfor %}
-
-
-
-{% if snacks %}
-
-
-<table class="menu-table">
-
-<tr>
-<th>Items</th>
-<th>Price</th>
-</tr>
-
-
-{% for item in snacks %}
-
-<tr>
-
-<td>
-{{item.item_name}}
-</td>
-
-
-<td>
-Rs. {{item.price}}
-</td>
-
-
-</tr>
-
-{% endfor %}
-
-
-</table>
-
-
-{% else %}
-
-<p class="no-item">
-Items not available
-</p>
-
-{% endif %}
-
-
-</div>
-
-
-</section>
-
-
-
-<script>
-
-function showMenu(category){
-
-    let sections = document.querySelectorAll(".menu-category");
-
-
-    sections.forEach(function(section){
-
-        section.style.display = "none";
-
-    });
-
-
-    document.getElementById(category).style.display = "block";
-
-}
-
-</script>
-
     <script>
       document
         .getElementById("reviewBtn")
@@ -1072,41 +1077,75 @@ function showMenu(category){
     <!-- Image Gallery -->
     <script>
 
-                  let images = [
+                        let images = [
 
-                  {% for img in images %}
+                        {% for img in images %}
 
-                  "{{ url_for('static', filename=img.image_path) }}",
+                        "{{ url_for('static', filename=img.image_path) }}",
 
-                  {% endfor %}
+                        {% endfor %}
 
-                  ];
-
-
-                  function openGallery(index){
-
-                      let modal=document.getElementById("imageModal");
-
-                      let main=document.getElementById("mainGalleryImage");
+                        ];
 
 
-                      main.src = images[index];
+                        function openGallery(index){
 
-                      modal.style.display="block";
+                            let modal=document.getElementById("imageModal");
 
-                  }
+                            let main=document.getElementById("mainGalleryImage");
 
-                  function changeImage(index){
 
-                      document.getElementById("mainGalleryImage").src=images[index];
+                            main.src = images[index];
 
-                  }
+                            modal.style.display="block";
 
-                  function closeGallery(){
+                        }
 
-                      document.getElementById("imageModal").style.display="none";
+                        function changeImage(index){
 
-                  }
+                            document.getElementById("mainGalleryImage").src=images[index];
+
+                        }
+
+                        function closeGallery(){
+
+                            document.getElementById("imageModal").style.display="none";
+
+                        }
+
+
+
+      // Reservation
+function showReservation(){
+
+    let form = document.getElementById("reservation");
+    if(form.style.display === "none"){
+
+        form.style.display = "block";
+
+        form.scrollIntoView({
+            behavior:"smooth"
+        });
+
+    }
+    else{
+
+        form.style.display = "none";
+
+    }
+}
+
+// Nepali Date
+$(document).ready(function(){
+
+    $('#nepali-date').nepaliDatePicker({
+        dateFormat: "YYYY-MM-DD",
+        ndpYear: true,
+        ndpMonth: true,
+        ndpYearCount: 100
+    });
+
+});
 
     </script>
   </body>
