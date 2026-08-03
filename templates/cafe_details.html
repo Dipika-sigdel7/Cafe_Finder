@@ -6,12 +6,48 @@
     <title>{{ cafe.name }}</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"/>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nepali-datepicker@2.0.5/dist/css/nepali-datepicker.min.css">
-     <script src="https://cdn.jsdelivr.net/npm/nepali-datepicker@2.0.5/dist/js/nepali-datepicker.min.js"></script>
-    <style>
+      href="{{ url_for('static', filename='style.css') }}"
+    />
 
+    <!-- For Nepali Date -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/nepali-datepicker@2.0.5/dist/css/nepali-datepicker.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/nepali-datepicker@2.0.5/dist/js/nepali-datepicker.min.js"></script>
+
+    <!-- Leaflet Map CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <!-- Leaflet Routing Machine CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"
+    />
+
+    <!-- Leaflet Locate Control CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.css"
+    />
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Leaflet Routing Machine JS -->
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+
+    <!-- Leaflet Locate Control JS -->
+    <script src="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
+
+    <!-- Your JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <style>
       /* Welcome Section */
 
       .welcome-section {
@@ -138,43 +174,38 @@
 
       /* CAFE INFO */
       .cafe-info {
+        display: flex;
 
-    display:flex;
+        justify-content: center;
 
-    justify-content:center;
+        align-items: center;
 
-    align-items:center;
+        gap: 20px;
 
-    gap:20px;
+        max-width: 1200px;
 
-    max-width:1200px;
+        margin: 30px auto;
+      }
 
-    margin:30px auto;
+      .cafe-info .info-item {
+        flex: 1;
 
-}
+        background-color: #fff3e0;
 
+        padding: 20px;
 
-.cafe-info .info-item {
+        border-radius: 10px;
 
-    flex:1;
+        display: flex;
 
-    background-color:#fff3e0;
+        align-items: center;
 
-    padding:20px;
+        justify-content: center;
 
-    border-radius:10px;
+        gap: 10px;
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:10px;
-
-    min-width:200px;
-
-}
+        min-width: 200px;
+      }
 
       .cafe-info .info-item {
         flex: 1 1 250px; /* responsive width */
@@ -207,100 +238,99 @@
       }
 
       /* Reservation Button */
-.reservation-btn{
-    border:none;
-    background:none;
-    color:#5d4037;
-    font-weight:bold;
-    font-size:16px;
-    cursor:pointer;
+      .reservation-btn {
+        border: none;
+        background: none;
+        color: #5d4037;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+      }
 
+      .reservation-btn:hover {
+        color: #c59d5f;
+      }
 
-}
+      /* Reservation Form */
 
+      .reservation-form {
+        display: none;
 
-.reservation-btn:hover{
+        max-width: 500px;
 
-    color:#c59d5f;
+        margin: 30px auto;
 
-}
+        padding: 25px;
 
+        background: #fff3e0;
 
+        border-radius: 12px;
 
-/* Reservation Form */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
 
-.reservation-form{
+      .reservation-form h2 {
+        text-align: center;
 
-    display:none;
+        color: #5d4037;
+      }
 
-    max-width:500px;
+      .reservation-form form {
+        display: flex;
 
-    margin:30px auto;
+        flex-direction: column;
 
-    padding:25px;
+        gap: 12px;
+      }
 
-    background:#fff3e0;
+      .reservation-form input,
+      .reservation-form textarea {
+        padding: 10px;
 
-    border-radius:12px;
+        border-radius: 6px;
 
-    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+        border: 1px solid #ccc;
+      }
 
-}
+      .reservation-form button {
+        background: #3e2723;
 
+        color: white;
 
+        padding: 12px;
 
-.reservation-form h2{
+        border: none;
 
-    text-align:center;
+        border-radius: 8px;
 
-    color:#5d4037;
+        cursor: pointer;
 
-}
+        font-weight: bold;
+      }
 
+      /* Map Button */
 
+      .map-btn {
+        background: transparent;
+        border: none;
+        color: #5d4037;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0;
+        font-family: inherit;
+        transition: color 0.3s;
+      }
 
-.reservation-form form{
+      .map-btn:hover {
+        color: #3e2723;
+      }
 
-    display:flex;
-
-    flex-direction:column;
-
-    gap:12px;
-
-}
-
-
-
-.reservation-form input,
-.reservation-form textarea{
-
-    padding:10px;
-
-    border-radius:6px;
-
-    border:1px solid #ccc;
-
-}
-
-
-
-.reservation-form button{
-
-    background:#3e2723;
-
-    color:white;
-
-    padding:12px;
-
-    border:none;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-    font-weight:bold;
-
-}
+      #map {
+        height: 400px;
+        width: 100%;
+        border-radius: 15px;
+      }
 
       /* Responsive for smaller screens */
       @media (max-width: 768px) {
@@ -687,99 +717,95 @@
       </div>
     </div>
 
-<!-- Cafe Info Section -->
-<div class="cafe-info">
-
-    <div class="info-item">
+    <!-- Cafe Info Section -->
+    <div class="cafe-info">
+      <div class="info-item">
         <span class="info-label">📍 Location:</span>
         <span class="info-value">{{ cafe.location }}</span>
-    </div>
+      </div>
 
-
-    <div class="info-item">
+      <div class="info-item">
         <span class="info-label">🕒 Open:</span>
         <span class="info-value">{{ cafe.open_time }}</span>
-    </div>
+      </div>
 
-
-    <div class="info-item">
+      <div class="info-item">
         <span class="info-label">🕒 Close:</span>
         <span class="info-value">{{ cafe.close_time }}</span>
-    </div>
+      </div>
 
-
-    <!-- Reservation Button -->
-    <div class="info-item">
-
-       <button class="reservation-btn" onclick="showReservation()">
-    🪑 Reservation
-</button>
-
-    </div>
-
-
-</div>
-
-
-<!-- Reservation Form (Hidden) -->
-
-<div id="reservation" class="reservation-form" style="display:none;">
-
-    <h2>Make Reservation</h2>
-
-    <form action="{{ url_for('reservation', cafe_id=cafe.id) }}" method="POST">
-
-        <input type="text" 
-               name="customer_name"
-               placeholder="Your Name"
-               required>
-
-
-        <input type="email"
-               name="email"
-               placeholder="Email"
-               required>
-
-
-        <input type="text"
-               name="phone"
-               placeholder="Phone Number"
-               required>
-
-
-        <input type="date"
-              id="nepali-date"
-               name="reservation_date"
-               placeholder="Select Nepali Date"
-               required>
-
-
-        <input type="time"
-               name="reservation_time"
-               placeholder="Example: 6:30 PM"
-               required>
-
-
-        <input type="number"
-               name="people"
-               placeholder="Number of People"
-               min="1"
-               required>
-
-
-        <textarea name="message"
-                  placeholder="Message"></textarea>
-
-
-        <button type="submit">
-            Confirm Reservation
+      <!-- Reservation Button -->
+      <div class="info-item">
+        <button class="reservation-btn" onclick="showReservation()">
+          🪑 Reservation
         </button>
+      </div>
 
+      <!-- Map -->
+      <div class="info-item">
+        <button class="map-btn" onclick="showMap()">🗺️ Map</button>
+      </div>
+    </div>
 
-    </form>
+    <!-- Reservation Form (Hidden) -->
 
-</div>
+    <div id="reservation" class="reservation-form" style="display: none">
+      <h2>Make Reservation</h2>
 
+      <form
+        action="{{ url_for('reservation', cafe_id=cafe.id) }}"
+        method="POST"
+      >
+        <input
+          type="text"
+          name="customer_name"
+          placeholder="Your Name"
+          required
+        />
+
+        <input type="email" name="email" placeholder="Email" required />
+
+        <input type="text" name="phone" placeholder="Phone Number" required />
+
+        <input
+          type="date"
+          id="nepali-date"
+          name="reservation_date"
+          placeholder="Select Nepali Date"
+          required
+        />
+
+        <input
+          type="time"
+          name="reservation_time"
+          placeholder="Example: 6:30 PM"
+          required
+        />
+
+        <input
+          type="number"
+          name="people"
+          placeholder="Number of People"
+          min="1"
+          required
+        />
+
+        <textarea name="message" placeholder="Message"></textarea>
+
+        <button type="submit">Confirm Reservation</button>
+      </form>
+    </div>
+
+    <!-- Hidden Map -->
+    <div id="mapSection" style="display: none; margin-top: 30px">
+      <div class="route-buttons">
+        <button onclick="drawRoute('foot')">🚶 Walking</button>
+        <button onclick="drawRoute('car')">🚗 Car</button>
+        <button onclick="drawRoute('bike')">🚲 Bike</button>
+      </div>
+
+      <div id="map" style="height: 500px"></div>
+    </div>
 
     <!-- Menu Section -->
 
@@ -1077,76 +1103,216 @@
     <!-- Image Gallery -->
     <script>
 
-                        let images = [
+                                          let images = [
 
-                        {% for img in images %}
+                                          {% for img in images %}
 
-                        "{{ url_for('static', filename=img.image_path) }}",
+                                          "{{ url_for('static', filename=img.image_path) }}",
 
-                        {% endfor %}
+                                          {% endfor %}
 
-                        ];
-
-
-                        function openGallery(index){
-
-                            let modal=document.getElementById("imageModal");
-
-                            let main=document.getElementById("mainGalleryImage");
+                                          ];
 
 
-                            main.src = images[index];
+                                          function openGallery(index){
 
-                            modal.style.display="block";
+                                              let modal=document.getElementById("imageModal");
 
+                                              let main=document.getElementById("mainGalleryImage");
+
+
+                                              main.src = images[index];
+
+                                              modal.style.display="block";
+
+                                          }
+
+                                          function changeImage(index){
+
+                                              document.getElementById("mainGalleryImage").src=images[index];
+
+                                          }
+
+                                          function closeGallery(){
+
+                                              document.getElementById("imageModal").style.display="none";
+
+                                          }
+
+
+
+                        // Reservation
+                  function showReservation(){
+
+                      let form = document.getElementById("reservation");
+                      if(form.style.display === "none"){
+
+                          form.style.display = "block";
+
+                          form.scrollIntoView({
+                              behavior:"smooth"
+                          });
+
+                      }
+                      else{
+
+                          form.style.display = "none";
+
+                      }
+                  }
+
+                  // For Map
+
+                  let map;
+                  let mapLoaded = false;
+
+                  function showMap(){
+
+                      let section = document.getElementById("mapSection");
+
+                      if(section.style.display==="none" || section.style.display === ""){
+
+                          section.style.display="block";
+
+                          setTimeout(function(){
+
+                              if(!mapLoaded){
+
+                                  loadMap();
+
+                                  mapLoaded = true;
+
+                              }
+                              else{
+
+                                  map.invalidateSize();
+
+                              }
+
+                          },500);
+
+
+
+                          section.scrollIntoView({
+                              behavior:"smooth"
+                          });
+
+
+                      }
+                      else{
+
+                          section.style.display="none";
+
+                      }
+
+                  }
+
+                  function loadMap(){
+                    let cafeLat = 26.4525;
+                    let cafeLng = 87.2718;
+
+                    map = L.map('map').setView([cafeLat, cafeLng], 15);
+
+                    // current Location
+                    L.control.locate({
+                      position:'topleft',
+                      strings:{
+                         title:"Find my location"
+                      }
+                    }).addTo(map);
+
+                      // Street Map
+      let streetMap = L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+          maxZoom:19,
+          attribution:'© OpenStreetMap'
+      });
+
+
+      // Satellite Map
+      let satelliteMap = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      {
+          maxZoom:19,
+          attribution:'© Esri'
+      });
+
+
+      // Default street view
+      streetMap.addTo(map);
+
+
+      // Map switch button
+      L.control.layers(
+      {
+          "🛣️ Street": streetMap,
+          "🛰️ Satellite": satelliteMap
+      }
+      ).addTo(map);
+
+                          // Cafe Marker
+                L.marker([cafeLat, cafeLng])
+                .addTo(map)
+                .bindPopup("☕ {{ cafe.name }}")
+                .openPopup();
+
+
+                  //  User location
+                      if(navigator.geolocation){
+
+                          navigator.geolocation.getCurrentPosition(function(position){
+
+                              let userLat=position.coords.latitude;
+                              let userLng=position.coords.longitude;
+
+                              // user marker
+                              L.marker([userLat,userLng])
+                              .addTo(map)
+                              .bindPopup("📍 Your Current Location")
+                              .openPopup();
+
+                               // Real route from user to cafe
+                    L.Routing.control({
+                        waypoints: [
+                            L.latLng(userLat, userLng),
+                            L.latLng(cafeLat, cafeLng)
+                        ],
+
+                        routeWhileDragging: false,
+                        fitSelectedRoutes:true,
+                        showAlternatives: true,
+
+                        createMarker: function(){
+                            return null;
                         }
 
-                        function changeImage(index){
-
-                            document.getElementById("mainGalleryImage").src=images[index];
-
-                        }
-
-                        function closeGallery(){
-
-                            document.getElementById("imageModal").style.display="none";
-
-                        }
+                    }).addTo(map);
 
 
+                },
 
-      // Reservation
-function showReservation(){
+                function(error){
 
-    let form = document.getElementById("reservation");
-    if(form.style.display === "none"){
+                    console.log("Location access denied");
 
-        form.style.display = "block";
+                });
 
-        form.scrollIntoView({
-            behavior:"smooth"
-        });
+            }
+          }
 
-    }
-    else{
 
-        form.style.display = "none";
+                  // Nepali Date
+                  $(document).ready(function(){
 
-    }
-}
+                      $('#nepali-date').nepaliDatePicker({
+                          dateFormat: "YYYY-MM-DD",
+                          ndpYear: true,
+                          ndpMonth: true,
+                          ndpYearCount: 100
+                      });
 
-// Nepali Date
-$(document).ready(function(){
-
-    $('#nepali-date').nepaliDatePicker({
-        dateFormat: "YYYY-MM-DD",
-        ndpYear: true,
-        ndpMonth: true,
-        ndpYearCount: 100
-    });
-
-});
-
+                  });
     </script>
   </body>
 </html>

@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Dashboard</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<!-- Leaflet -->
+<link 
+rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<script 
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
 <style>
 body.admin-dashboard {
     font-family: 'Merienda One', cursive;
@@ -143,7 +152,17 @@ body.admin-dashboard {
    flex:1;
 }
 
+#adminMap{
 
+    height:400px;
+
+    width:100%;
+
+    margin-top:15px;
+
+    border-radius:10px;
+
+}
 
 /* Responsive */
 @media(max-width:900px){
@@ -182,6 +201,19 @@ body.admin-dashboard {
 
             <label>Location</label>
             <input type="text" name="location">
+
+            <label>Select Cafe Location</label>
+            <div id="adminMap"></div>
+
+            <input 
+            type="hidden"
+            name="latitude"
+            id="latitude">
+
+            <input 
+            type="hidden"
+            name="longitude"
+            id="longitude">
 
             <label>Open Time</label>
             <input type="time" name="open_time" required>
@@ -320,6 +352,55 @@ function addMenuItem() {
     `);
 
 }
+
+// For Map
+let adminMap = L.map('adminMap')
+.setView(
+[26.6638,87.2718],
+13
+);
+
+
+L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{
+    attribution:'© OpenStreetMap'
+}
+).addTo(adminMap);
+
+
+
+let marker;
+
+
+
+adminMap.on('click',function(e){
+
+
+    let lat=e.latlng.lat;
+    let lng=e.latlng.lng;
+
+
+    document.getElementById("latitude").value=lat;
+
+    document.getElementById("longitude").value=lng;
+
+
+
+    if(marker){
+
+        marker.setLatLng(e.latlng);
+
+    }
+    else{
+
+        marker=L.marker(e.latlng)
+        .addTo(adminMap);
+
+    }
+
+
+});
 </script>
 
 </body>

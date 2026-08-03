@@ -239,7 +239,8 @@ def admin_dashboard():
         location = request.form["location"].strip()
         open_time = request.form["open_time"].strip()
         close_time = request.form["close_time"].strip()
-
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
 
         cursor.execute(
             "SELECT id FROM cafes WHERE name=%s",
@@ -256,15 +257,17 @@ def admin_dashboard():
             cursor.execute(
                 """
                 INSERT INTO cafes 
-                (name, description, location, open_time, close_time)
-                VALUES (%s,%s,%s,%s,%s)
+                (name, description, location, open_time, close_time,latitude,longitude)
+                VALUES (%s,%s,%s,%s,%s,%s,%s)
                 """,
                 (
                     name,
                     description,
                     location,
                     open_time,
-                    close_time
+                    close_time,
+                    latitude,
+                    longitude
                 )
             )
 
@@ -673,6 +676,8 @@ def edit_cafe(cafe_id):
         location = request.form['location']
         open_time = request.form['open_time']
         close_time = request.form['close_time']
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
 
 
         cursor.execute("""
@@ -681,7 +686,9 @@ def edit_cafe(cafe_id):
             description=%s,
             location=%s,
             open_time=%s,
-            close_time=%s
+            close_time=%s,
+            latitude=%s,
+            longitude=%s
         WHERE id=%s
         """,
         (
@@ -690,6 +697,8 @@ def edit_cafe(cafe_id):
             location,
             open_time,
             close_time,
+            latitude,
+            longitude,
             cafe_id
         ))
 
