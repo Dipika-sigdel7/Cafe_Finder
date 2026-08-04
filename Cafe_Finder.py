@@ -239,8 +239,8 @@ def admin_dashboard():
         location = request.form["location"].strip()
         open_time = request.form["open_time"].strip()
         close_time = request.form["close_time"].strip()
-        latitude = request.form['latitude']
-        longitude = request.form['longitude']
+        latitude = request.form.get("latitude")
+        longitude = request.form.get("longitude")
 
         cursor.execute(
             "SELECT id FROM cafes WHERE name=%s",
@@ -274,6 +274,9 @@ def admin_dashboard():
             db.commit()
 
             cafe_id = cursor.lastrowid
+
+
+            
 
             # Upload cafe images
             images = request.files.getlist("images")

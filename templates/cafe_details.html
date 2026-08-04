@@ -1103,216 +1103,261 @@
     <!-- Image Gallery -->
     <script>
 
-                                          let images = [
+                                                      let images = [
 
-                                          {% for img in images %}
+                                                      {% for img in images %}
 
-                                          "{{ url_for('static', filename=img.image_path) }}",
+                                                      "{{ url_for('static', filename=img.image_path) }}",
 
-                                          {% endfor %}
+                                                      {% endfor %}
 
-                                          ];
-
-
-                                          function openGallery(index){
-
-                                              let modal=document.getElementById("imageModal");
-
-                                              let main=document.getElementById("mainGalleryImage");
+                                                      ];
 
 
-                                              main.src = images[index];
+                                                      function openGallery(index){
 
-                                              modal.style.display="block";
+                                                          let modal=document.getElementById("imageModal");
 
-                                          }
-
-                                          function changeImage(index){
-
-                                              document.getElementById("mainGalleryImage").src=images[index];
-
-                                          }
-
-                                          function closeGallery(){
-
-                                              document.getElementById("imageModal").style.display="none";
-
-                                          }
+                                                          let main=document.getElementById("mainGalleryImage");
 
 
+                                                          main.src = images[index];
 
-                        // Reservation
-                  function showReservation(){
+                                                          modal.style.display="block";
 
-                      let form = document.getElementById("reservation");
-                      if(form.style.display === "none"){
+                                                      }
 
-                          form.style.display = "block";
+                                                      function changeImage(index){
 
-                          form.scrollIntoView({
-                              behavior:"smooth"
-                          });
+                                                          document.getElementById("mainGalleryImage").src=images[index];
 
-                      }
-                      else{
+                                                      }
 
-                          form.style.display = "none";
+                                                      function closeGallery(){
 
-                      }
-                  }
+                                                          document.getElementById("imageModal").style.display="none";
 
-                  // For Map
+                                                      }
 
-                  let map;
-                  let mapLoaded = false;
 
-                  function showMap(){
 
-                      let section = document.getElementById("mapSection");
+                                    // Reservation
+                              function showReservation(){
 
-                      if(section.style.display==="none" || section.style.display === ""){
+                                  let form = document.getElementById("reservation");
+                                  if(form.style.display === "none"){
 
-                          section.style.display="block";
+                                      form.style.display = "block";
 
-                          setTimeout(function(){
+                                      form.scrollIntoView({
+                                          behavior:"smooth"
+                                      });
 
-                              if(!mapLoaded){
+                                  }
+                                  else{
 
-                                  loadMap();
+                                      form.style.display = "none";
 
-                                  mapLoaded = true;
-
-                              }
-                              else{
-
-                                  map.invalidateSize();
-
+                                  }
                               }
 
-                          },500);
+                              // For Map
+
+                              let map;
+                              let mapLoaded = false;
+
+                              function showMap(){
+
+                                  let section = document.getElementById("mapSection");
+
+                                  if(section.style.display==="none" || section.style.display === ""){
+
+                                      section.style.display="block";
+
+                                      setTimeout(function(){
+
+                                          if(!mapLoaded){
+
+                                              loadMap();
+
+                                              mapLoaded = true;
+
+                                          }
+                                          else{
+
+                                              map.invalidateSize();
+
+                                          }
+
+                                      },500);
 
 
 
-                          section.scrollIntoView({
-                              behavior:"smooth"
-                          });
+                                      section.scrollIntoView({
+                                          behavior:"smooth"
+                                      });
 
 
-                      }
-                      else{
+                                  }
+                                  else{
 
-                          section.style.display="none";
+                                      section.style.display="none";
 
-                      }
+                                  }
 
-                  }
+                              }
 
-                  function loadMap(){
-                    let cafeLat = 26.4525;
-                    let cafeLng = 87.2718;
+                              function loadMap(){
+                                let cafeLat = parseFloat("{{ cafe.latitude }}");
+                                let cafeLng = parseFloat("{{ cafe.longitude }}");
 
-                    map = L.map('map').setView([cafeLat, cafeLng], 15);
+                                map = L.map('map').setView([cafeLat, cafeLng], 15);
 
-                    // current Location
-                    L.control.locate({
-                      position:'topleft',
-                      strings:{
-                         title:"Find my location"
-                      }
-                    }).addTo(map);
+                                // current Location
+                                L.control.locate({
+                                  position:'topleft',
+                                  strings:{
+                                     title:"Find my location"
+                                  }
+                                }).addTo(map);
 
-                      // Street Map
-      let streetMap = L.tileLayer(
-      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      {
-          maxZoom:19,
-          attribution:'© OpenStreetMap'
-      });
-
-
-      // Satellite Map
-      let satelliteMap = L.tileLayer(
-      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-      {
-          maxZoom:19,
-          attribution:'© Esri'
-      });
-
-
-      // Default street view
-      streetMap.addTo(map);
-
-
-      // Map switch button
-      L.control.layers(
-      {
-          "🛣️ Street": streetMap,
-          "🛰️ Satellite": satelliteMap
-      }
-      ).addTo(map);
-
-                          // Cafe Marker
-                L.marker([cafeLat, cafeLng])
-                .addTo(map)
-                .bindPopup("☕ {{ cafe.name }}")
-                .openPopup();
-
-
-                  //  User location
-                      if(navigator.geolocation){
-
-                          navigator.geolocation.getCurrentPosition(function(position){
-
-                              let userLat=position.coords.latitude;
-                              let userLng=position.coords.longitude;
-
-                              // user marker
-                              L.marker([userLat,userLng])
-                              .addTo(map)
-                              .bindPopup("📍 Your Current Location")
-                              .openPopup();
-
-                               // Real route from user to cafe
-                    L.Routing.control({
-                        waypoints: [
-                            L.latLng(userLat, userLng),
-                            L.latLng(cafeLat, cafeLng)
-                        ],
-
-                        routeWhileDragging: false,
-                        fitSelectedRoutes:true,
-                        showAlternatives: true,
-
-                        createMarker: function(){
-                            return null;
-                        }
-
-                    }).addTo(map);
-
-
-                },
-
-                function(error){
-
-                    console.log("Location access denied");
-
-                });
-
-            }
-          }
-
-
-                  // Nepali Date
-                  $(document).ready(function(){
-
-                      $('#nepali-date').nepaliDatePicker({
-                          dateFormat: "YYYY-MM-DD",
-                          ndpYear: true,
-                          ndpMonth: true,
-                          ndpYearCount: 100
-                      });
-
+                                  // Street Map
+                  let streetMap = L.tileLayer(
+                  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  {
+                      maxZoom:19,
+                      attribution:'© OpenStreetMap'
                   });
+
+
+                  // Satellite Map
+                  let satelliteMap = L.tileLayer(
+                  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+                  {
+                      maxZoom:19,
+                      attribution:'© Esri'
+                  });
+
+
+                  // Default street view
+                  streetMap.addTo(map);
+
+
+                  // Map switch button
+                  L.control.layers(
+                  {
+                      "🛣️ Street": streetMap,
+                      "🛰️ Satellite": satelliteMap
+                  }
+                  ).addTo(map);
+
+                                      // Cafe Marker
+
+            let cafeMarker = L.marker([cafeLat, cafeLng])
+            .addTo(map);
+
+
+            cafeMarker.bindPopup(`
+                <div style="min-width:200px">
+
+                    <h3>☕ {{ cafe.name }}</h3>
+
+                    <p>
+                        📍 {{ cafe.location }}
+                    </p>
+
+                    <p>
+                        🕒 Open:
+                        {{ cafe.open_time }}
+                        <br>
+                        🔒 Close:
+                        {{ cafe.close_time }}
+                    </p>
+
+                    <button onclick="getRoute()">
+                        🚶 Get Route
+                    </button>
+
+                </div>
+            `).openPopup();
+                              //  User location
+                                  if(navigator.geolocation){
+
+                                      navigator.geolocation.getCurrentPosition(
+                                      function(position){
+
+                                          let userLat=position.coords.latitude;
+                                          let userLng=position.coords.longitude;
+
+                                          L.circle([userLat,userLng], {
+                                               radius: 50
+                                          })
+                                          .addTo(map);
+
+
+                                          map.fitBounds([
+                                              [userLat,userLng],
+                                              [cafeLat,cafeLng]
+                                          ]);
+
+                                          // user marker
+                                          L.marker([userLat,userLng])
+                                          .addTo(map)
+                                          .bindPopup("📍 Your Current Location")
+                                          .openPopup();
+
+                                           // Real route from user to cafe
+                                L.Routing.control({
+                                    waypoints: [
+                                        L.latLng(userLat, userLng),
+                                        L.latLng(cafeLat, cafeLng)
+                                    ],
+
+                                    routeWhileDragging: false,
+                                    fitSelectedRoutes:true,
+                                    showAlternatives: true,
+
+                                    createMarker: function(){
+                                        return null;
+                                    }
+
+                                }).addTo(map);
+
+
+                            },
+
+                            function(error){
+
+                console.log(error);
+
+                if(error.code === 1){
+                    alert("Location permission denied.");
+                }
+
+                if(error.code === 2){
+                    alert("Location unavailable.");
+                }
+
+                if(error.code === 3){
+                    alert("Location request timed out.");
+                }
+
+            });
+                        }
+                      }
+
+
+                              // Nepali Date
+                              $(document).ready(function(){
+
+                                  $('#nepali-date').nepaliDatePicker({
+                                      dateFormat: "YYYY-MM-DD",
+                                      ndpYear: true,
+                                      ndpMonth: true,
+                                      ndpYearCount: 100
+                                  });
+
+                              });
     </script>
   </body>
 </html>

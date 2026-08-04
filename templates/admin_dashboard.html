@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Dashboard</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<!-- Leaflet -->
+<!-- Leaflet  CSS-->
 <link 
 rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -202,34 +202,24 @@ body.admin-dashboard {
             <label>Location</label>
             <input type="text" name="location">
 
-            <label>Select Cafe Location</label>
-            <div id="adminMap"></div>
-
-            <input 
-            type="hidden"
-            name="latitude"
-            id="latitude">
-
-            <input 
-            type="hidden"
-            name="longitude"
-            id="longitude">
-
             <label>Open Time</label>
             <input type="time" name="open_time" required>
 
             <label>Close Time</label>
             <input type="time" name="close_time" required>
 
-            <label>Upload Cafe Images</label>
+            <label>Select Cafe Location</label>
+            <div id="adminMap"></div>
 
-<input 
-    type="file" 
-    name="images" 
-    id="images"
-    multiple
-    accept="image/*"
->
+            <input 
+            type="hidden" name="latitude" id="latitude">
+
+            <input 
+            type="hidden" name="longitude" id="longitude">
+
+            <label>Upload Cafe Images</label>
+            <input 
+            type="file" name="images" id="images" multiple accept="image/*">
 
 <!-- For Menu -->
 <h4>Menu Items</h4>
@@ -352,13 +342,33 @@ function addMenuItem() {
     `);
 
 }
+</script>
 
-// For Map
-let adminMap = L.map('adminMap')
-.setView(
-[26.6638,87.2718],
-13
-);
+<!-- Leaflet JS should be before your map script -->
+<script 
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
+<!-- For Location Picker -->
+<script>
+
+let adminMap;
+let marker;
+
+function loadAdminMap(){
+
+    // Prevent duplicate initialization
+    if(adminMap){
+        adminMap.invalidateSize();
+        return;
+    }
+
+    adminMap=L.map('adminMap')
+    .setView(
+    [26.6638,87.2718],
+    13
+    );
 
 
 L.tileLayer(
@@ -368,25 +378,15 @@ L.tileLayer(
 }
 ).addTo(adminMap);
 
-
-
-let marker;
-
-
-
 adminMap.on('click',function(e){
-
-
     let lat=e.latlng.lat;
     let lng=e.latlng.lng;
 
-
+// store values in hidden inputs
     document.getElementById("latitude").value=lat;
-
     document.getElementById("longitude").value=lng;
 
-
-
+    // Update Maker
     if(marker){
 
         marker.setLatLng(e.latlng);
@@ -398,9 +398,68 @@ adminMap.on('click',function(e){
         .addTo(adminMap);
 
     }
+      // Get place details from OpenStreetMap
+    fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+    )
+    .then(response => response.json())
+    .then(data => {
+
+
+        let address = data.display_name || "Address not found";
+
+
+        // Automatically fill location input
+        document.querySelector('input[name="location"]').value = address;
+
+          
+                marker.bindPopup(`
+            <div style="width:250px">
+
+                <h3>📍 Selected Place</h3>
+
+                <p>
+                    ${address}
+                </p>
+
+                <hr>
+
+                <b>Latitude:</b>
+                ${lat.toFixed(6)}
+
+                <br>
+
+                <b>Longitude:</b>
+                ${lng.toFixed(6)}
+
+            </div>
+        `)
+        .openPopup();
+
+
+        console.log("Place:", address);
+        console.log("Latitude:", lat);
+        console.log("Longitude:", lng);
+
+
+    })
+    .catch(error => {
+
+        console.log(error);
+
+        marker.bindPopup(
+            "Location details unavailable"
+        )
+        .openPopup();
+
+    });
 
 
 });
+}
+// Call map function
+window.onload = loadAdminMap;
+
 </script>
 
 </body>
