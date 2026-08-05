@@ -1103,261 +1103,295 @@
     <!-- Image Gallery -->
     <script>
 
-                                                      let images = [
+                                                                              let images = [
 
-                                                      {% for img in images %}
+                                                                              {% for img in images %}
 
-                                                      "{{ url_for('static', filename=img.image_path) }}",
+                                                                              "{{ url_for('static', filename=img.image_path) }}",
 
-                                                      {% endfor %}
+                                                                              {% endfor %}
 
-                                                      ];
-
-
-                                                      function openGallery(index){
-
-                                                          let modal=document.getElementById("imageModal");
-
-                                                          let main=document.getElementById("mainGalleryImage");
+                                                                              ];
 
 
-                                                          main.src = images[index];
+                                                                              function openGallery(index){
 
-                                                          modal.style.display="block";
+                                                                                  let modal=document.getElementById("imageModal");
+
+                                                                                  let main=document.getElementById("mainGalleryImage");
+
+
+                                                                                  main.src = images[index];
+
+                                                                                  modal.style.display="block";
+
+                                                                              }
+
+                                                                              function changeImage(index){
+
+                                                                                  document.getElementById("mainGalleryImage").src=images[index];
+
+                                                                              }
+
+                                                                              function closeGallery(){
+
+                                                                                  document.getElementById("imageModal").style.display="none";
+
+                                                                              }
+
+
+
+                                                            // Reservation
+                                                      function showReservation(){
+
+                                                          let form = document.getElementById("reservation");
+                                                          if(form.style.display === "none"){
+
+                                                              form.style.display = "block";
+
+                                                              form.scrollIntoView({
+                                                                  behavior:"smooth"
+                                                              });
+
+                                                          }
+                                                          else{
+
+                                                              form.style.display = "none";
+
+                                                          }
+                                                      }
+
+                                                      // For Map
+
+                                                      let map;
+                                                      let mapLoaded = false;
+
+                                                      function showMap(){
+
+                                                          let section = document.getElementById("mapSection");
+
+                                                          if(section.style.display==="none" || section.style.display === ""){
+
+                                                              section.style.display="block";
+
+                                                              setTimeout(function(){
+
+                                                                  if(!mapLoaded){
+
+                                                                      loadMap();
+
+                                                                      mapLoaded = true;
+
+                                                                  }
+                                                                  else{
+
+                                                                      map.invalidateSize();
+
+                                                                  }
+
+                                                              },500);
+
+
+
+                                                              section.scrollIntoView({
+                                                                  behavior:"smooth"
+                                                              });
+
+
+                                                          }
+                                                          else{
+
+                                                              section.style.display="none";
+
+                                                          }
 
                                                       }
 
-                                                      function changeImage(index){
+                                                      function loadMap(){
+                                                        let cafeLat = parseFloat("{{ cafe.latitude }}");
+                                                        let cafeLng = parseFloat("{{ cafe.longitude }}");
 
-                                                          document.getElementById("mainGalleryImage").src=images[index];
+                                                        map = L.map('map').setView([cafeLat, cafeLng], 15);
 
-                                                      }
+                                                        // current Location
+                                                        L.control.locate({
+                                                          position:'topleft',
+                                                          strings:{
+                                                             title:"Find my location"
+                                                          }
+                                                        }).addTo(map);
 
-                                                      function closeGallery(){
+                                                          // Street Map
+                                          let streetMap = L.tileLayer(
+                                          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                          {
+                                              maxZoom:19,
+                                              attribution:'© OpenStreetMap'
+                                          });
 
-                                                          document.getElementById("imageModal").style.display="none";
 
-                                                      }
+                                          // Satellite Map
+                                          let satelliteMap = L.tileLayer(
+                                          'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+                                          {
+                                              maxZoom:19,
+                                              attribution:'© Esri'
+                                          });
 
 
+                                          // Default street view
+                                          streetMap.addTo(map);
 
-                                    // Reservation
-                              function showReservation(){
 
-                                  let form = document.getElementById("reservation");
-                                  if(form.style.display === "none"){
-
-                                      form.style.display = "block";
-
-                                      form.scrollIntoView({
-                                          behavior:"smooth"
-                                      });
-
-                                  }
-                                  else{
-
-                                      form.style.display = "none";
-
-                                  }
-                              }
-
-                              // For Map
-
-                              let map;
-                              let mapLoaded = false;
-
-                              function showMap(){
-
-                                  let section = document.getElementById("mapSection");
-
-                                  if(section.style.display==="none" || section.style.display === ""){
-
-                                      section.style.display="block";
-
-                                      setTimeout(function(){
-
-                                          if(!mapLoaded){
-
-                                              loadMap();
-
-                                              mapLoaded = true;
-
+                                          // Map switch button
+                                          L.control.layers(
+                                          {
+                                              "🛣️ Street": streetMap,
+                                              "🛰️ Satellite": satelliteMap
                                           }
-                                          else{
+                                          ).addTo(map);
 
-                                              map.invalidateSize();
+                                                              // Cafe Marker
 
-                                          }
-
-                                      },500);
-
+                                    let cafeMarker = L.marker([cafeLat, cafeLng])
+                                    .addTo(map);
 
 
-                                      section.scrollIntoView({
-                                          behavior:"smooth"
-                                      });
+                                    cafeMarker.bindPopup(`
+                                        <div style="min-width:200px">
+
+                                            <h3>☕ {{ cafe.name }}</h3>
+
+                                            <p>
+                                                📍 {{ cafe.location }}
+                                            </p>
+
+                                            <p>
+                                                🕒 Open:
+                                                {{ cafe.open_time }}
+                                                <br>
+                                                🔒 Close:
+                                                {{ cafe.close_time }}
+                                            </p>
+
+                                            <button onclick="getRoute()">
+                                                🚶 Get Route
+                                            </button>
+
+                                        </div>
+                                    `).openPopup();
+
+                                    // User location
+            if (navigator.geolocation) {
+
+                navigator.geolocation.getCurrentPosition(
+
+                    function(position){
+
+                        let userLat = position.coords.latitude;
+                        let userLng = position.coords.longitude;
+                        let accuracy = position.coords.accuracy;
+
+            console.log("Accuracy:", accuracy, "meters");
 
 
-                                  }
-                                  else{
+            if(accuracy > 100){
 
-                                      section.style.display="none";
+                alert(
+                    "Location accuracy is low (" +
+                    Math.round(accuracy) +
+                    " meters). Please enable GPS."
+                );
 
-                                  }
+            }
 
-                              }
+                        console.log("User:", userLat, userLng);
+                        console.log("Cafe:", cafeLat, cafeLng);
 
-                              function loadMap(){
-                                let cafeLat = parseFloat("{{ cafe.latitude }}");
-                                let cafeLng = parseFloat("{{ cafe.longitude }}");
+                        // User marker
+                        L.marker([userLat, userLng])
+                            .addTo(map)
+                            .bindPopup("📍 Your Current Location")
 
-                                map = L.map('map').setView([cafeLat, cafeLng], 15);
+                        // Accuracy circle
+                        L.circle([userLat, userLng], {
+                            radius: position.coords.accuracy,
+                            color: "blue",
+                            fillColor: "#3399ff",
+                            fillOpacity: 0.2
+                        }).addTo(map);
 
-                                // current Location
-                                L.control.locate({
-                                  position:'topleft',
-                                  strings:{
-                                     title:"Find my location"
-                                  }
-                                }).addTo(map);
+                        // Show both user and cafe
+                       let bounds = L.latLngBounds(
+                          [userLat,userLng],
+                          [cafeLat,cafeLng]
+                        );
 
-                                  // Street Map
-                  let streetMap = L.tileLayer(
-                  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  {
-                      maxZoom:19,
-                      attribution:'© OpenStreetMap'
-                  });
+                        map.fitBounds(bounds, {
+                          padding:[50,50]
+                        });
 
+                        // Route
+                        L.Routing.control({
+                            waypoints: [
+                                L.latLng(userLat, userLng),
+                                L.latLng(cafeLat, cafeLng)
+                            ],
+                            routeWhileDragging: false,
+                            addWaypoints:false,
+                            draggableWaypoints:false,
+                            fitSelectedRoutes: true,
+                            showAlternatives: true,
+                            createMarker: function () {
+                                return null;
+                            }
+                        }).addTo(map);
 
-                  // Satellite Map
-                  let satelliteMap = L.tileLayer(
-                  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-                  {
-                      maxZoom:19,
-                      attribution:'© Esri'
-                  });
+                    },
 
+                    function(error){
+                        switch(error.code){
 
-                  // Default street view
-                  streetMap.addTo(map);
+                            case error.PERMISSION_DENIED:
+                                alert("Location permission denied.");
+                                break;
 
+                            case error.POSITION_UNAVAILABLE:
+                                alert("Location unavailable.");
+                                break;
 
-                  // Map switch button
-                  L.control.layers(
-                  {
-                      "🛣️ Street": streetMap,
-                      "🛰️ Satellite": satelliteMap
-                  }
-                  ).addTo(map);
+                            case error.TIMEOUT:
+                                alert("Location request timed out.");
+                                break;
 
-                                      // Cafe Marker
-
-            let cafeMarker = L.marker([cafeLat, cafeLng])
-            .addTo(map);
-
-
-            cafeMarker.bindPopup(`
-                <div style="min-width:200px">
-
-                    <h3>☕ {{ cafe.name }}</h3>
-
-                    <p>
-                        📍 {{ cafe.location }}
-                    </p>
-
-                    <p>
-                        🕒 Open:
-                        {{ cafe.open_time }}
-                        <br>
-                        🔒 Close:
-                        {{ cafe.close_time }}
-                    </p>
-
-                    <button onclick="getRoute()">
-                        🚶 Get Route
-                    </button>
-
-                </div>
-            `).openPopup();
-                              //  User location
-                                  if(navigator.geolocation){
-
-                                      navigator.geolocation.getCurrentPosition(
-                                      function(position){
-
-                                          let userLat=position.coords.latitude;
-                                          let userLng=position.coords.longitude;
-
-                                          L.circle([userLat,userLng], {
-                                               radius: 50
-                                          })
-                                          .addTo(map);
-
-
-                                          map.fitBounds([
-                                              [userLat,userLng],
-                                              [cafeLat,cafeLng]
-                                          ]);
-
-                                          // user marker
-                                          L.marker([userLat,userLng])
-                                          .addTo(map)
-                                          .bindPopup("📍 Your Current Location")
-                                          .openPopup();
-
-                                           // Real route from user to cafe
-                                L.Routing.control({
-                                    waypoints: [
-                                        L.latLng(userLat, userLng),
-                                        L.latLng(cafeLat, cafeLng)
-                                    ],
-
-                                    routeWhileDragging: false,
-                                    fitSelectedRoutes:true,
-                                    showAlternatives: true,
-
-                                    createMarker: function(){
-                                        return null;
-                                    }
-
-                                }).addTo(map);
-
-
-                            },
-
-                            function(error){
-
-                console.log(error);
-
-                if(error.code === 1){
-                    alert("Location permission denied.");
-                }
-
-                if(error.code === 2){
-                    alert("Location unavailable.");
-                }
-
-                if(error.code === 3){
-                    alert("Location request timed out.");
-                }
-
-            });
+                            default:
+                                alert("Unable to get your location.");
                         }
-                      }
+                    },
 
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 30000,
+                        maximumAge: 0
+                    }
 
-                              // Nepali Date
-                              $(document).ready(function(){
+                );
+                  }
+                  else{
+                        alert("Geolocation is not supported by your browser.");
 
-                                  $('#nepali-date').nepaliDatePicker({
-                                      dateFormat: "YYYY-MM-DD",
-                                      ndpYear: true,
-                                      ndpMonth: true,
-                                      ndpYearCount: 100
-                                  });
+                  }
+                }                                      // Nepali Date
+                                                      $(document).ready(function(){
 
-                              });
+                                                          $('#nepali-date').nepaliDatePicker({
+                                                              dateFormat: "YYYY-MM-DD",
+                                                              ndpYear: true,
+                                                              ndpMonth: true,
+                                                              ndpYearCount: 100
+                                                          });
+
+                                                      });
     </script>
   </body>
 </html>
