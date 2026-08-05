@@ -1103,295 +1103,345 @@
     <!-- Image Gallery -->
     <script>
 
-                                                                              let images = [
+                                                                                    let images = [
 
-                                                                              {% for img in images %}
+                                                                                    {% for img in images %}
 
-                                                                              "{{ url_for('static', filename=img.image_path) }}",
+                                                                                    "{{ url_for('static', filename=img.image_path) }}",
 
-                                                                              {% endfor %}
+                                                                                    {% endfor %}
 
-                                                                              ];
+                                                                                    ];
 
 
-                                                                              function openGallery(index){
+                                                                                    function openGallery(index){
 
-                                                                                  let modal=document.getElementById("imageModal");
+                                                                                        let modal=document.getElementById("imageModal");
 
-                                                                                  let main=document.getElementById("mainGalleryImage");
+                                                                                        let main=document.getElementById("mainGalleryImage");
 
 
-                                                                                  main.src = images[index];
+                                                                                        main.src = images[index];
 
-                                                                                  modal.style.display="block";
+                                                                                        modal.style.display="block";
 
-                                                                              }
+                                                                                    }
 
-                                                                              function changeImage(index){
+                                                                                    function changeImage(index){
 
-                                                                                  document.getElementById("mainGalleryImage").src=images[index];
+                                                                                        document.getElementById("mainGalleryImage").src=images[index];
 
-                                                                              }
+                                                                                    }
 
-                                                                              function closeGallery(){
+                                                                                    function closeGallery(){
 
-                                                                                  document.getElementById("imageModal").style.display="none";
+                                                                                        document.getElementById("imageModal").style.display="none";
 
-                                                                              }
+                                                                                    }
 
 
 
-                                                            // Reservation
-                                                      function showReservation(){
+                                                                  // Reservation
+                                                            function showReservation(){
 
-                                                          let form = document.getElementById("reservation");
-                                                          if(form.style.display === "none"){
+                                                                let form = document.getElementById("reservation");
+                                                                if(form.style.display === "none"){
 
-                                                              form.style.display = "block";
+                                                                    form.style.display = "block";
 
-                                                              form.scrollIntoView({
-                                                                  behavior:"smooth"
-                                                              });
+                                                                    form.scrollIntoView({
+                                                                        behavior:"smooth"
+                                                                    });
 
-                                                          }
-                                                          else{
+                                                                }
+                                                                else{
 
-                                                              form.style.display = "none";
+                                                                    form.style.display = "none";
 
-                                                          }
-                                                      }
+                                                                }
+                                                            }
 
-                                                      // For Map
+                                                            // For Map
 
-                                                      let map;
-                                                      let mapLoaded = false;
+                                                            let map;
+                                                            let mapLoaded = false;
 
-                                                      function showMap(){
+                                                            function showMap(){
 
-                                                          let section = document.getElementById("mapSection");
+                                                                let section = document.getElementById("mapSection");
 
-                                                          if(section.style.display==="none" || section.style.display === ""){
+                                                                if(section.style.display==="none" || section.style.display === ""){
 
-                                                              section.style.display="block";
+                                                                    section.style.display="block";
 
-                                                              setTimeout(function(){
+                                                                    setTimeout(function(){
 
-                                                                  if(!mapLoaded){
+                                                                        if(!mapLoaded){
 
-                                                                      loadMap();
+                                                                            loadMap();
 
-                                                                      mapLoaded = true;
+                                                                            mapLoaded = true;
 
-                                                                  }
-                                                                  else{
+                                                                        }
+                                                                        else{
 
-                                                                      map.invalidateSize();
+                                                                            map.invalidateSize();
 
-                                                                  }
+                                                                        }
 
-                                                              },500);
+                                                                    },500);
 
 
 
-                                                              section.scrollIntoView({
-                                                                  behavior:"smooth"
-                                                              });
+                                                                    section.scrollIntoView({
+                                                                        behavior:"smooth"
+                                                                    });
 
 
-                                                          }
-                                                          else{
+                                                                }
+                                                                else{
 
-                                                              section.style.display="none";
+                                                                    section.style.display="none";
 
-                                                          }
+                                                                }
 
-                                                      }
+                                                            }
 
-                                                      function loadMap(){
-                                                        let cafeLat = parseFloat("{{ cafe.latitude }}");
-                                                        let cafeLng = parseFloat("{{ cafe.longitude }}");
+                                                            function loadMap(){
+                                                              let cafeLat = parseFloat("{{ cafe.latitude }}");
+                                                              let cafeLng = parseFloat("{{ cafe.longitude }}");
 
-                                                        map = L.map('map').setView([cafeLat, cafeLng], 15);
+                                                              map = L.map('map').setView([cafeLat, cafeLng], 15);
 
-                                                        // current Location
-                                                        L.control.locate({
-                                                          position:'topleft',
-                                                          strings:{
-                                                             title:"Find my location"
-                                                          }
-                                                        }).addTo(map);
+                                                              // current Location
+                                                              L.control.locate({
+                                                                position:'topleft',
+                                                                strings:{
+                                                                   title:"Find my location"
+                                                                }
+                                                              }).addTo(map);
 
-                                                          // Street Map
-                                          let streetMap = L.tileLayer(
-                                          'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                                          {
-                                              maxZoom:19,
-                                              attribution:'© OpenStreetMap'
-                                          });
+                                                                // Street Map
+                                                let streetMap = L.tileLayer(
+                                                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                                {
+                                                    maxZoom:19,
+                                                    attribution:'© OpenStreetMap'
+                                                });
 
 
-                                          // Satellite Map
-                                          let satelliteMap = L.tileLayer(
-                                          'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-                                          {
-                                              maxZoom:19,
-                                              attribution:'© Esri'
-                                          });
+                                                // Satellite Map
+                                                let satelliteMap = L.tileLayer(
+                                                'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+                                                {
+                                                    maxZoom:19,
+                                                    attribution:'© Esri'
+                                                });
 
 
-                                          // Default street view
-                                          streetMap.addTo(map);
+                                                // Default street view
+                                                streetMap.addTo(map);
 
 
-                                          // Map switch button
-                                          L.control.layers(
-                                          {
-                                              "🛣️ Street": streetMap,
-                                              "🛰️ Satellite": satelliteMap
-                                          }
-                                          ).addTo(map);
+                                                // Map switch button
+                                                L.control.layers(
+                                                {
+                                                    "🛣️ Street": streetMap,
+                                                    "🛰️ Satellite": satelliteMap
+                                                }
+                                                ).addTo(map);
 
-                                                              // Cafe Marker
+                                                                    // Cafe Marker
 
-                                    let cafeMarker = L.marker([cafeLat, cafeLng])
-                                    .addTo(map);
+                                          let cafeMarker = L.marker([cafeLat, cafeLng])
+                                          .addTo(map);
 
 
-                                    cafeMarker.bindPopup(`
-                                        <div style="min-width:200px">
+                                          cafeMarker.bindPopup(`
+                                              <div style="min-width:200px">
 
-                                            <h3>☕ {{ cafe.name }}</h3>
+                                                  <h3>☕ {{ cafe.name }}</h3>
 
-                                            <p>
-                                                📍 {{ cafe.location }}
-                                            </p>
+                                                  <p>
+                                                      📍 {{ cafe.location }}
+                                                  </p>
 
-                                            <p>
-                                                🕒 Open:
-                                                {{ cafe.open_time }}
-                                                <br>
-                                                🔒 Close:
-                                                {{ cafe.close_time }}
-                                            </p>
+                                                  <p>
+                                                      🕒 Open:
+                                                      {{ cafe.open_time }}
+                                                      <br>
+                                                      🔒 Close:
+                                                      {{ cafe.close_time }}
+                                                  </p>
 
-                                            <button onclick="getRoute()">
-                                                🚶 Get Route
-                                            </button>
+                                                  <button onclick="getRoute()">
+                                                      🚶 Get Route
+                                                  </button>
 
-                                        </div>
-                                    `).openPopup();
+                                              </div>
+                                          `).openPopup();
 
-                                    // User location
-            if (navigator.geolocation) {
+                  // User location
+                  let userMarker=null;
+                  let accuracyCircle=null;
+                  let routeControl=null;
+                  let firstLocation=false;
+                  if (navigator.geolocation) {
 
-                navigator.geolocation.getCurrentPosition(
+                      navigator.geolocation.watchPosition(
 
-                    function(position){
+                          function(position){
 
-                        let userLat = position.coords.latitude;
-                        let userLng = position.coords.longitude;
-                        let accuracy = position.coords.accuracy;
+                              let userLat = position.coords.latitude;
+                              let userLng = position.coords.longitude;
+                              let accuracy = position.coords.accuracy;
 
-            console.log("Accuracy:", accuracy, "meters");
+                  console.log("User:",userLat, userLng, "Accuracy:",accuracy, "meters" );
 
+                              // Show both user and cafe
+                             let bounds = L.latLngBounds(
+                                [userLat,userLng],
+                                [cafeLat,cafeLng]
+                              );
 
-            if(accuracy > 100){
+                              map.fitBounds(bounds, {
+                                padding:[50,50]
+                              });
 
-                alert(
-                    "Location accuracy is low (" +
-                    Math.round(accuracy) +
-                    " meters). Please enable GPS."
-                );
+                              // Update user marker
+      if(userMarker === null){
 
-            }
+          userMarker = L.marker([userLat,userLng])
+              .addTo(map)
+              .bindPopup("📍 Your Current Location");
 
-                        console.log("User:", userLat, userLng);
-                        console.log("Cafe:", cafeLat, cafeLng);
+      }
+      else{
 
-                        // User marker
-                        L.marker([userLat, userLng])
-                            .addTo(map)
-                            .bindPopup("📍 Your Current Location")
+          userMarker.setLatLng([
+              userLat,
+              userLng
+          ]);
 
-                        // Accuracy circle
-                        L.circle([userLat, userLng], {
-                            radius: position.coords.accuracy,
-                            color: "blue",
-                            fillColor: "#3399ff",
-                            fillOpacity: 0.2
-                        }).addTo(map);
+      }
 
-                        // Show both user and cafe
-                       let bounds = L.latLngBounds(
-                          [userLat,userLng],
-                          [cafeLat,cafeLng]
-                        );
 
-                        map.fitBounds(bounds, {
-                          padding:[50,50]
-                        });
+      // Update accuracy circle
+      if(accuracyCircle === null){
 
-                        // Route
-                        L.Routing.control({
-                            waypoints: [
-                                L.latLng(userLat, userLng),
-                                L.latLng(cafeLat, cafeLng)
-                            ],
-                            routeWhileDragging: false,
-                            addWaypoints:false,
-                            draggableWaypoints:false,
-                            fitSelectedRoutes: true,
-                            showAlternatives: true,
-                            createMarker: function () {
-                                return null;
-                            }
-                        }).addTo(map);
+          accuracyCircle = L.circle(
+              [userLat,userLng],
+              {
+                  radius:accuracy,
+                  color:"blue",
+                  fillColor:"#3399ff",
+                  fillOpacity:0.2
+              }
+          ).addTo(map);
 
-                    },
+      }
+      else{
 
-                    function(error){
-                        switch(error.code){
+          accuracyCircle.setLatLng([
+              userLat,
+              userLng
+          ]);
 
-                            case error.PERMISSION_DENIED:
-                                alert("Location permission denied.");
-                                break;
+          accuracyCircle.setRadius(
+              accuracy
+          );
 
-                            case error.POSITION_UNAVAILABLE:
-                                alert("Location unavailable.");
-                                break;
+      }
 
-                            case error.TIMEOUT:
-                                alert("Location request timed out.");
-                                break;
 
-                            default:
-                                alert("Unable to get your location.");
+      // Fit map only first time
+      if(firstLocation === null){
+
+          let bounds = L.latLngBounds(
+              [userLat,userLng],
+              [cafeLat,cafeLng]
+          );
+
+          map.fitBounds(bounds,{
+              padding:[50,50]
+          });
+
+          firstLocation=true;
+
+      }
+
+
+      // Update route
+      if(routeControl){
+
+          map.removeControl(routeControl);
+
+      }
+
+
+      routeControl = L.Routing.control({
+
+          waypoints:[
+              L.latLng(userLat,userLng),
+              L.latLng(cafeLat,cafeLng)
+          ],
+
+          routeWhileDragging:false,
+          addWaypoints:false,
+          draggableWaypoints:false,
+          showAlternatives:false,
+
+          createMarker:function(){
+              return null;
+          }
+
+      }).addTo(map);
+
+                          },
+
+                          function(error){
+                              switch(error.code){
+
+                                  case error.PERMISSION_DENIED:
+                                      alert("Location permission denied.");
+                                      break;
+
+                                  case error.POSITION_UNAVAILABLE:
+                                      alert("Location unavailable.");
+                                      break;
+
+                                  case error.TIMEOUT:
+                                      alert("Location request timed out.");
+                                      break;
+
+                                  default:
+                                      alert("Unable to get your location.");
+                              }
+                          },
+
+                          {
+                              enableHighAccuracy: true,
+                              timeout: 60000,
+                              maximumAge: 0
+                          }
+
+                      );
                         }
-                    },
+                        else{
+                              alert("Geolocation is not supported by your browser.");
 
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 30000,
-                        maximumAge: 0
-                    }
+                        }
+                      }                                      // Nepali Date
+                                                            $(document).ready(function(){
 
-                );
-                  }
-                  else{
-                        alert("Geolocation is not supported by your browser.");
+                                                                $('#nepali-date').nepaliDatePicker({
+                                                                    dateFormat: "YYYY-MM-DD",
+                                                                    ndpYear: true,
+                                                                    ndpMonth: true,
+                                                                    ndpYearCount: 100
+                                                                });
 
-                  }
-                }                                      // Nepali Date
-                                                      $(document).ready(function(){
-
-                                                          $('#nepali-date').nepaliDatePicker({
-                                                              dateFormat: "YYYY-MM-DD",
-                                                              ndpYear: true,
-                                                              ndpMonth: true,
-                                                              ndpYearCount: 100
-                                                          });
-
-                                                      });
+                                                            });
     </script>
   </body>
 </html>
