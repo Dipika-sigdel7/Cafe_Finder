@@ -1,0 +1,81 @@
+# Requirements of Cafe Finder System
+
+## Hardware Requirements
+
+The hardware requirements for developing and running the Cafe Finder System are:
+
+* Processor: Intel Core i3 or above
+* RAM: Minimum 4 GB (8 GB recommended)
+* Storage: Minimum 10 GB free space
+* Display: Standard monitor with minimum 1024×768 resolution
+* Internet connection for map services and external libraries
+
+## Software Requirements
+
+The software requirements required for the development of the Cafe Finder System are:
+
+### Operating System
+
+* Windows / Linux (Kali Linux used for development)
+
+### Frontend Technologies
+
+* HTML5
+* CSS3
+* JavaScript
+* Leaflet.js for interactive maps
+
+### Backend Technologies
+
+* Python
+* Flask Framework
+
+### Database
+
+* MariaDB / MySQL for storing cafe information, menu details, images, reviews, and admin data
+
+### Development Tools
+
+* Visual Studio Code
+* Git and GitHub for version control
+* Web Browser (Google Chrome recommended)
+
+## Python Package Requirements
+
+The following Python packages are required to run the system:
+
+* Flask – Used for developing the web application framework.
+* mysql-connector-python – Used for connecting the Flask application with the MariaDB/MySQL database.
+* Werkzeug – Used for secure file handling and image uploads.
+* python-dotenv – Used for managing environment configuration variables.
+
+## Functional Requirements
+
+The system should provide the following functionalities:
+
+### User Requirements
+
+* Users can view available cafes.
+* Users can search for cafes.
+* Users can view cafe details including images, location, opening hours, and menu items.
+* Users can view categorized menus such as Food, Drinks, Snacks, and Desserts.
+* Users can provide ratings and reviews.
+* Users can view cafe locations using an interactive map.
+* Users can get directions from their current location to the selected cafe.
+
+### Admin Requirements
+
+* Admin must be able to securely log in.
+* Admin can add new cafes.
+* Admin can upload cafe images.
+* Admin can add, edit, and delete menu items.
+* Admin can update cafe details.
+* Admin can manage cafe information stored in the database.
+
+## Non-Functional Requirements
+
+* The system should provide a user-friendly interface.
+* The system should provide fast response time.
+* User data and admin access should be protected.
+* The application should be reliable and easy to maintain.
+* The system should support future improvements and feature expansion.
