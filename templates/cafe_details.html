@@ -153,74 +153,72 @@
         flex: 2;
         overflow: visible1;
       }
-      
+
       /* Image container */
-.image-scroll-container {
-    width:100%;
-    overflow:hidden;
-}
+      .image-scroll-container {
+        width: 100%;
+        overflow: hidden;
+      }
 
-     /* First image shown in About section */
- .main-gallery-image {
-    width:500px;
-    height:350px;
-    object-fit:cover;
-    border-radius:15px;
-    cursor:pointer;
-    transition:0.3s;
-}
+      /* First image shown in About section */
+      .main-gallery-image {
+        width: 500px;
+        height: 350px;
+        object-fit: cover;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
 
+      .main-gallery-image:hover {
+        transform: scale(1.05);
+      }
 
-.main-gallery-image:hover {
-    transform:scale(1.05);
-}
+      /* For image Popup */
+      .image-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+      }
 
+      .close-btn {
+        position: absolute;
+        right: 30px;
+        top: 20px;
+        color: white;
+        font-size: 40px;
+        cursor: pointer;
+        z-index: 10000;
+      }
+      /* Gallery popup images */
+      .gallery-slider {
+        display: flex;
+        align-items: center;
+        gap: 20;
+        width: 100%;
+        height: 100%;
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+        padding: 40px;
+      }
+      /* Hide scrollbar */
+      .gallery-slider::-webkit-scrollbar {
+        display: none;
+      }
 
-  /* For image Popup */
-  .image-modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.95);
-  }
-
-.close-btn {
-    position:absolute;
-    right:30px;
-    top:20px;
-    color:white;
-    font-size:40px;
-    cursor:pointer;
-    z-index:10000;
-}
-/* Gallery popup images */
-.gallery-slider {
-    display:flex;
-    align-items:center;
-    gap:20;
-    width:100%;
-    height:100%;
-    overflow-x:scroll;
-    scroll-behavior: smooth;
-    padding: 40px;
-}
-/* Hide scrollbar */
-.gallery-slider::-webkit-scrollbar {
-    display:none;
-}
-
-/* Multiple images */
-.gallery-slide {
-    min-width:80%;
-    height:80%;
-    flex-shrink:0;
-    object-fit:contain;
-    border-radius:10px;
-}
+      /* Multiple images */
+      .gallery-slide {
+        min-width: 80%;
+        height: 80%;
+        flex-shrink: 0;
+        object-fit: contain;
+        border-radius: 10px;
+      }
 
       /* CAFE INFO */
       .cafe-info {
@@ -527,6 +525,80 @@
         margin-top: 10px;
       }
 
+      /* Payment Section */
+
+.payment-section{
+    margin-top:20px;
+}
+
+.payment-title{
+    display:block;
+    font-weight:bold;
+    font-size:18px;
+    color:#3e2723;
+    margin-bottom:15px;
+}
+
+.payment-options{
+
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+
+}
+
+.payment-card{
+
+    width:120px;
+    height:110px;
+
+    background:#fff3e0;
+
+    border-radius:12px;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    gap:8px;
+
+    cursor:pointer;
+
+    border:2px solid transparent;
+
+    transition:0.3s;
+
+}
+
+.payment-card:hover{
+
+    border-color:#5d4037;
+    transform:translateY(-3px);
+
+}
+
+.payment-card input{
+
+    cursor:pointer;
+
+}
+
+.payment-card img{
+
+    width:70px;
+    height:40px;
+
+    object-fit:contain;
+
+}
+
+.cash-icon{
+
+    font-size:35px;
+
+}
       /* Menu Section */
       .menu-section {
         padding: 50px 8%;
@@ -675,37 +747,36 @@
 
       <!-- Image Section -->
       <div class="about-right">
-      {% if images %}
+        {% if images %}
 
-         <!-- Show Only First Image -->
-         <div class="image-scroll-container">
-            <img
+        <!-- Show Only First Image -->
+        <div class="image-scroll-container">
+          <img
             src="{{ url_for('static', filename=images[0].image_path) }}"
             alt="{{ cafe.name }}"
             class="main-gallery-image"
-            onclick="openGallery()">
-          
+            onclick="openGallery()"
+          />
+        </div>
+
+        <!-- Full Gallery Popup -->
+        <div id="imagemodal" class="image-modal">
+          <span class="close-btn" onclick="closeGallery()"> &times; </span>
+
+          <div class="gallery-slider">
+            {% for img in images %}
+
+            <img
+              src="{{ url_for('static', filename=img.image_path) }}"
+              class="gallery-slide"
+            />
+
+            {% endfor %}
           </div>
+        </div>
 
-          <!-- Full Gallery Popup -->
-          <div id="imagemodal" class="image-modal">
-            <span class="close-btn" onclick="closeGallery()">
-               &times;
-            </span>
-
-            <div class="gallery-slider">
-              {% for img in images %}
-
-                <img
-                src="{{ url_for('static', filename=img.image_path) }}"
-                class="gallery-slide">
-
-              {% endfor %}
-            </div>
-          </div>
-
-      {% endif %}
-    </div>
+        {% endif %}
+      </div>
     </div>
     <!-- Cafe Info Section -->
     <div class="cafe-info">
@@ -781,9 +852,89 @@
 
         <textarea name="message" placeholder="Message"></textarea>
 
-        <button type="submit">Confirm Reservation</button>
-      </form>
-    </div>
+        <!--  Payment Method -->
+        <div class="payment-section">
+          <label for="payment-title"> Payment Method </label>
+
+          <div class="payment-options">
+            <!-- Cash -->
+            <label class="payment-card">
+
+              <input 
+                type="radio" 
+                name="payment_method" 
+                value="Cash"
+                required>
+
+              <span class="cash-icon">
+                 💵
+              </span>
+
+              <span>
+                Cash Payment
+              </span>
+
+            </label>
+
+            <!-- eSewa -->
+            <label class="payment-card">
+
+              <input 
+                type="radio" 
+                name="payment_method" 
+                value="eSewa">
+
+              <img 
+              src="{{ url_for('static', filename='payment/esewa.png') }}"
+              alt="eSewa" >
+
+              <span>
+                eSewa
+              </span>
+
+            </label>
+
+            <!-- Khalti -->
+            <label class="payment-card">
+
+              <input 
+                type="radio" 
+                name="payment_method" 
+                value="Khalti" >
+
+              <img 
+              src="{{ url_for('static', filename='payment/khalti.png') }}"
+              alt="Khalti" >
+
+              <span>
+                Khalti
+              </span>
+
+            </label>
+
+
+
+            <!-- Mobile Banking -->
+            <label class="payment-card">
+
+              <input 
+                type="radio" 
+                name="payment_method" 
+                value="Mobile Banking">
+
+              <img 
+              src="{{ url_for('static', filename='payment/mobile_banking.png') }}"
+              alt="Mobile Banking">
+
+              <span>
+                 Mobile Banking
+              </span>
+
+           </label>
+
+
+          </div>
+        </div> 
 
     <!-- Hidden Map -->
     <div id="mapSection" style="display: none; margin-top: 30px">
