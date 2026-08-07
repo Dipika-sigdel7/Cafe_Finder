@@ -527,78 +527,66 @@
 
       /* Payment Section */
 
-.payment-section{
-    margin-top:20px;
-}
+      .payment-section {
+        margin-top: 20px;
+      }
 
-.payment-title{
-    display:block;
-    font-weight:bold;
-    font-size:18px;
-    color:#3e2723;
-    margin-bottom:15px;
-}
+      .payment-title {
+        display: block;
+        font-weight: bold;
+        font-size: 18px;
+        color: #3e2723;
+        margin-bottom: 15px;
+      }
 
-.payment-options{
+      .payment-options {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
 
-    display:flex;
-    gap:15px;
-    flex-wrap:wrap;
+      .payment-card {
+        width: 120px;
+        height: 110px;
 
-}
+        background: #fff3e0;
 
-.payment-card{
+        border-radius: 12px;
 
-    width:120px;
-    height:110px;
+        display: flex;
+        flex-direction: column;
 
-    background:#fff3e0;
+        justify-content: center;
+        align-items: center;
 
-    border-radius:12px;
+        gap: 8px;
 
-    display:flex;
-    flex-direction:column;
+        cursor: pointer;
 
-    justify-content:center;
-    align-items:center;
+        border: 2px solid transparent;
 
-    gap:8px;
+        transition: 0.3s;
+      }
 
-    cursor:pointer;
+      .payment-card:hover {
+        border-color: #5d4037;
+        transform: translateY(-3px);
+      }
 
-    border:2px solid transparent;
+      .payment-card input {
+        cursor: pointer;
+      }
 
-    transition:0.3s;
+      .payment-card img {
+        width: 70px;
+        height: 40px;
 
-}
+        object-fit: contain;
+      }
 
-.payment-card:hover{
-
-    border-color:#5d4037;
-    transform:translateY(-3px);
-
-}
-
-.payment-card input{
-
-    cursor:pointer;
-
-}
-
-.payment-card img{
-
-    width:70px;
-    height:40px;
-
-    object-fit:contain;
-
-}
-
-.cash-icon{
-
-    font-size:35px;
-
-}
+      .cash-icon {
+        font-size: 35px;
+      }
       /* Menu Section */
       .menu-section {
         padding: 50px 8%;
@@ -809,7 +797,7 @@
     </div>
 
     <!-- Reservation Form (Hidden) -->
-    <div id="reservation" class="reservation-form" style="display: none">
+    <div id="reservation" class="reservation-form">
       <h2>Make Reservation</h2>
 
       <form
@@ -853,88 +841,93 @@
         <textarea name="message" placeholder="Message"></textarea>
 
         <!--  Payment Method -->
-        <div class="payment-section">
-          <label for="payment-title"> Payment Method </label>
+        <div class="payment-options">
+          <!-- Cash -->
+          <label>
+            <input
+              type="radio"
+              name="payment_method"
+              value="Cash"
+              onclick="showPayment('cash')"
+              required
+            />
 
-          <div class="payment-options">
-            <!-- Cash -->
-            <label class="payment-card">
+            <span class="cash-icon"> 💵 </span>
 
-              <input 
-                type="radio" 
-                name="payment_method" 
-                value="Cash"
-                required>
+            <span> Cash Payment </span>
+          </label>
 
-              <span class="cash-icon">
-                 💵
-              </span>
+          <!-- esewa -->
+          <label class="payment-card">
+            <input
+              type="radio"
+              name="payment_method"
+              value="eSewa"
+              onclick="showPayment('esewa')"
+            />
 
-              <span>
-                Cash Payment
-              </span>
-
-            </label>
-
-            <!-- eSewa -->
-            <label class="payment-card">
-
-              <input 
-                type="radio" 
-                name="payment_method" 
-                value="eSewa">
-
-              <img 
+            <img
               src="{{ url_for('static', filename='payment/esewa.png') }}"
-              alt="eSewa" >
+              alt="eSewa"
+            />
 
-              <span>
-                eSewa
-              </span>
+            <span> eSewa </span>
+          </label>
 
-            </label>
+          <!-- Khalti -->
+          <label class="payment-card">
+            <input
+              type="radio"
+              name="payment_method"
+              value="Khalti"
+              onclick="showPayment('khalti')"
+            />
 
-            <!-- Khalti -->
-            <label class="payment-card">
-
-              <input 
-                type="radio" 
-                name="payment_method" 
-                value="Khalti" >
-
-              <img 
+            <img
               src="{{ url_for('static', filename='payment/khalti.png') }}"
-              alt="Khalti" >
+              alt="Khalti"
+            />
 
-              <span>
-                Khalti
-              </span>
+            <span> Khalti </span>
+          </label>
 
-            </label>
+          <!-- Mobile Banking -->
+          <label class="payment-card">
+            <input
+              type="radio"
+              name="payment_method"
+              value="Mobile Banking"
+              onclick="showPayment('mobile')"
+            />
 
-
-
-            <!-- Mobile Banking -->
-            <label class="payment-card">
-
-              <input 
-                type="radio" 
-                name="payment_method" 
-                value="Mobile Banking">
-
-              <img 
+            <img
               src="{{ url_for('static', filename='payment/mobile_banking.png') }}"
-              alt="Mobile Banking">
+              alt="Mobile Banking"
+            />
 
-              <span>
-                 Mobile Banking
-              </span>
+            <span> Mobile Banking </span>
+          </label>
+        </div>
 
-           </label>
+        <!-- Dynamic Payment Details -->
 
+        <div id="payment-details"></div>
 
-          </div>
-        </div> 
+        <!-- Transaction ID -->
+
+        <div id="transaction-box" style="display: none">
+          <label> Transaction ID </label>
+
+          <input
+            type="text"
+            name="transaction_id"
+            placeholder="Enter Transaction ID"
+          />
+        </div>
+
+        <button type="submit">Confirm Reservation</button>
+      </form>
+    </div>
 
     <!-- Hidden Map -->
     <div id="mapSection" style="display: none; margin-top: 30px">
@@ -1244,6 +1237,9 @@
         }
       }
 
+
+</script>
+<script>
       //  For Map
       let map;
       let mapLoaded = false;

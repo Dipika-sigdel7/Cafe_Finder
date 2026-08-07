@@ -233,7 +233,7 @@ def admin_dashboard():
 
 
     if request.method == "POST":
-
+        # Cafe Information
         name = request.form["name"].strip()
         description = request.form["description"].strip()
         location = request.form["location"].strip()
@@ -241,7 +241,46 @@ def admin_dashboard():
         close_time = request.form["close_time"].strip()
         latitude = request.form.get("latitude")
         longitude = request.form.get("longitude")
+        # Payment Form
+        esewa_account=request.form.get("esewa_account")
+        khalti_account=request.form.get("khalti_account")
+        # QR Files
+        esewa_qr=request.files.get("esewa_qr")
+        khalti_qr=request.files.get("khalti_qr")
 
+        esewa_path = None
+        khalti_path = None
+
+                # Save eSewa QR
+
+        if esewa_qr and esewa_qr.filename:
+
+            esewa_filename = secure_filename(
+                esewa_qr.filename
+            )
+
+            esewa_qr.save(
+                "static/uploads/" + esewa_filename
+            )
+
+            esewa_path = "uploads/" + esewa_filename
+
+
+
+        # Save Khalti QR
+
+        if khalti_qr and khalti_qr.filename:
+
+            khalti_filename = secure_filename(
+                khalti_qr.filename
+            )
+
+            khalti_qr.save(
+                "static/uploads/" + khalti_filename
+            )
+
+            khalti_path = "uploads/" + khalti_filename
+            # Check Duplicate Cafe
         cursor.execute(
             "SELECT id FROM cafes WHERE name=%s",
             (name,)
@@ -253,12 +292,12 @@ def admin_dashboard():
             error = "A cafe with this name already exists."
 
         else:
-
+            # Insert Cafe
             cursor.execute(
                 """
                 INSERT INTO cafes 
-                (name, description, location, open_time, close_time,latitude,longitude)
-                VALUES (%s,%s,%s,%s,%s,%s,%s)
+                (name, description, location, open_time, close_time,latitude,longitude,esewa_account,khalti_account,esewa_qr,khalti_qr)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
                 """,
                 (
                     name,
@@ -267,7 +306,11 @@ def admin_dashboard():
                     open_time,
                     close_time,
                     latitude,
-                    longitude
+                    longitude,
+                    esewa_account,
+                    khalti_account,
+                    esewa_path,
+                    khalti_path
                 )
             )
 
@@ -353,6 +396,27 @@ def admin_dashboard():
 
             return redirect(url_for("admin_dashboard"))
 
+#save images   
+            if esewa_qr:
+
+                esewa_filename=secure_filename(
+                    esewa_qr.filename
+                )
+
+                esewa_qr.save(
+                    "static/uploads/"+esewa_filename
+                )
+
+
+            if khalti_qr:
+
+                khalti_filename=secure_filename(
+                    khalti_qr.filename
+                )
+
+                khalti_qr.save(
+                    "static/uploads/"+khalti_filename
+                )
 
     # Load existing cafes
     cursor.execute("SELECT * FROM cafes")
