@@ -405,18 +405,24 @@ def delete_cafe(cafe_id):
         url_for("admin_dashboard")
     )
 
-# Home Page
-@app.route("/")
-def home():
 
+# Front Landing Page
+@app.route("/")
+def front():
+    return render_template("front.html")
+
+
+# Cafe Home Page
+@app.route("/home")
+def home():
 
     db = get_db()
     cursor = db.cursor(dictionary=True)
 
 
     cursor.execute("SELECT * FROM cafes")
- 
     cafes = cursor.fetchall()
+
 
     cursor.close()
     db.close()
@@ -425,6 +431,11 @@ def home():
         "index.html",
         cafes=cafes
     )
+
+# About Page
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 #update price
 @app.route("/admin/update_price/<int:item_id>/<price>")
