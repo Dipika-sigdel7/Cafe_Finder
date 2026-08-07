@@ -121,7 +121,7 @@ def submit_review(cafe_id):
     )
 
 
-
+# Cafe Details
 @app.route("/cafe/<int:cafe_id>")
 def cafe_details(cafe_id):
     db = get_db()

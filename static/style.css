@@ -6,11 +6,6 @@
       font-family:'Merienda One', Arial,  sans-serif;
     }
 
-    /* Remove default margin & padding
-body {
-    margin: 0;
-} */
-
 /* Body and background */
 body {
    background: #fdf6f0;
@@ -147,23 +142,56 @@ header {
 }
 
 /* Responsive */
+
 @media (max-width: 1024px) {
-    .coffee-left h1 { font-size: 42px; }
-    .coffee-left p, .coffee-right p { font-size: 18px; }
+
+    .coffee-left h1 {
+        font-size: 50px;
+    }
+
+    .coffee-left p,
+    .coffee-right p {
+        font-size: 20px;
+    }
+
 }
 
+
 @media (max-width: 768px) {
+
     .coffee-section {
         flex-direction: column;
         text-align: center;
     }
-    .coffee-left, .coffee-right { max-width: 90%; }
-    .coffee-left h1 { font-size: 36px; }
+
+    .coffee-left,
+    .coffee-right {
+        max-width: 90%;
+    }
+
+    .coffee-left h1 {
+        font-size: 44px;
+    }
+
+    .coffee-left p,
+    .coffee-right p {
+        font-size: 18px;
+    }
+
 }
 
+
 @media (max-width: 480px) {
-    .coffee-left h1 { font-size: 28px; }
-    .coffee-left p, .coffee-right p { font-size: 16px; }
+
+    .coffee-left h1 {
+        font-size: 38px;
+    }
+
+    .coffee-left p,
+    .coffee-right p {
+        font-size: 17px;
+    }
+
 }
 
 
@@ -223,13 +251,13 @@ header {
     }
  
     /* nextpage */
- .coffee-section{
+ /* .coffee-section{
   display:flex;
   justify-content:center;
   align-items:center;
   gap:30px;  
   flex-wrap:wrap;
-}
+} */
 
 .coffee-left{
   max-width:200px;   
@@ -237,10 +265,6 @@ header {
   color:#5a3e36;
 }
 
-.coffee-left h1{
-  font-family:'Merienda', cursive;
-  font-size:28px;  
-}
 
 .coffee-center img{
   width:288px;  
@@ -263,8 +287,7 @@ header {
   line-height:1.4;
 }
 
-
-/* yo chae reccomendation kooo hai */
+/*Recommendation Section */
 .recommendation-section{
   padding:60px 20px;
   background: linear-gradient(135deg, #fdf6f0, #f4ede6);
@@ -317,7 +340,7 @@ header {
 
 /* Section Title */
 .section-title{
-  font-family:'Merienda', cursive;
+  font-family:'Merienda One', cursive;
   font-size:32px;
   color:#5a3e36;
   margin-bottom:40px;
