@@ -1,217 +1,613 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LOGIN</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<style>
-body {
-   margin: 0;
-      font-family: 'Merienda One', cursive;
-      background: linear-gradient(to bottom, #f4ede6, #fdf6f0);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <style>
+      /* =========================================================
+   LOGIN MODAL
+   ========================================================= */
 
-    .modal {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-    }
-
-    .modal-content {
-      background: #fff8f0;
-      padding: 40px 30px;
-      border-radius: 12px;
-      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-      text-align: center;
-      width: 350px;
-      max-width: 90%;
-      position: relative;
-    }
-
-    /* Close button */
-    .close-btn {
-      position: absolute;
-      top: 12px;
-      right: 15px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #5a3e36;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-
-    .close-btn:hover {
-      color: #c59d5f;
-    }
-
-    .modal-content h2 {
-      margin-bottom: 25px;
-      color: #5a3e36;
-      font-size: 28px;
-    }
-
-    .modal-content input[type="email"],
-    .modal-content input[type="password"] {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 18px;
-      border: 1px solid #c59d5f;
-      border-radius: 8px;
-      font-size: 16px;
-    }
-
-    .modal-content button {
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 10px;
-      border: none;
-      background-color: #c59d5f;
-      color: white;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .modal-content button:hover {
-      background-color: #a67c3d;
-    }
-
-    .forget-password {
-      display: block;
-      margin-top: 12px;
-      font-size: 14px;
-      color: #5a3e36;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    .forget-password:hover {
-      color: #c59d5f;
-      text-decoration: underline;
-    }
-
-    .message-success {
-      color: green;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .message-error {
-      color: red;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    /* ========== Tablet ========== */
-@media (max-width: 768px) {
-    .modal-content {
-        max-width: 90%;
-        padding: 35px 25px;
-    }
-
-    .modal-content h2 {
-        font-size: 1.8rem;
-    }
-
-    .modal-content input,
-    .modal-content button {
-        font-size: 0.95rem;
-    }
-}
-
-/* ========== Mobile ========== */
-@media (max-width: 480px) {
-    body {
-        padding: 15px;
-    }
-
-    .modal-content {
+      .modal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
-        padding: 25px 20px;
-        border-radius: 10px;
-    }
+        min-height: 70vh;
+        padding:  30px 20px;
+        box-sizing: border-box;
+      }
 
-    .modal-content h2 {
-        font-size: 1.5rem;
-        margin-bottom: 20px;
-    }
+      /* =========================================================
+   LOGIN BOX
+   ========================================================= */
 
-    .modal-content input[type="email"],
-    .modal-content input[type="password"] {
-        padding: 10px;
-        font-size: 0.9rem;
-        margin-bottom: 15px;
-    }
+      .modal-content {
+        background: #fff8f0;
+        padding: 40px 40px;
+        border-radius: 16px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18);
+        text-align: center;
+        width: 420px;
+        max-width: 90%;
+        position: relative;
+        box-sizing: border-box;
+      }
 
-    .modal-content button {
+      /* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+      .close-btn {
+        position: absolute;
+        top: 12px;
+        right: 15px;
+
+        font-size: 24px;
+        font-weight: bold;
+
+        color: #5a3e36;
+
+        cursor: pointer;
+
+        transition: color 0.3s ease;
+      }
+
+      .close-btn:hover {
+        color: #c59d5f;
+      }
+
+      /* =========================================================
+   LOGIN TITLE
+   ========================================================= */
+
+      .modal-content h2 {
+        margin: 0 0 25px 0;
+
+        color: #5a3e36;
+
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      /* =========================================================
+   LOGIN FORM
+   ========================================================= */
+
+      #login-form {
+        width: 100%;
+      }
+
+      /* =========================================================
+   USERNAME + PASSWORD INPUTS
+   ========================================================= */
+
+      .modal-content input[type="text"],
+      .modal-content input[type="password"] {
+        width: 100%;
+
         padding: 12px;
-        font-size: 0.95rem;
-    }
 
-    .forget-password {
-        font-size: 0.85rem;
-    }
+        margin-bottom: 18px;
 
-    .close-btn {
-        font-size: 22px;
-        top: 10px;
-        right: 12px;
-    }
-}
+        border: 1px solid #c59d5f;
+        border-radius: 8px;
 
-/* ========== Small Phones ========== */
-@media (max-width: 320px) {
-    .modal-content {
-        padding: 20px 15px;
-    }
+        font-size: 16px;
 
-    .modal-content h2 {
-        font-size: 1.3rem;
-    }
+        background: #ffffff;
 
-    .modal-content input,
-    .modal-content button {
-        font-size: 0.85rem;
-    }
-}
-  </style>
-</head>
+        color: #333;
 
-<body>
-<div class="modal">
-  <div class="modal-content">
+        outline: none;
 
-     <!-- Close button -->
-    <span class="close-btn" onclick="goHome()">&times;</span>
+        box-sizing: border-box;
 
-    <h2>Admin Login</h2>
-    <form method="POST" id="admin-login-form">
-      <input type="email" name="email" placeholder="Email" required />
-      <input type="password" name="password" placeholder="Password" required />
-      <button type="submit">Login</button>
-      <a href="{{ url_for('admin_restore_password') }}" class="forget-password">Forgot Password?</a>
-      <!-- <a href="#" class="forget-password">Forgot Password?</a> -->
-    </form>
-    {% if error %}
-      <p class="message-error">{{ error }}</p>
-    {% endif %}
-  </div>
-</div>
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      /* Input focus */
+
+      .modal-content input[type="text"]:focus,
+      .modal-content input[type="password"]:focus {
+        border-color: #a67c3d;
+
+        box-shadow: 0 0 5px rgba(197, 157, 95, 0.4);
+      }
+
+      /* Placeholder */
+
+      .modal-content input::placeholder {
+        color: #999;
+      }
+
+      /* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+      .modal-content button {
+        width: 100%;
+
+        padding: 14px;
+
+        font-size: 16px;
+        font-weight: bold;
+
+        border-radius: 10px;
+        border: none;
+
+        background-color: #c59d5f;
+
+        color: white;
+
+        cursor: pointer;
+
+        transition: all 0.3s ease;
+      }
+
+      .modal-content button:hover {
+        background-color: #a67c3d;
+
+        transform: translateY(-1px);
+      }
+
+      /* =========================================================
+   FORGOT PASSWORD
+   ========================================================= */
+
+      .forget-password {
+        display: block;
+
+        margin-top: 12px;
+
+        font-size: 14px;
+
+        color: #5a3e36;
+
+        text-decoration: none;
+
+        transition: color 0.3s ease;
+      }
+
+      .forget-password:hover {
+        color: #c59d5f;
+
+        text-decoration: underline;
+      }
+
+      /* =========================================================
+   CREATE ACCOUNT
+   ========================================================= */
+
+      .create-account {
+        margin-top: 20px;
+
+        font-size: 14px;
+
+        color: #5a3e36;
+      }
+
+      .create-account a {
+        color: #c59d5f;
+
+        font-weight: bold;
+
+        text-decoration: none;
+
+        transition: color 0.3s ease;
+      }
+
+      .create-account a:hover {
+        color: #a67c3d;
+
+        text-decoration: underline;
+      }
+
+      /* =========================================================
+   SUCCESS MESSAGE
+   ========================================================= */
+
+      .message-success {
+        color: green;
+
+        font-weight: bold;
+
+        text-align: center;
+
+        margin-bottom: 15px;
+      }
+
+      /* =========================================================
+   ERROR MESSAGE
+   ========================================================= */
+
+      .message-error {
+        color: red;
+
+        font-weight: bold;
+
+        text-align: center;
+
+        margin-bottom: 15px;
+      }
+
+      /* =========================================================
+   TABLET
+   ========================================================= */
+
+      @media (max-width: 768px) {
+        .modal {
+          padding: 20px;
+        }
+
+        .modal-content {
+          width: 350px;
+
+          max-width: 90%;
+
+          padding: 35px 25px;
+        }
+
+        .modal-content h2 {
+          font-size: 1.8rem;
+        }
+
+        .modal-content input[type="text"],
+        .modal-content input[type="password"],
+        .modal-content button {
+          font-size: 0.95rem;
+        }
+      }
+
+      /* =========================================================
+   MOBILE
+   ========================================================= */
+
+      @media (max-width: 480px) {
+        .modal {
+          padding: 15px;
+        }
+
+        .modal-content {
+          width: 100%;
+
+          max-width: 100%;
+
+          padding: 25px 20px;
+
+          border-radius: 10px;
+        }
+
+        .modal-content h2 {
+          font-size: 1.5rem;
+
+          margin-bottom: 20px;
+        }
+
+        .modal-content input[type="text"],
+        .modal-content input[type="password"] {
+          padding: 10px;
+
+          font-size: 0.9rem;
+
+          margin-bottom: 15px;
+        }
+
+        .modal-content button {
+          padding: 12px;
+
+          font-size: 0.95rem;
+        }
+
+        .forget-password {
+          font-size: 0.85rem;
+        }
+
+        .create-account {
+          font-size: 0.85rem;
+
+          line-height: 1.5;
+        }
+
+        .close-btn {
+          font-size: 22px;
+
+          top: 10px;
+
+          right: 12px;
+        }
+      }
+
+      /* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+      @media (max-width: 320px) {
+        .modal {
+          padding: 10px;
+        }
+
+        .modal-content {
+          padding: 20px 15px;
+        }
+
+        .modal-content h2 {
+          font-size: 1.3rem;
+        }
+
+        .modal-content input[type="text"],
+        .modal-content input[type="password"],
+        .modal-content button {
+          font-size: 0.85rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="modal">
+      <div class="modal-content">
+        <!doctype html>
+        <html lang="en">
+          <head>
+            <meta charset="UTF-8" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1.0"
+            />
+            <title>LOGIN</title>
+            <link
+              rel="stylesheet"
+              href="{{ url_for('static', filename='style.css') }}"
+            />
+            <style>
+              body {
+                margin: 0;
+                font-family: "Merienda One", cursive;
+                background: linear-gradient(to bottom, #f4ede6, #fdf6f0);
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+
+              .modal {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+              }
+
+              .modal-content {
+                background: #fff8f0;
+                padding: 40px 30px;
+                border-radius: 12px;
+                box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+                text-align: center;
+                width: 350px;
+                max-width: 90%;
+                position: relative;
+              }
+
+              /* Close button */
+              .close-btn {
+                position: absolute;
+                top: 12px;
+                right: 15px;
+                font-size: 24px;
+                font-weight: bold;
+                color: #5a3e36;
+                cursor: pointer;
+                transition: color 0.3s ease;
+              }
+
+              .close-btn:hover {
+                color: #c59d5f;
+              }
+
+              .modal-content h2 {
+                margin-bottom: 25px;
+                color: #5a3e36;
+                font-size: 28px;
+              }
+
+              .modal-content input[type="email"],
+              .modal-content input[type="password"] {
+                width: 100%;
+                padding: 12px;
+                margin-bottom: 18px;
+                border: 1px solid #c59d5f;
+                border-radius: 8px;
+                font-size: 16px;
+              }
+
+              .modal-content button {
+                width: 100%;
+                padding: 14px;
+                font-size: 16px;
+                font-weight: bold;
+                border-radius: 10px;
+                border: none;
+                background-color: #c59d5f;
+                color: white;
+                cursor: pointer;
+                transition: all 0.3s ease;
+              }
+
+              .modal-content button:hover {
+                background-color: #a67c3d;
+              }
+
+              .forget-password {
+                display: block;
+                margin-top: 12px;
+                font-size: 14px;
+                color: #5a3e36;
+                text-decoration: none;
+                transition: color 0.3s ease;
+              }
+
+              .forget-password:hover {
+                color: #c59d5f;
+                text-decoration: underline;
+              }
+
+              .message-success {
+                color: green;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 15px;
+              }
+
+              .message-error {
+                color: red;
+                font-weight: bold;
+                text-align: center;
+                margin-bottom: 15px;
+              }
+
+              /* ========== Tablet ========== */
+              @media (max-width: 768px) {
+                .modal-content {
+                  max-width: 90%;
+                  padding: 35px 25px;
+                }
+
+                .modal-content h2 {
+                  font-size: 1.8rem;
+                }
+
+                .modal-content input,
+                .modal-content button {
+                  font-size: 0.95rem;
+                }
+              }
+
+              /* ========== Mobile ========== */
+              @media (max-width: 480px) {
+                body {
+                  padding: 15px;
+                }
+
+                .modal-content {
+                  width: 100%;
+                  padding: 25px 20px;
+                  border-radius: 10px;
+                }
+
+                .modal-content h2 {
+                  font-size: 1.5rem;
+                  margin-bottom: 20px;
+                }
+
+                .modal-content input[type="email"],
+                .modal-content input[type="password"] {
+                  padding: 10px;
+                  font-size: 0.9rem;
+                  margin-bottom: 15px;
+                }
+
+                .modal-content button {
+                  padding: 12px;
+                  font-size: 0.95rem;
+                }
+
+                .forget-password {
+                  font-size: 0.85rem;
+                }
+
+                .close-btn {
+                  font-size: 22px;
+                  top: 10px;
+                  right: 12px;
+                }
+              }
+
+              /* ========== Small Phones ========== */
+              @media (max-width: 320px) {
+                .modal-content {
+                  padding: 20px 15px;
+                }
+
+                .modal-content h2 {
+                  font-size: 1.3rem;
+                }
+
+                .modal-content input,
+                .modal-content button {
+                  font-size: 0.85rem;
+                }
+              }
+            </style>
+          </head>
+
+          <body>
+            <div class="modal">
+              <div class="modal-content">
+                <!-- Close button -->
+                <span class="close-btn" onclick="goHome()">&times;</span>
+
+                <h2>Login</h2>
+
+                <form method="POST" id="login-form">
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    required
+                  />
+
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                  />
+
+                  <button type="submit">Login</button>
+
+                  <a
+                    href="{{ url_for('admin_restore_password') }}"
+                    class="forget-password"
+                  >
+                    Forgot Password?
+                  </a>
+                </form>
+
+                <p class="create-account">
+                  Don't have an account?
+                  <a href="{{ url_for('register') }}"> Create Account </a>
+                </p>
+
+                {% if error %}
+                <p class="message-error">{{ error }}</p>
+                {% endif %}
+              </div>
+            </div>
+
+            <script>
+              function goHome() {
+                // Redirect to home page
+                window.location.href = "{{ url_for('home') }}";
+              }
+            </script>
+          </body>
+        </html>
+      </div>
+    </div>
 
     <script>
-  function goHome() {
-    // Redirect to home page
-    window.location.href = "{{ url_for('home') }}";
-  }
-</script>
-</body>
+      function goHome() {
+        // Redirect to home page
+        window.location.href = "{{ url_for('home') }}";
+      }
+    </script>
+  </body>
 </html>

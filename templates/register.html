@@ -6,78 +6,116 @@
 
     <title>Create Account - Cafe Finder</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
-    <div class="login-container">
+    <div class="auth-container">
 
-        <h2>Create Account</h2>
+        <div class="auth-box">
 
-        {% if error %}
-            <p class="error-message">{{ error }}</p>
-        {% endif %}
+            <h1>Create Account</h1>
 
-        <form method="POST"
-              action="{{ url_for('register') }}">
+            <p class="auth-subtitle">
+                Create your Cafe Finder account
+            </p>
 
-            <label for="username">Username</label>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
-            <input
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Enter username"
-                required
-            >
+            <form method="POST">
 
-            <label for="email">Email</label>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
 
-            <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Enter email"
-                required
-            >
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+                </div>
 
-            <label for="password">Password</label>
+                <div class="form-group">
+                    <label for="username">Username</label>
 
-            <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Create password"
-                required
-            >
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        placeholder="Enter username"
+                        required
+                    >
+                </div>
 
-            <label for="confirm_password">
-                Confirm Password
-            </label>
+                <div class="form-group">
+                    <label for="email">Email</label>
 
-            <input
-                type="password"
-                id="confirm_password"
-                name="confirm_password"
-                placeholder="Confirm password"
-                required
-            >
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
 
-            <button type="submit">
-                Create Account
-            </button>
+                <div class="form-group">
+                    <label for="password">Password</label>
 
-        </form>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
+                        required
+                    >
+                </div>
 
-        <p>
-            Already have an account?
+                <div class="form-group">
+                    <label for="confirm_password">
+                        Confirm Password
+                    </label>
 
-            <a href="{{ url_for('login') }}">
-                Login
-            </a>
-        </p>
+                    <input
+                        type="password"
+                        id="confirm_password"
+                        name="confirm_password"
+                        placeholder="Confirm your password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="auth-btn">
+                    Create Account
+                </button>
+
+            </form>
+
+            <p class="auth-footer">
+                Already have an account?
+
+                <a href="{{ url_for('login') }}">
+                    Login
+                </a>
+            </p>
+
+            <p class="auth-footer">
+                <a href="{{ url_for('home') }}">
+                    Back to Home
+                </a>
+            </p>
+
+        </div>
 
     </div>
 

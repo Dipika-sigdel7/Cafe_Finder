@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, flash,session
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
@@ -17,6 +17,97 @@ def get_db():
         database="Cafe_Finder"
     )
 
+# For Register
+@app.route("/register", methods=["GET", "POST"])
+def register():
+
+    if request.method == "POST":
+
+        name = request.form.get("name", "").strip()
+        username = request.form.get("username", "").strip()
+        email = request.form.get("email", "").strip()
+        password = request.form.get("password", "")
+        confirm_password = request.form.get("confirm_password", "")
+
+        # Check required fields
+        if not name or not username or not email or not password:
+            flash("All fields are required.")
+            return redirect(url_for("register"))
+
+        # Check password confirmation
+        if password != confirm_password:
+            flash("Passwords do not match.")
+            return redirect(url_for("register"))
+
+        db = get_db()
+        cursor = db.cursor(dictionary=True)
+
+        try:
+
+            # Check username
+            cursor.execute(
+                "SELECT id FROM users WHERE username = %s",
+                (username,)
+            )
+
+            existing_username = cursor.fetchone()
+
+            if existing_username:
+                flash("Username already exists.")
+                return redirect(url_for("register"))
+
+            # Check email
+            cursor.execute(
+                "SELECT id FROM users WHERE email = %s",
+                (email,)
+            )
+
+            existing_email = cursor.fetchone()
+
+            if existing_email:
+                flash("Email already exists.")
+                return redirect(url_for("register"))
+
+            # Hash password
+            hashed_password = generate_password_hash(password)
+
+            # Insert user
+            cursor.execute(
+                """
+                INSERT INTO users
+                (name, username, email, password)
+                VALUES (%s, %s, %s, %s)
+                """,
+                (
+                    name,
+                    username,
+                    email,
+                    hashed_password
+                )
+            )
+
+            db.commit()
+
+            flash("Account created successfully. Please login.")
+
+            return redirect(url_for("login"))
+
+        except Exception as e:
+
+            db.rollback()
+
+            print("Registration error:", e)
+
+            flash("Something went wrong while creating your account.")
+
+            return redirect(url_for("register"))
+
+        finally:
+
+            cursor.close()
+            db.close()
+
+    return render_template("register.html")
 
 # ADMIN LOGIN ROUTE
 @app.route("/admin/login", methods=["GET", "POST"])
