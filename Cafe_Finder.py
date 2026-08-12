@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
-app.secret_key = "your_secret_key"
+app.secret_key = "cafe-finder-secret-key"
 
 # Database Connection
 def get_db():
@@ -17,6 +17,54 @@ def get_db():
         database="Cafe_Finder"
     )
 
+# Login Route
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    if request.method == "POST":
+
+        login = request.form.get("login", "").strip()
+        password = request.form.get("password", "")
+
+        if not login or not password:
+            return render_template(
+                "login.html",
+                error="Username/Email and password are required."
+            )
+
+        db = get_db()
+        cursor = db.cursor(dictionary=True)
+
+        cursor.execute(
+            """
+            SELECT *
+            FROM users
+            WHERE username = %s OR email = %s
+            """,
+            (login, login)
+        )
+
+        user = cursor.fetchone()
+
+        cursor.close()
+        db.close()
+
+        if user and check_password_hash(user["password"], password):
+
+            session["user_id"] = user["id"]
+            session["username"] = user["username"]
+
+            flash("Login successful!", "success")
+
+            return redirect(url_for("home"))
+
+        else:
+            return render_template(
+                "login.html",
+                error="Invalid username/email or password."
+            )
+
+    return render_template("login.html")
 # For Register
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -31,47 +79,41 @@ def register():
 
         # Check required fields
         if not name or not username or not email or not password:
-            flash("All fields are required.")
-            return redirect(url_for("register"))
+            return render_template(
+                "register.html",
+                error="All fields are required."
+            ) 
 
         # Check password confirmation
         if password != confirm_password:
-            flash("Passwords do not match.")
-            return redirect(url_for("register"))
+            return render_template(
+                "register.html",
+                error="Passwords do not match."
+            )
 
         db = get_db()
         cursor = db.cursor(dictionary=True)
 
         try:
 
-            # Check username
+            # Check if username or email already exists
             cursor.execute(
-                "SELECT id FROM users WHERE username = %s",
-                (username,)
+                """SELECT id FROM users WHERE username = %s OR email=%s""",
+                (username,email)
             )
 
-            existing_username = cursor.fetchone()
+            existing_user = cursor.fetchone()
 
-            if existing_username:
-                flash("Username already exists.")
-                return redirect(url_for("register"))
-
-            # Check email
-            cursor.execute(
-                "SELECT id FROM users WHERE email = %s",
-                (email,)
+            if existing_user:
+                return render_template(
+                    "register.html",
+                    error="Username or email already exists."
             )
-
-            existing_email = cursor.fetchone()
-
-            if existing_email:
-                flash("Email already exists.")
-                return redirect(url_for("register"))
 
             # Hash password
             hashed_password = generate_password_hash(password)
 
-            # Insert user
+            # Create account
             cursor.execute(
                 """
                 INSERT INTO users
@@ -88,9 +130,16 @@ def register():
 
             db.commit()
 
-            flash("Account created successfully. Please login.")
+            # IMPORTANT:
+            # Return to the existing login page
+            flash(
+                "Account created successfully. Please login.",
+                "success"
+            )
 
-            return redirect(url_for("login"))
+            return redirect(
+                url_for(
+                    "admin_login"))
 
         except Exception as e:
 
@@ -98,9 +147,10 @@ def register():
 
             print("Registration error:", e)
 
-            flash("Something went wrong while creating your account.")
-
-            return redirect(url_for("register"))
+            return render_template(
+                "register.html",
+                error="Registration failed. Please try again."
+            )
 
         finally:
 
@@ -108,6 +158,7 @@ def register():
             db.close()
 
     return render_template("register.html")
+        
 
 # ADMIN LOGIN ROUTE
 @app.route("/admin/login", methods=["GET", "POST"])

@@ -1,123 +1,499 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Create Account - Cafe Finder</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <style>
+      /* =========================================================
+   REGISTER PAGE
+   ========================================================= */
 
-<body>
+      * {
+        box-sizing: border-box;
+      }
 
+      body {
+        margin: 0;
+        padding: 0;
+
+        font-family: Georgia, "Times New Roman", serif;
+
+        background: linear-gradient(
+          rgba(255, 248, 240, 0.92),
+          rgba(255, 248, 240, 0.92)
+        );
+
+        color: #5a3e36;
+      }
+
+      /* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+      .auth-container {
+        min-height: 100vh;
+
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 35px 20px;
+      }
+
+      /* =========================================================
+   REGISTER CARD
+   ========================================================= */
+
+      .auth-box {
+        width: 470px;
+        max-width: 100%;
+
+        padding: 40px 42px;
+
+        background: #fff8f0;
+
+        border: 1px solid rgba(197, 157, 95, 0.25);
+
+        border-radius: 20px;
+
+        box-shadow:
+          0 20px 45px rgba(90, 62, 54, 0.15),
+          0 5px 15px rgba(90, 62, 54, 0.08);
+
+        text-align: center;
+
+        animation: registerAppear 0.5s ease;
+      }
+
+      /* =========================================================
+   ANIMATION
+   ========================================================= */
+
+      @keyframes registerAppear {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* =========================================================
+   TITLE
+   ========================================================= */
+
+      .auth-box h1 {
+        margin: 0 0 8px;
+
+        color: #5a3e36;
+
+        font-size: 34px;
+
+        font-weight: bold;
+
+        letter-spacing: 0.5px;
+      }
+
+      /* =========================================================
+   SUBTITLE
+   ========================================================= */
+
+      .auth-subtitle {
+        margin: 0 0 28px;
+
+        color: #8a6b5d;
+
+        font-size: 14px;
+
+        line-height: 1.5;
+      }
+
+      /* =========================================================
+   FORM
+   ========================================================= */
+
+      .auth-box form {
+        width: 100%;
+
+        text-align: left;
+      }
+
+      /* =========================================================
+   FORM GROUP
+   ========================================================= */
+
+      .form-group {
+        width: 100%;
+
+        margin-bottom: 17px;
+      }
+
+      /* =========================================================
+   LABEL
+   ========================================================= */
+
+      .form-group label {
+        display: block;
+
+        margin-bottom: 7px;
+
+        color: #5a3e36;
+
+        font-size: 14px;
+
+        font-weight: 600;
+      }
+
+      /* =========================================================
+   INPUTS
+   ========================================================= */
+
+      .form-group input {
+        width: 100%;
+
+        height: 50px;
+
+        padding: 0 15px;
+
+        border: 1.5px solid #d2a866;
+
+        border-radius: 10px;
+
+        background: #ffffff;
+
+        color: #4b352e;
+
+        font-family: inherit;
+
+        font-size: 15px;
+
+        outline: none;
+
+        transition:
+          border-color 0.25s ease,
+          box-shadow 0.25s ease,
+          background-color 0.25s ease;
+      }
+
+      /* =========================================================
+   INPUT HOVER
+   ========================================================= */
+
+      .form-group input:hover {
+        border-color: #b88b4c;
+      }
+
+      /* =========================================================
+   INPUT FOCUS
+   ========================================================= */
+
+      .form-group input:focus {
+        border-color: #a67c3d;
+
+        background: #fffdf9;
+
+        box-shadow: 0 0 0 3px rgba(197, 157, 95, 0.15);
+      }
+
+      /* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
+      .form-group input::placeholder {
+        color: #aaa09a;
+      }
+
+      /* =========================================================
+   REGISTER BUTTON
+   ========================================================= */
+
+      .auth-btn {
+        width: 100%;
+
+        height: 52px;
+
+        margin-top: 8px;
+
+        border: none;
+
+        border-radius: 10px;
+
+        background: linear-gradient(135deg, #cda464, #b88b4c);
+
+        color: white;
+
+        font-family: inherit;
+
+        font-size: 17px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        box-shadow: 0 6px 15px rgba(166, 124, 61, 0.22);
+
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          background 0.25s ease;
+      }
+
+      /* =========================================================
+   BUTTON HOVER
+   ========================================================= */
+
+      .auth-btn:hover {
+        background: linear-gradient(135deg, #b88b4c, #a67c3d);
+
+        transform: translateY(-2px);
+
+        box-shadow: 0 9px 20px rgba(166, 124, 61, 0.28);
+      }
+
+      /* =========================================================
+   BUTTON CLICK
+   ========================================================= */
+
+      .auth-btn:active {
+        transform: translateY(0);
+      }
+
+      /* =========================================================
+   ALERT / FLASH MESSAGE
+   ========================================================= */
+
+      .alert {
+        width: 100%;
+
+        margin-bottom: 20px;
+
+        padding: 11px 14px;
+
+        border-radius: 8px;
+
+        background: #fff0ee;
+
+        border: 1px solid #e2aaa3;
+
+        color: #b43d32;
+
+        font-family: Arial, sans-serif;
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+        line-height: 1.4;
+
+        text-align: center;
+      }
+
+      /* =========================================================
+   FOOTER
+   ========================================================= */
+
+      .auth-footer {
+        margin: 22px 0 0;
+
+        color: #6b4a3f;
+
+        font-size: 14px;
+
+        line-height: 1.6;
+
+        text-align: center;
+      }
+
+      /* =========================================================
+   FOOTER LINKS
+   ========================================================= */
+
+      .auth-footer a {
+        color: #b88b4c;
+
+        font-weight: bold;
+
+        text-decoration: none;
+
+        transition: color 0.25s ease;
+      }
+
+      .auth-footer a:hover {
+        color: #8f6738;
+
+        text-decoration: underline;
+      }
+
+      /* =========================================================
+   MOBILE
+   ========================================================= */
+
+      @media (max-width: 600px) {
+        .auth-container {
+          padding: 25px 15px;
+        }
+
+        .auth-box {
+          width: 100%;
+
+          padding: 32px 25px;
+
+          border-radius: 16px;
+        }
+
+        .auth-box h1 {
+          font-size: 29px;
+        }
+
+        .auth-subtitle {
+          font-size: 13px;
+
+          margin-bottom: 24px;
+        }
+
+        .form-group input {
+          height: 48px;
+
+          font-size: 14px;
+        }
+
+        .auth-btn {
+          height: 49px;
+
+          font-size: 16px;
+        }
+
+        .auth-footer {
+          font-size: 13px;
+        }
+      }
+
+      /* =========================================================
+   SMALL PHONES
+   ========================================================= */
+
+      @media (max-width: 350px) {
+        .auth-box {
+          padding: 28px 18px;
+        }
+
+        .auth-box h1 {
+          font-size: 26px;
+        }
+
+        .form-group {
+          margin-bottom: 14px;
+        }
+
+        .form-group input {
+          height: 46px;
+        }
+
+        .auth-btn {
+          height: 47px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
     <div class="auth-container">
+      <div class="auth-box">
+        <h1>Create Account</h1>
 
-        <div class="auth-box">
+        <p class="auth-subtitle">Create your Cafe Finder account</p>
 
-            <h1>Create Account</h1>
+        {% with messages = get_flashed_messages() %} {% if messages %} {% for
+        message in messages %}
+        <div class="alert">{{ message }}</div>
+        {% endfor %} {% endif %} {% endwith %}
 
-            <p class="auth-subtitle">
-                Create your Cafe Finder account
-            </p>
+        <form method="POST">
+          <div class="form-group">
+            <label for="name">Full Name</label>
 
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
 
-            <form method="POST">
+          <div class="form-group">
+            <label for="username">Username</label>
 
-                <div class="form-group">
-                    <label for="name">Full Name</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter username"
+              required
+            />
+          </div>
 
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        placeholder="Enter your full name"
-                        required
-                    >
-                </div>
+          <div class="form-group">
+            <label for="email">Email</label>
 
-                <div class="form-group">
-                    <label for="username">Username</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
 
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        placeholder="Enter username"
-                        required
-                    >
-                </div>
+          <div class="form-group">
+            <label for="password">Password</label>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter password"
+              required
+            />
+          </div>
 
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        required
-                    >
-                </div>
+          <div class="form-group">
+            <label for="confirm_password"> Confirm Password </label>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
+            <input
+              type="password"
+              id="confirm_password"
+              name="confirm_password"
+              placeholder="Confirm your password"
+              required
+            />
+          </div>
 
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter password"
-                        required
-                    >
-                </div>
+          <button type="submit" class="auth-btn">Create Account</button>
+        </form>
 
-                <div class="form-group">
-                    <label for="confirm_password">
-                        Confirm Password
-                    </label>
+        <p class="auth-footer">
+          Already have an account?
 
-                    <input
-                        type="password"
-                        id="confirm_password"
-                        name="confirm_password"
-                        placeholder="Confirm your password"
-                        required
-                    >
-                </div>
+          <a href="{{ url_for('admin_login') }}"> Login </a>
+        </p>
 
-                <button type="submit" class="auth-btn">
-                    Create Account
-                </button>
-
-            </form>
-
-            <p class="auth-footer">
-                Already have an account?
-
-                <a href="{{ url_for('login') }}">
-                    Login
-                </a>
-            </p>
-
-            <p class="auth-footer">
-                <a href="{{ url_for('home') }}">
-                    Back to Home
-                </a>
-            </p>
-
-        </div>
-
+        <p class="auth-footer">
+          <a href="{{ url_for('home') }}"> Back to Home </a>
+        </p>
+      </div>
     </div>
-
-</body>
+  </body>
 </html>
