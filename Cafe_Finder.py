@@ -115,25 +115,31 @@ def admin_login():
     error = None
 
     if request.method == "POST":
-        email = request.form["email"]
-        password = request.form["password"]
+        login = request.form.get("login","").strip()
+        password = request.form.get("password","")
 
+        if not login or not password:
+            error = "Username/Email and password are required."
+            return render_template(
+                "admin_login.html",
+                error=error
+            )
+        
         db = get_db()
         cursor = db.cursor(dictionary=True)
 
         cursor.execute(
-            "SELECT * FROM admins WHERE email = %s", 
-            (email,)
+            """SELECT * FROM admins WHERE  username =%s OR email = %s""", 
+            (login,login)
         )
 
         admin = cursor.fetchone()
 
         if admin and check_password_hash(admin["password"], password):
 
+            session["admin_id"] = admin["id"]
             cursor.close()
             db.close()
-
-            session["admin_id"] = admin["id"]
 
             return redirect(url_for("admin_dashboard"))
         
