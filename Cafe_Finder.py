@@ -1,4 +1,4 @@
-from flask import (Flask, render_template, request, redirect, url_for, flash, session,get_flashed_message)
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
@@ -79,10 +79,7 @@ def register():
         password = request.form.get("password", "")
         confirm_password = request.form.get("confirm_password", "")
 
-        # -------------------------------------------------
-        # REQUIRED FIELDS
-        # -------------------------------------------------
-
+        # Required fields
         if (
             not name
             or not username
@@ -92,12 +89,8 @@ def register():
         ):
             return render_template("register.html", error="All fields are required.")
 
-        # -------------------------------------------------
-        # PASSWORD CONFIRMATION
-        # -------------------------------------------------
-
+        # Password confirmation
         if password != confirm_password:
-
             return render_template("register.html", error="Passwords do not match.")
 
         db = get_db()
@@ -105,10 +98,7 @@ def register():
 
         try:
 
-            # -------------------------------------------------
-            # CHECK EXISTING USER
-            # -------------------------------------------------
-
+            # Check existing username/email
             cursor.execute(
                 """
                 SELECT id
@@ -118,24 +108,15 @@ def register():
                 (username, email),
             )
 
-            existing_user = cursor.fetchone()
-
-            if existing_user:
-
+            if cursor.fetchone():
                 return render_template(
                     "register.html", error="Username or email already exists."
                 )
 
-            # -------------------------------------------------
-            # HASH PASSWORD
-            # -------------------------------------------------
-
+            # Hash password
             hashed_password = generate_password_hash(password)
 
-            # -------------------------------------------------
-            # CREATE ACCOUNT
-            # -------------------------------------------------
-
+            # Create account
             cursor.execute(
                 """
                 INSERT INTO users
@@ -147,16 +128,10 @@ def register():
 
             db.commit()
 
-            # -------------------------------------------------
-            # SUCCESS MESSAGE
-            # -------------------------------------------------
-
+            # CREATE FLASH MESSAGE
             flash("Account created successfully. Please login.", "success")
 
-            # -------------------------------------------------
-            # RETURN TO EXISTING LOGIN PAGE
-            # -------------------------------------------------
-
+            # Go to existing login page
             return redirect(url_for("admin_login"))
 
         except Exception as e:
@@ -192,24 +167,15 @@ def admin_login():
         login = request.form.get("login", "").strip()
         password = request.form.get("password", "")
 
-        # -------------------------------------------------
-        # CHECK EMPTY FIELDS
-        # -------------------------------------------------
-
         if not login or not password:
-
-            error = "Username/Email and password are required."
-
-            return render_template("admin_login.html", error=error)
+            return render_template(
+                "admin_login.html", error="Username/Email and password are required."
+            )
 
         db = get_db()
         cursor = db.cursor(dictionary=True)
 
         try:
-
-            # -------------------------------------------------
-            # FIND USER BY USERNAME OR EMAIL
-            # -------------------------------------------------
 
             cursor.execute(
                 """
@@ -223,46 +189,23 @@ def admin_login():
 
             user = cursor.fetchone()
 
-            # -------------------------------------------------
-            # CHECK PASSWORD
-            # -------------------------------------------------
-
             if user and check_password_hash(user["password"], password):
 
                 session["user_id"] = user["id"]
 
-                # Login success message
-                flash("Login successfully!", "success")
-
                 return redirect(url_for("admin_dashboard"))
 
-            else:
-
-                error = "Invalid Username/Email or Password."
+            error = "Invalid Username/Email or Password."
 
         except Exception as e:
 
             print("Login error:", e)
-
             error = "Login failed. Please try again."
 
         finally:
 
             cursor.close()
             db.close()
-
-    # -------------------------------------------------
-    # GET FLASHED MESSAGES
-    # -------------------------------------------------
-
-    messages = get_flashed_messages(with_categories=True)
-
-    success = None
-
-    for category, message in messages:
-
-        if category == "success":
-            success = message
 
     return render_template("admin_login.html", error=error)
 

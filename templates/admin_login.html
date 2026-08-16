@@ -327,28 +327,149 @@
         box-sizing: border-box;
       }
 
-      /* =========================================================
-   SUCCESS MESSAGE
-   ========================================================= */
-      .message-success {
-        width: 100%;
-        padding: 12px 15px;
-        margin: 0 0 20px 0;
+      /* =========================================
+   SUCCESS POPUP
+   ========================================= */
 
-        background: #edf8ee;
-        border: 1px solid #9dcc9f;
+      .success-popup {
+        position: fixed;
 
-        border-radius: 8px;
+        top: 25px;
+        left: 50%;
 
-        color: #34783a;
+        transform: translateX(-50%);
 
-        font-size: 14px;
-        font-weight: 600;
+        width: 420px;
+        max-width: calc(100% - 30px);
 
-        text-align: center;
+        display: flex;
+        align-items: center;
 
-        box-sizing: border-box;
+        gap: 14px;
+
+        padding: 16px 45px 16px 16px;
+
+        background: #fff8f0;
+
+        border-radius: 12px;
+
+        border-left: 5px solid #4caf50;
+
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+        z-index: 99999;
+
+        animation: popupIn 0.4s ease;
       }
+
+      /* CHECK ICON */
+
+      .success-icon {
+        width: 38px;
+        height: 38px;
+
+        min-width: 38px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #4caf50;
+
+        color: white;
+
+        border-radius: 50%;
+
+        font-size: 21px;
+        font-weight: bold;
+      }
+
+      /* TEXT */
+
+      .success-text {
+        display: flex;
+        flex-direction: column;
+
+        gap: 3px;
+      }
+
+      .success-text strong {
+        color: #5a3e36;
+        font-size: 16px;
+      }
+
+      .success-text span {
+        color: #6b5a50;
+        font-size: 14px;
+      }
+
+      /* CLOSE */
+
+      .popup-close {
+        position: absolute;
+
+        top: 8px;
+        right: 10px;
+
+        border: none;
+
+        background: transparent;
+
+        color: #777;
+
+        font-size: 22px;
+
+        cursor: pointer;
+      }
+
+      .popup-close:hover {
+        color: #5a3e36;
+      }
+
+      /* ANIMATION */
+
+      @keyframes popupIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -30px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translate(-50%, 0);
+        }
+      }
+
+      /* MOBILE */
+
+      @media (max-width: 480px) {
+        .success-popup {
+          top: 15px;
+
+          width: calc(100% - 30px);
+
+          padding: 14px 40px 14px 14px;
+        }
+
+        .success-icon {
+          width: 34px;
+          height: 34px;
+
+          min-width: 34px;
+
+          font-size: 18px;
+        }
+
+        .success-text strong {
+          font-size: 15px;
+        }
+
+        .success-text span {
+          font-size: 13px;
+        }
+      }
+
+
 
       /* =========================================================
    TABLET
@@ -460,17 +581,41 @@
         <span class="close-btn" onclick="goHome()">&times;</span>
 
         <h2>Login</h2>
+       
+        <body>
 
-        <!-- =========================================
-           ACCOUNT CREATED SUCCESS MESSAGE
-           ========================================= -->
+  <!-- SUCCESS POPUP -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
 
-        {% if success %}
+    {% for category, message in messages %}
 
-        <div class="message-success">✓ {{ success }}</div>
+      {% if category == "success" %}
 
-        {% endif %}
+        <div class="success-popup" id="successPopup">
 
+          <span class="success-icon">✓</span>
+
+          <span class="success-message">
+            {{ message }}
+          </span>
+
+          <button
+            type="button"
+            onclick="closeSuccessPopup()"
+          >
+            ×
+          </button>
+
+        </div>
+
+      {% endif %}
+
+    {% endfor %}
+
+  {% endwith %}
+
+
+        {% endif %} {% endfor %} {% endwith %}
         <!-- =========================================
            ERROR MESSAGE
            ========================================= -->
@@ -528,10 +673,27 @@
       </div>
     </div>
 
-    <script>
-      function goHome() {
-        window.location.href = "{{ url_for('home') }}";
-      }
-    </script>
+
+<script>
+  function goHome() {
+    window.location.href = "{{ url_for('home') }}";
+  }
+
+  function closeSuccessPopup() {
+    const popup = document.getElementById("success-popup");
+
+    if (popup) {
+      popup.remove();
+    }
+  }
+
+  // Automatically close success popup after 5 seconds
+  setTimeout(function () {
+    closeSuccessPopup();
+  }, 5000);
+</script>
+
+</body>
+</html>
   </body>
 </html>
