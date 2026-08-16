@@ -80,10 +80,10 @@ def register():
         confirm_password = request.form.get("confirm_password", "")
 
         # Check required fields
-        if not name or not username or not email or not password:
+        if not name or not username or not email or not password or not confirm_password:
             return render_template("register.html", error="All fields are required.")
 
-        # Check password
+        # password confirmation
         if password != confirm_password:
             return render_template("register.html", error="Passwords do not match.")
 
@@ -92,7 +92,7 @@ def register():
 
         try:
 
-            # Check username or email
+            # Check existing user
             cursor.execute(
                 """
                 SELECT id
@@ -124,29 +124,28 @@ def register():
 
             db.commit()
 
-            # CLOSE DATABASE
-            cursor.close()
-            db.close()
+            # save success message in session
+            session["register_success"]=("Account created successfully.Please Login")
+           
 
             # GO TO EXISTING LOGIN PAGE
             return redirect(
                 url_for(
-                    "admin_login", success="Account created successfully. Please login."
-                )
-            )
+                    "admin_login"))
 
         except Exception as e:
 
             db.rollback()
 
-            print("Registration error:", e)
-
-            cursor.close()
-            db.close()
-
             return render_template(
                 "register.html", error="Registration failed. Please try again."
             )
+
+        
+        finally:
+
+            cursor.close()
+            db.close()
 
     return render_template("register.html")
 
@@ -162,7 +161,7 @@ def admin_login():
     error = None
 
     # Get success message from registration
-    success = request.args.get("success")
+    success = session.pop("register_success",None)
 
     if request.method == "POST":
 
@@ -193,14 +192,12 @@ def admin_login():
 
             user = cursor.fetchone()
 
-            # Check login
+            # Check password
             if user and check_password_hash(user["password"], password):
 
                 session["user_id"] = user["id"]
 
-                cursor.close()
-                db.close()
-
+            # Login Successful
                 return redirect(url_for("admin_dashboard"))
 
             else:
