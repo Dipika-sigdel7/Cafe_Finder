@@ -574,26 +574,46 @@
     </style>
   </head>
 
-  <body>
-    <div class="modal">
-      <div class="modal-content">
-        <!-- Close button -->
-        <span class="close-btn" onclick="goHome()">&times;</span>
+<!DOCTYPE html>
+<html lang="en">
 
-        <h2>Login</h2>
-       
-        <body>
+<head>
+  <meta charset="UTF-8">
 
-  <!-- SUCCESS POPUP -->
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Login - Cafe Finder</title>
+
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"
+  >
+</head>
+
+
+<body>
+
+  <!-- =========================================
+       SUCCESS POPUP
+       ========================================= -->
+
   {% with messages = get_flashed_messages(with_categories=true) %}
 
     {% for category, message in messages %}
 
       {% if category == "success" %}
 
-        <div class="success-popup" id="successPopup">
+        <div
+          class="success-popup"
+          id="success-popup"
+        >
 
-          <span class="success-icon">✓</span>
+          <span class="success-icon">
+            ✓
+          </span>
 
           <span class="success-message">
             {{ message }}
@@ -601,9 +621,10 @@
 
           <button
             type="button"
+            class="popup-close"
             onclick="closeSuccessPopup()"
           >
-            ×
+            &times;
           </button>
 
         </div>
@@ -615,85 +636,148 @@
   {% endwith %}
 
 
-        {% endif %} {% endfor %} {% endwith %}
-        <!-- =========================================
+  <!-- =========================================
+       LOGIN MODAL
+       ========================================= -->
+
+  <div class="modal">
+
+    <div class="modal-content">
+
+      <!-- Close button -->
+
+      <span
+        class="close-btn"
+        onclick="goHome()"
+      >
+        &times;
+      </span>
+
+
+      <h2>Login</h2>
+
+
+      <!-- =========================================
            ERROR MESSAGE
            ========================================= -->
 
-        {% if error %}
+      {% if error %}
 
-        <div class="message-error">{{ error }}</div>
+        <div class="message-error">
+          {{ error }}
+        </div>
 
-        {% endif %}
+      {% endif %}
 
-        <!-- =========================================
+
+      <!-- =========================================
            LOGIN FORM
            ========================================= -->
 
-        <form
-          method="POST"
-          action="{{ url_for('admin_login') }}"
-          id="login-form"
+      <form
+        method="POST"
+        action="{{ url_for('admin_login') }}"
+        id="login-form"
+      >
+
+        <!-- Username or Email -->
+
+        <input
+          type="text"
+          name="login"
+          placeholder="Username or Email"
+          autocomplete="username"
+          required
         >
-          <input
-            type="text"
-            name="login"
-            placeholder="Username or Email"
-            autocomplete="username"
-            required
-          />
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            autocomplete="current-password"
-            required
-          />
 
-          <button type="submit">Login</button>
+        <!-- Password -->
 
-          <!-- Forgot password -->
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          autocomplete="current-password"
+          required
+        >
 
-          <a
-            href="{{ url_for('admin_restore_password') }}"
-            class="forget-password"
-          >
-            Forgot Password?
-          </a>
-        </form>
 
-        <!-- CREATE ACCOUNT -->
+        <!-- Login button -->
 
-        <p class="create-account">
-          Don't have an account?
+        <button type="submit">
+          Login
+        </button>
 
-          <a href="{{ url_for('register') }}"> Create Account </a>
-        </p>
-      </div>
+
+        <!-- Forgot password -->
+
+        <a
+          href="{{ url_for('admin_restore_password') }}"
+          class="forget-password"
+        >
+          Forgot Password?
+        </a>
+
+      </form>
+
+
+      <!-- =========================================
+           CREATE ACCOUNT
+           ========================================= -->
+
+      <p class="create-account">
+
+        Don't have an account?
+
+        <a href="{{ url_for('register') }}">
+          Create Account
+        </a>
+
+      </p>
+
     </div>
 
+  </div>
 
-<script>
-  function goHome() {
-    window.location.href = "{{ url_for('home') }}";
-  }
 
-  function closeSuccessPopup() {
-    const popup = document.getElementById("success-popup");
+  <!-- =========================================
+       JAVASCRIPT
+       ========================================= -->
 
-    if (popup) {
-      popup.remove();
+  <script>
+
+    function goHome() {
+
+      window.location.href =
+        "{{ url_for('home') }}";
+
     }
-  }
 
-  // Automatically close success popup after 5 seconds
-  setTimeout(function () {
-    closeSuccessPopup();
-  }, 5000);
-</script>
+
+    function closeSuccessPopup() {
+
+      const popup =
+        document.getElementById("success-popup");
+
+      if (popup) {
+        popup.remove();
+      }
+
+    }
+
+
+    // Automatically close popup after 5 seconds
+
+    setTimeout(function () {
+
+      closeSuccessPopup();
+
+    }, 5000);
+
+  </script>
+
 
 </body>
+
 </html>
-  </body>
-</html>
+    

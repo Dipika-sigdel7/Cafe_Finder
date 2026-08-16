@@ -156,7 +156,6 @@ def register():
 # ADMIN LOGIN
 # =========================================================
 
-
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
 
@@ -167,9 +166,11 @@ def admin_login():
         login = request.form.get("login", "").strip()
         password = request.form.get("password", "")
 
+        # Check empty fields
         if not login or not password:
             return render_template(
-                "admin_login.html", error="Username/Email and password are required."
+                "admin_login.html",
+                error="Username/Email and password are required."
             )
 
         db = get_db()
@@ -177,29 +178,42 @@ def admin_login():
 
         try:
 
+            # Find ADMIN by username OR email
             cursor.execute(
                 """
-                SELECT *
-                FROM users
+                SELECT id, username, email, password
+                FROM admins
                 WHERE username = %s OR email = %s
                 LIMIT 1
                 """,
-                (login, login),
+                (login, login)
             )
 
-            user = cursor.fetchone()
+            admin = cursor.fetchone()
 
-            if user and check_password_hash(user["password"], password):
+            # Check admin and password
+            if admin and check_password_hash(
+                admin["password"],
+                password
+            ):
 
-                session["user_id"] = user["id"]
+                # Store ADMIN session
+                session["admin_id"] = admin["id"]
+                session["admin_username"] = admin["username"]
 
-                return redirect(url_for("admin_dashboard"))
+                # Login successful
+                return redirect(
+                    url_for("admin_dashboard")
+                )
 
-            error = "Invalid Username/Email or Password."
+            else:
+
+                error = "Invalid Username/Email or Password."
 
         except Exception as e:
 
-            print("Login error:", e)
+            print("Admin login error:", e)
+
             error = "Login failed. Please try again."
 
         finally:
@@ -207,7 +221,10 @@ def admin_login():
             cursor.close()
             db.close()
 
-    return render_template("admin_login.html", error=error)
+    return render_template(
+        "admin_login.html",
+        error=error
+    )
 
 
 # Review
