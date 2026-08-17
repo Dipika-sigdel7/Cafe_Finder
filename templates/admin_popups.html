@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Popup Manager</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="admin-popup-page">
+
+        <div class="popup-page-header">
+
+            <div>
+                <h1>🔔 Popup Manager</h1>
+
+                <p>
+                    Manage offers, announcements, events and promotions.
+                </p>
+            </div>
+
+            <a
+                href="{{ url_for('admin_dashboard') }}"
+                class="back-button"
+            >
+                ← Dashboard
+            </a>
+
+        </div>
+
+
+        <div class="popup-actions">
+
+            <button
+                type="button"
+                onclick="showPopupForm()"
+                class="create-popup-button"
+            >
+                + Create Popup
+            </button>
+
+        </div>
+
+
+        <!-- CREATE POPUP FORM -->
+
+        <div
+            id="popupForm"
+            class="popup-form-card"
+            style="display: none;"
+        >
+
+            <h2>Create New Popup</h2>
+
+            <form
+                method="POST"
+                action="{{ url_for('admin_create_popup') }}"
+            >
+
+                <!-- CAFE -->
+
+                <div class="form-group">
+
+                    <label>Select Cafe</label>
+
+                    <select name="cafe_id">
+
+                        <option value="">
+                            All Cafes
+                        </option>
+
+                        {% for cafe in cafes %}
+
+                        <option value="{{ cafe.id }}">
+                            {{ cafe.name }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- TYPE -->
+
+                <div class="form-group">
+
+                    <label>Popup Type</label>
+
+                    <select name="type" required>
+
+                        <option value="offer">
+                            Offer
+                        </option>
+
+                        <option value="announcement">
+                            Announcement
+                        </option>
+
+                        <option value="event">
+                            Event
+                        </option>
+
+                        <option value="new_menu">
+                            New Menu
+                        </option>
+
+                        <option value="important">
+                            Important
+                        </option>
+
+                        <option value="promotion">
+                            Promotion
+                        </option>
+
+                        <option value="update">
+                            Update
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- TITLE -->
+
+                <div class="form-group">
+
+                    <label>Title</label>
+
+                    <input
+                        type="text"
+                        name="title"
+                        placeholder="Example: Weekend Special"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div class="form-group">
+
+                    <label>Message</label>
+
+                    <textarea
+                        name="message"
+                        rows="5"
+                        placeholder="Write your popup message..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <!-- DISCOUNT -->
+
+                <div class="form-group">
+
+                    <label>Discount Percentage</label>
+
+                    <input
+                        type="number"
+                        name="discount_percent"
+                        min="0"
+                        max="100"
+                        step="0.01"
+                        placeholder="10"
+                    >
+
+                </div>
+
+
+                <!-- BUTTON -->
+
+                <div class="form-group">
+
+                    <label>Button Text</label>
+
+                    <input
+                        type="text"
+                        name="button_text"
+                        placeholder="Visit Cafe"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Button URL</label>
+
+                    <input
+                        type="text"
+                        name="button_url"
+                        placeholder="/cafe/1"
+                    >
+
+                </div>
+
+
+                <!-- DATES -->
+
+                <div class="form-group">
+
+                    <label>Start Date & Time</label>
+
+                    <input
+                        type="datetime-local"
+                        name="start_date"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>End Date & Time</label>
+
+                    <input
+                        type="datetime-local"
+                        name="end_date"
+                    >
+
+                </div>
+
+
+                <!-- SETTINGS -->
+
+                <div class="popup-settings">
+
+                    <h3>Popup Settings</h3>
+
+                    <label class="checkbox-row">
+
+                        <input
+                            type="checkbox"
+                            name="is_active"
+                            checked
+                        >
+
+                        Active
+
+                    </label>
+
+
+                    <label class="checkbox-row">
+
+                        <input
+                            type="checkbox"
+                            name="show_popup"
+                            checked
+                        >
+
+                        Show as Popup
+
+                    </label>
+
+                </div>
+
+
+                <div class="form-buttons">
+
+                    <button
+                        type="submit"
+                        class="save-popup-button"
+                    >
+                        Save Popup
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="hidePopupForm()"
+                        class="cancel-popup-button"
+                    >
+                        Cancel
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- EXISTING POPUPS -->
+
+        <div class="existing-popups">
+
+            <h2>Existing Popups</h2>
+
+            {% if notifications %}
+
+                {% for notification in notifications %}
+
+                <div class="popup-item">
+
+                    <div>
+
+                        <span class="popup-type">
+                            {{ notification.type }}
+                        </span>
+
+                        <h3>
+                            {{ notification.title }}
+                        </h3>
+
+                        <p>
+                            {{ notification.message }}
+                        </p>
+
+                        {% if notification.cafe_name %}
+
+                            <small>
+                                ☕ {{ notification.cafe_name }}
+                            </small>
+
+                        {% else %}
+
+                            <small>
+                                ☕ All Cafes
+                            </small>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div>
+
+                        {% if notification.is_active %}
+
+                            <span class="status-active">
+                                Active
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-inactive">
+                                Disabled
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="no-popups">
+
+                    <p>
+                        No popups have been created yet.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function showPopupForm() {
+
+            document.getElementById("popupForm")
+                .style.display = "block";
+
+        }
+
+
+        function hidePopupForm() {
+
+            document.getElementById("popupForm")
+                .style.display = "none";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
