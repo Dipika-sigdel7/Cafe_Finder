@@ -325,12 +325,12 @@ def cafe_details(cafe_id):
         reviews=reviews,
     )
 
-# Pop-ups
+# Admin pop-up manager
 @app.route("/admin/popups")
 def admin_popups():
 
     # -----------------------------------------
-    # SECURITY CHECK
+    # check whether admin is logged in
     # -----------------------------------------
 
     if "admin_id" not in session:
@@ -414,7 +414,7 @@ def admin_popups():
 
 
         # -------------------------------------
-        # OPEN HTML PAGE
+        # OPEN pop-up manager page
         # -------------------------------------
 
         return render_template(
@@ -447,7 +447,7 @@ def admin_popups():
         db.close()
 
 #  Add the create popup Flask route
-        @app.route(
+@app.route(
     "/admin/popups/create",
     methods=["POST"]
 )
