@@ -325,6 +325,126 @@ def cafe_details(cafe_id):
         reviews=reviews,
     )
 
+# Pop-ups
+@app.route("/admin/popups")
+def admin_popups():
+
+    # -----------------------------------------
+    # SECURITY CHECK
+    # -----------------------------------------
+
+    if "admin_id" not in session:
+
+        return redirect(
+            url_for("admin_login")
+        )
+
+
+    # -----------------------------------------
+    # DATABASE
+    # -----------------------------------------
+
+    db = get_db()
+
+    if db is None:
+
+        flash(
+            "Database connection failed.",
+            "error"
+        )
+
+        return redirect(
+            url_for("admin_dashboard")
+        )
+
+
+    cursor = db.cursor(
+        dictionary=True
+    )
+
+
+    try:
+
+        # -------------------------------------
+        # GET NOTIFICATIONS
+        # -------------------------------------
+
+        cursor.execute("""
+            SELECT
+                n.id,
+                n.cafe_id,
+                n.type,
+                n.title,
+                n.message,
+                n.discount_percent,
+                n.button_text,
+                n.button_url,
+                n.image_url,
+                n.start_date,
+                n.end_date,
+                n.is_active,
+                n.show_popup,
+                n.created_at,
+                c.name AS cafe_name
+
+            FROM notifications n
+
+            LEFT JOIN cafes c
+                ON n.cafe_id = c.id
+
+            ORDER BY n.created_at DESC
+        """)
+
+        notifications = cursor.fetchall()
+
+
+        # -------------------------------------
+        # GET CAFES
+        # -------------------------------------
+
+        cursor.execute("""
+            SELECT
+                id,
+                name
+            FROM cafes
+            ORDER BY name
+        """)
+
+        cafes = cursor.fetchall()
+
+
+        # -------------------------------------
+        # OPEN HTML PAGE
+        # -------------------------------------
+
+        return render_template(
+            "admin_popups.html",
+            notifications=notifications,
+            cafes=cafes
+        )
+
+
+    except Error as error:
+
+        print(
+            "Popup loading error:",
+            error
+        )
+
+        flash(
+            "Unable to load popup manager.",
+            "error"
+        )
+
+        return redirect(
+            url_for("admin_dashboard")
+        )
+
+
+    finally:
+
+        cursor.close()
+        db.close()
 
 # Reservation
 @app.route("/reservation/<int:cafe_id>", methods=["POST"])
