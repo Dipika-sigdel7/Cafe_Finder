@@ -446,6 +446,258 @@ def admin_popups():
         cursor.close()
         db.close()
 
+#  Add the create popup Flask route
+        @app.route(
+    "/admin/popups/create",
+    methods=["POST"]
+)
+def admin_create_popup():
+
+    # -----------------------------------------
+    # SECURITY CHECK
+    # -----------------------------------------
+
+    if "admin_id" not in session:
+
+        return redirect(
+            url_for("admin_login")
+        )
+
+
+    # -----------------------------------------
+    # GET FORM DATA
+    # -----------------------------------------
+
+    cafe_id = request.form.get(
+        "cafe_id"
+    )
+
+    popup_type = request.form.get(
+        "type"
+    )
+
+    title = request.form.get(
+        "title",
+        ""
+    ).strip()
+
+    message = request.form.get(
+        "message",
+        ""
+    ).strip()
+
+    discount_percent = request.form.get(
+        "discount_percent"
+    )
+
+    button_text = request.form.get(
+        "button_text",
+        ""
+    ).strip()
+
+    button_url = request.form.get(
+        "button_url",
+        ""
+    ).strip()
+
+    start_date = request.form.get(
+        "start_date"
+    )
+
+    end_date = request.form.get(
+        "end_date"
+    )
+
+
+    # -----------------------------------------
+    # CHECKBOXES
+    # -----------------------------------------
+
+    is_active = 1 if request.form.get(
+        "is_active"
+    ) else 0
+
+
+    show_popup = 1 if request.form.get(
+        "show_popup"
+    ) else 0
+
+
+    # -----------------------------------------
+    # VALIDATION
+    # -----------------------------------------
+
+    if not title:
+
+        flash(
+            "Popup title is required.",
+            "error"
+        )
+
+        return redirect(
+            url_for("admin_popups")
+        )
+
+
+    if not message:
+
+        flash(
+            "Popup message is required.",
+            "error"
+        )
+
+        return redirect(
+            url_for("admin_popups")
+        )
+
+
+    if not popup_type:
+
+        flash(
+            "Popup type is required.",
+            "error"
+        )
+
+        return redirect(
+            url_for("admin_popups")
+        )
+
+
+    # -----------------------------------------
+    # EMPTY VALUES
+    # -----------------------------------------
+
+    if cafe_id == "":
+
+        cafe_id = None
+
+
+    if discount_percent == "":
+
+        discount_percent = None
+
+
+    if end_date == "":
+
+        end_date = None
+
+
+    if button_text == "":
+
+        button_text = None
+
+
+    if button_url == "":
+
+        button_url = None
+
+
+    # -----------------------------------------
+    # DATABASE
+    # -----------------------------------------
+
+    db = get_db()
+
+    if db is None:
+
+        flash(
+            "Database connection failed.",
+            "error"
+        )
+
+        return redirect(
+            url_for("admin_popups")
+        )
+
+
+    cursor = db.cursor()
+
+
+    try:
+
+        cursor.execute(
+            """
+            INSERT INTO notifications
+            (
+                cafe_id,
+                type,
+                title,
+                message,
+                discount_percent,
+                button_text,
+                button_url,
+                start_date,
+                end_date,
+                is_active,
+                show_popup
+            )
+
+            VALUES
+            (
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s,
+                %s
+            )
+            """,
+
+            (
+                cafe_id,
+                popup_type,
+                title,
+                message,
+                discount_percent,
+                button_text,
+                button_url,
+                start_date,
+                end_date,
+                is_active,
+                show_popup
+            )
+        )
+
+
+        db.commit()
+
+
+        flash(
+            "Popup created successfully!",
+            "success"
+        )
+
+
+    except Error as error:
+
+        db.rollback()
+
+        print(
+            "Create popup error:",
+            error
+        )
+
+        flash(
+            "Failed to create popup.",
+            "error"
+        )
+
+
+    finally:
+
+        cursor.close()
+        db.close()
+
+
+    return redirect(
+        url_for("admin_popups")
+    )
+
 # Reservation
 @app.route("/reservation/<int:cafe_id>", methods=["POST"])
 def reservation(cafe_id):
