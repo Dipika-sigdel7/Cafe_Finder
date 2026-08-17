@@ -164,6 +164,34 @@ body.admin-dashboard {
 
 }
 
+/* ==============================
+   POPUP MANAGER BUTTON
+============================== */
+
+.popup-manager-btn {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    padding: 12px 24px;
+
+    background: #6f4e37;
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.popup-manager-btn:hover {
+    background: #4e342e;
+    transform: translateY(-2px);
+}
+
 /* Responsive */
 @media(max-width:900px){
 
@@ -327,6 +355,16 @@ placeholder="98XXXXXXXX">
 </div>
 {% endfor %}
 </div>
+
+
+<!-- Popup Manager -->
+<a
+    href="{{ url_for('admin_popups') }}"
+    class="popup-manager-btn"
+>
+    🔔 Popup Manager
+</a>
+
 
 <!-- Logout button -->
 <a href="{{ url_for('admin_logout') }}" class="logout-btn">Logout</a>
