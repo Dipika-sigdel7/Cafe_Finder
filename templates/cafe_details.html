@@ -62,10 +62,15 @@
 
     <!-- About Section -->
     <div class="about-section" id="about">
-
-      <!-- Left -->
-      <div class="about-left">
+       
+      <!-- ABOUT TITLE -->
+      <div class="about-title">
         <h2>About Us</h2>
+      </div>
+
+
+      <!-- Left(description) -->
+      <div class="about-left">
         <p>{{ cafe.description }}</p>
       </div>
 
@@ -96,6 +101,8 @@
 ===================================================== -->
         {% if images %}
         <div id="imagemodal" class="cafe-gallery-modal">
+
+          <!-- close Button -->
           <button
             type="button"
             class="cafe-gallery-close"
@@ -121,6 +128,83 @@
         </div>
 
         {% endif %}
+
+       <!-- =========================================================
+     SERVICES SECTION
+========================================================= -->
+
+<section class="services-section" id="services">
+
+    <div class="services-heading">
+        <h2>Our Services</h2>
+        <p>Everything you need for a comfortable café experience.</p>
+    </div>
+
+    <div class="services-container">
+
+        <!-- Dine In -->
+        <div class="service-card">
+            <div class="service-icon">☕</div>
+            <h3>Dine-In</h3>
+            <p>
+                Enjoy freshly prepared food and beverages
+                in a comfortable café environment.
+            </p>
+        </div>
+
+        <!-- Takeaway -->
+        <div class="service-card">
+            <div class="service-icon">🥡</div>
+            <h3>Takeaway</h3>
+            <p>
+                Order your favorite food and drinks
+                and take them with you.
+            </p>
+        </div>
+
+        <!-- Delivery -->
+        <div class="service-card">
+            <div class="service-icon">🛵</div>
+            <h3>Food Delivery</h3>
+            <p>
+                Get your favorite café meals delivered
+                directly to your location.
+            </p>
+        </div>
+
+        <!-- Reservation -->
+        <div class="service-card">
+            <div class="service-icon">🪑</div>
+            <h3>Table Reservation</h3>
+            <p>
+                Reserve your table in advance and
+                enjoy a hassle-free visit.
+            </p>
+        </div>
+
+        <!-- Events -->
+        <div class="service-card">
+            <div class="service-icon">🎉</div>
+            <h3>Events & Parties</h3>
+            <p>
+                Perfect space for birthdays, meetings,
+                celebrations and special events.
+            </p>
+        </div>
+
+        <!-- WiFi -->
+        <div class="service-card">
+            <div class="service-icon">📶</div>
+            <h3>Free Wi-Fi</h3>
+            <p>
+                Stay connected while enjoying your
+                favorite coffee and food.
+            </p>
+        </div>
+
+    </div>
+
+</section> 
 
     <!-- Cafe Info Section -->
     <div class="cafe-info">
