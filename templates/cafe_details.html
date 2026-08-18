@@ -298,9 +298,10 @@
 
     <!-- Menu Section -->
     <section class="menu-section">
-      <h2>Our Menu</h2>
+      <h2 class="menu-title">Our Menu</h2>
 
       <!-- Categories -->
+      <div class="menu-categories">
       <div class="category-btn" onclick="showMenu('Drinks')">☕ Drinks</div>
 
       <div class="category-btn" onclick="showMenu('Food')">🍛 Food</div>
@@ -308,7 +309,8 @@
       <div class="category-btn" onclick="showMenu('Desserts')">🍰 Dessert</div>
 
       <div class="category-btn" onclick="showMenu('Snacks')">🍟 Snacks</div>
-
+      
+      </div>
       <!-- Drinks -->
       <div id="Drinks" class="menu-category">
         {% set drinks = [] %} {% for item in menu_items %} {% if item.category
