@@ -1,689 +1,24 @@
-     /* Welcome Section */
-
-      .welcome-section {
-        text-align: center;
-        padding: 50px 20px 30px;
-        /* margin: 20px auto; */
-        background: transparent;
-      }
-
-      .welcome-section h1 {
-        color: #4e342e;
-        font-size: 60px;
-        font-weight: 900;
-        letter-spacing: 2px;
-
-        font-family: "Georgia", serif;
-
-        text-transform: capitalize;
-
-        margin: 0;
-
-        /* elegant shadow */
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
-      }
-
-      /* Decorative line below text */
-      .welcome-section h1::after {
-        content: "";
-        display: block;
-
-        width: 180px;
-        height: 4px;
-
-        background: #8d6e63;
-
-        margin: 20px auto 0;
-
-        border-radius: 10px;
-      }
-
-      /* GENERAL RESET */
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        font-family: "Poppins", sans-serif;
-        background: #f8f5f2;
-        color: #333;
-      }
-
-      /* NAVBAR */
-      .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 40px;
-        background-color: #3e2723;
-      }
-
-      .navbar .logo {
-        color: #fff;
-        font-size: 24px;
-        font-weight: bold;
-      }
-
-      .nav-links {
-        list-style: none;
-        display: flex;
-        gap: 25px;
-      }
-
-      .nav-links a {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 500;
-      }
-
-      .nav-links a:hover {
-        color: #d7ccc8;
-      }
-
-      /* ABOUT SECTION WITH IMAGE */
-
-      .about-section {
-        display: flex;
-        align-items: flex-start;
-        gap: 40px;
-        padding: 50px;
-      }
-
-      /* Left Decoration */
-      .about-left {
-        flex: 1;
-      }
-
-      .about-left p {
-        line-height: 1.8;
-        font-size: 18px;
-      }
-
-      /* Right Image Area */
-      .about-right {
-        flex: 2;
-        overflow: visible1;
-      }
-
-      /* Image container */
-      .image-scroll-container {
-        width: 100%;
-        overflow: hidden;
-      }
-
-      /* First image shown in About section */
-      .main-gallery-image {
-        width: 500px;
-        height: 350px;
-        object-fit: cover;
-        border-radius: 15px;
-        cursor: pointer;
-        transition: 0.3s;
-      }
-
-      .main-gallery-image:hover {
-        transform: scale(1.05);
-      }
-
-      /* For image Popup */
-      .image-modal {
-        display: none;
-        position: fixed;
-        z-index: 9999;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.95);
-      }
-
-      .close-btn {
-        position: absolute;
-        right: 30px;
-        top: 20px;
-        color: white;
-        font-size: 40px;
-        cursor: pointer;
-        z-index: 10000;
-      }
-      /* Gallery popup images */
-      .gallery-slider {
-        display: flex;
-        align-items: center;
-        gap: 20;
-        width: 100%;
-        height: 100%;
-        overflow-x: scroll;
-        scroll-behavior: smooth;
-        padding: 40px;
-      }
-      /* Hide scrollbar */
-      .gallery-slider::-webkit-scrollbar {
-        display: none;
-      }
-
-      /* Multiple images */
-      .gallery-slide {
-        min-width: 80%;
-        height: 80%;
-        flex-shrink: 0;
-        object-fit: contain;
-        border-radius: 10px;
-      }
-
-      /* CAFE INFO */
-      .cafe-info {
-        display: flex;
-
-        justify-content: center;
-
-        align-items: center;
-
-        gap: 20px;
-
-        max-width: 1200px;
-
-        margin: 30px auto;
-      }
-
-      .cafe-info .info-item {
-        flex: 1;
-
-        background-color: #fff3e0;
-
-        padding: 20px;
-
-        border-radius: 10px;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: center;
-
-        gap: 10px;
-
-        min-width: 200px;
-      }
-
-      .cafe-info .info-item {
-        flex: 1 1 250px; /* responsive width */
-        background-color: #fff3e0;
-        padding: 20px 25px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-        transition:
-          transform 0.3s,
-          box-shadow 0.3s;
-      }
-
-      .cafe-info .info-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-      }
-
-      .cafe-info .info-label {
-        font-size: 18px;
-        font-weight: bold;
-        color: #5d4037;
-      }
-
-      .cafe-info .info-value {
-        font-size: 16px;
-        color: #6d4c41;
-      }
-
-      /* Reservation Button */
-      .reservation-btn {
-        border: none;
-        background: none;
-        color: #5d4037;
-        font-weight: bold;
-        font-size: 16px;
-        cursor: pointer;
-      }
-
-      .reservation-btn:hover {
-        color: #c59d5f;
-      }
-
-      /* Reservation Form */
-
-      .reservation-form {
-        display: none;
-
-        max-width: 500px;
-
-        margin: 30px auto;
-
-        padding: 25px;
-
-        background: #fff3e0;
-
-        border-radius: 12px;
-
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      }
-
-      .reservation-form h2 {
-        text-align: center;
-
-        color: #5d4037;
-      }
-
-      .reservation-form form {
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 12px;
-      }
-
-      .reservation-form input,
-      .reservation-form textarea {
-        padding: 10px;
-
-        border-radius: 6px;
-
-        border: 1px solid #ccc;
-      }
-
-      .reservation-form button {
-        background: #3e2723;
-
-        color: white;
-
-        padding: 12px;
-
-        border: none;
-
-        border-radius: 8px;
-
-        cursor: pointer;
-
-        font-weight: bold;
-      }
-
-      /* Map Button */
-
-      .map-btn {
-        background: transparent;
-        border: none;
-        color: #5d4037;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        padding: 0;
-        font-family: inherit;
-        transition: color 0.3s;
-      }
-
-      .map-btn:hover {
-        color: #3e2723;
-      }
-
-      #map {
-        height: 400px;
-        width: 100%;
-        border-radius: 15px;
-      }
-
-      /* Responsive for smaller screens */
-      @media (max-width: 768px) {
-        .about-section {
-          flex-direction: column;
-          text-align: center;
-        }
-
-        .scroll-img {
-          min-width: 260px;
-          height: 200px;
-        }
-      }
-
-      /* Reviews Section */
-      .reviews-section {
-        max-width: 800px;
-        margin: 40px auto;
-        padding: 20px;
-        background: #fff9f4;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      }
-
-      .reviews-section h2 {
-        text-align: center;
-        color: #5d4037;
-        margin-bottom: 30px;
-        font-size: 28px;
-      }
-
-      /* Individual Review */
-      .review-item {
-        background: #fff;
-        padding: 15px 20px;
-        margin-bottom: 15px;
-        border-radius: 8px;
-        border-left: 4px solid #ff7043;
-        transition: 0.3s;
-      }
-
-      .review-item:hover {
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .review-item p {
-        margin: 5px 0;
-        line-height: 1.5;
-      }
-
-      .review-item strong {
-        color: #3e2723;
-      }
-
-      /* Review Date */
-      .review-date {
-        font-size: 12px;
-        color: #999;
-        text-align: right;
-      }
-
-      /* Review Button */
-      .review-button-container {
-        text-align: center;
-        margin-top: 20px;
-      }
-
-      #reviewBtn {
-        padding: 12px 25px;
-        font-size: 16px;
-        color: #fff;
-        background-color: #3e2723;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: 0.3s;
-      }
-
-      #reviewBtn:hover {
-        background-color: #5d4037;
-      }
-
-      /* Review Form */
-      #reviewFormContainer {
-        max-width: 500px;
-        margin: 20px auto;
-        background: #fff3e0;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-      }
-
-      #reviewFormContainer form {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      #reviewFormContainer label {
-        font-weight: 500;
-        color: #3e2723;
-      }
-
-      #reviewFormContainer input,
-      #reviewFormContainer select,
-      #reviewFormContainer textarea {
-        padding: 10px;
-        border-radius: 6px;
-        border: 1px solid #ccc;
-        font-size: 14px;
-        transition: 0.2s;
-      }
-
-      #reviewFormContainer input:focus,
-      #reviewFormContainer select:focus,
-      #reviewFormContainer textarea:focus {
-        outline: none;
-        border-color: #ff7043;
-      }
-
-      #reviewFormContainer button {
-        padding: 12px;
-        border: none;
-        border-radius: 8px;
-        background: #3e2723;
-        color: #fff;
-        font-size: 16px;
-        cursor: pointer;
-        transition: 0.3s;
-      }
-
-      #reviewFormContainer button:hover {
-        background: #5d4037;
-      }
-
-      .review-image {
-        width: 150px;
-        height: 120px;
-
-        object-fit: cover;
-
-        border-radius: 10px;
-
-        margin-top: 10px;
-      }
-
-      /* Payment Section */
-
-      .payment-section {
-        margin-top: 20px;
-      }
-
-      .payment-title {
-        display: block;
-        font-weight: bold;
-        font-size: 18px;
-        color: #3e2723;
-        margin-bottom: 15px;
-      }
-
-      .payment-options {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-      }
-
-      .payment-card {
-        width: 120px;
-        height: 110px;
-
-        background: #fff3e0;
-
-        border-radius: 12px;
-
-        display: flex;
-        flex-direction: column;
-
-        justify-content: center;
-        align-items: center;
-
-        gap: 8px;
-
-        cursor: pointer;
-
-        border: 2px solid transparent;
-
-        transition: 0.3s;
-      }
-
-      .payment-card:hover {
-        border-color: #5d4037;
-        transform: translateY(-3px);
-      }
-
-      .payment-card input {
-        cursor: pointer;
-      }
-
-      .payment-card img {
-        width: 70px;
-        height: 40px;
-
-        object-fit: contain;
-      }
-
-      .cash-icon {
-        font-size: 35px;
-      }
-      /* Menu Section */
-      .menu-section {
-        padding: 50px 8%;
-        text-align: center;
-      }
-
-      .menu-title {
-        text-align: center;
-        font-size: 40px;
-        font-weight: 900;
-        color: #4e342e;
-        margin-bottom: 30px;
-      }
-
-      /*   CATEGORY buttons */
-      .menu-categories {
-        text-align: center;
-      }
-
-      .category-btn {
-        display: inline-block;
-        padding: 15px30px;
-        margin: 10px;
-
-        background: #efebe9;
-
-        border-radius: 10px;
-
-        font-size: 20px;
-
-        font-weight: bold;
-
-        cursor: pointer;
-      }
-
-      .category-btn:hover {
-        background: #d7ccc8;
-      }
-
-      /* Hide menu initially */
-      .menu-category {
-        display: none;
-
-        width: 80%;
-
-        margin: 30px auto;
-      }
-
-      /* MENU TABLE */
-      .menu-table {
-        width: 100%;
-
-        border-collapse: collapse;
-
-        background: white;
-
-        border-radius: 10px;
-
-        overflow: hidden;
-      }
-
-      .menu-table th {
-        text-align: left;
-        padding: 15px;
-        background: #3e2723;
-        color: white;
-      }
-
-      .menu-table td {
-        padding: 15px;
-        border-bottom: 1px solid #ddd;
-        font-size: 18px;
-      }
-
-      /*  Equal Spacing */
-      .menu-table th:first-child,
-      .menu-table td:first-child {
-        width: 70%;
-      }
-
-      .menu-table th:last-child,
-      .menu-table td:last-child {
-        width: 30%;
-
-        text-align: right;
-      }
-
-      .no-item {
-        background: white;
-
-        padding: 20px;
-
-        text-align: center;
-
-        border-radius: 10px;
-
-        font-size: 18px;
-
-        font-weight: bold;
-
-        color: #6d4c41;
-      }
-
-      /* Equal column width */
-      .menu-table th:first-child,
-      .menu-table td:first-child {
-        width: 70%;
-      }
-
-      .menu-table th:last-child,
-      .menu-table td:last-child {
-        width: 30%;
-
-        text-align: right;
-      }
-
-      .menu-table tr:hover {
-        background: #f8f5f2;
-      }
-
-      /* Responsive */
-      @media (max-width: 600px) {
-        .reviews-section,
-        #reviewFormContainer {
-          margin: 20px 10px;
-          padding: 15px;
-        }
-        #reviewBtn {
-          width: 100%;
-        }
-      }
-
 /* =========================================================
-   ☕ CAFE FINDER - PREMIUM CAFE DETAILS DESIGN
-   No HTML changes required
+   ☕ CAFE FINDER - CAFE DETAILS
+   CLEAN + ANIMATED VERSION
 ========================================================= */
 
 
 /* =========================================================
-   GLOBAL
+   GENERAL RESET
 ========================================================= */
 
 html {
     scroll-behavior: smooth;
 }
 
+html,
 body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f8f5f2;
+    color: #333;
     overflow-x: hidden;
 }
 
@@ -765,83 +100,102 @@ body::after {
 
 
 /* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 40px;
+
+    background-color: #3e2723;
+}
+
+.navbar .logo {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    list-style: none;
+
+    display: flex;
+
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #d7ccc8;
+}
+
+
+/* =========================================================
    WELCOME SECTION
 ========================================================= */
 
 .welcome-section {
     position: relative;
 
-    animation: pageTitle 1s cubic-bezier(.2,.8,.2,1) both;
+    text-align: center;
+
+    padding: 50px 20px 30px;
+
+    background: transparent;
+
+    animation:
+        sectionReveal
+        1s
+        cubic-bezier(.2, .8, .2, 1)
+        both;
 }
 
 .welcome-section h1 {
-    position: relative;
+    color: #4e342e;
 
-    letter-spacing: 1px;
+    font-size: 60px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    font-family: "Georgia", serif;
+
+    text-transform: capitalize;
+
+    margin: 0;
+
+    text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.15);
 
     animation:
-        titleReveal 1.1s cubic-bezier(.2,.8,.2,1) both,
-        titleFloat 5s ease-in-out 1.5s infinite;
+        titleReveal
+        1.1s
+        cubic-bezier(.2, .8, .2, 1)
+        both;
 }
 
 
-/* title entrance */
+/* Title underline */
 
-@keyframes titleReveal {
-
-    0% {
-        opacity: 0;
-
-        transform:
-            translateY(-45px)
-            scale(.9);
-
-        filter: blur(12px);
-    }
-
-    100% {
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-
-        filter: blur(0);
-    }
-}
-
-
-/* subtle floating title */
-
-@keyframes titleFloat {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-5px);
-    }
-}
-
-
-/* =========================================================
-   TITLE DECORATION
-========================================================= */
-
-.welcome-section::after {
-
+.welcome-section h1::after {
     content: "";
 
     display: block;
 
     width: 0;
+
     height: 4px;
-
-    margin: 18px auto;
-
-    border-radius: 20px;
 
     background:
         linear-gradient(
@@ -853,14 +207,16 @@ body::after {
             transparent
         );
 
+    margin: 20px auto 0;
+
+    border-radius: 10px;
+
     animation:
         underlineGrow
-        1s ease
-        .5s
+        1s
+        ease
+        0.5s
         forwards;
-
-    box-shadow:
-        0 0 15px rgba(197,157,95,.3);
 }
 
 @keyframes underlineGrow {
@@ -874,20 +230,27 @@ body::after {
     }
 }
 
+@keyframes titleReveal {
 
-/* =========================================================
-   ABOUT SECTION
-========================================================= */
+    from {
+        opacity: 0;
 
-.about-section {
-    position: relative;
+        transform:
+            translateY(-45px)
+            scale(0.9);
 
-    animation:
-        sectionReveal
-        1s
-        .25s
-        cubic-bezier(.2,.8,.2,1)
-        both;
+        filter: blur(12px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        filter: blur(0);
+    }
 }
 
 @keyframes sectionReveal {
@@ -909,17 +272,47 @@ body::after {
 
 
 /* =========================================================
-   ABOUT TEXT
+   ABOUT SECTION
+========================================================= */
+
+.about-section {
+    position: relative;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 40px;
+
+    padding: 50px;
+
+    animation:
+        sectionReveal
+        1s
+        0.25s
+        cubic-bezier(.2, .8, .2, 1)
+        both;
+}
+
+
+/* =========================================================
+   ABOUT LEFT
 ========================================================= */
 
 .about-left {
+    flex: 1;
 
     animation:
         slideFromLeft
         1s
-        .4s
-        cubic-bezier(.2,.8,.2,1)
+        0.4s
+        cubic-bezier(.2, .8, .2, 1)
         both;
+}
+
+.about-left p {
+    line-height: 1.8;
+    font-size: 18px;
 }
 
 @keyframes slideFromLeft {
@@ -941,16 +334,19 @@ body::after {
 
 
 /* =========================================================
-   ABOUT IMAGE CONTAINER
+   ABOUT RIGHT
 ========================================================= */
 
 .about-right {
+    flex: 2;
+
+    overflow: visible;
 
     animation:
         slideFromRight
         1s
-        .5s
-        cubic-bezier(.2,.8,.2,1)
+        0.5s
+        cubic-bezier(.2, .8, .2, 1)
         both;
 }
 
@@ -961,7 +357,7 @@ body::after {
 
         transform:
             translateX(70px)
-            scale(.92);
+            scale(0.92);
     }
 
     to {
@@ -975,24 +371,67 @@ body::after {
 
 
 /* =========================================================
-   MAIN IMAGE
+   ⭐ MAIN CAFE IMAGE
 ========================================================= */
 
 .image-scroll-container {
 
     position: relative;
 
+    width: 100%;
+
+    height: 430px;
+
+    padding: 0;
+
+    margin: 0;
+
     overflow: hidden;
+
+    background: transparent;
 
     border-radius: 22px;
 
     box-shadow:
-        0 15px 40px rgba(62,39,35,.15);
+        0 15px 40px rgba(62, 39, 35, 0.15);
+
+    cursor: zoom-in;
 
     transition:
-        box-shadow .5s ease,
-        transform .5s ease;
+        transform 0.5s ease,
+        box-shadow 0.5s ease;
 }
+
+
+/* Main image */
+
+.main-gallery-image {
+
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    padding: 0;
+
+    margin: 0;
+
+    object-fit: cover;
+
+    border: none;
+
+    border-radius: 22px;
+
+    cursor: zoom-in;
+
+    transition:
+        transform 0.8s cubic-bezier(.2, .8, .2, 1),
+        filter 0.5s ease;
+}
+
+
+/* Image hover */
 
 .image-scroll-container:hover {
 
@@ -1000,15 +439,7 @@ body::after {
         translateY(-8px);
 
     box-shadow:
-        0 25px 55px rgba(62,39,35,.23);
-}
-
-
-.main-gallery-image {
-
-    transition:
-        transform .8s cubic-bezier(.2,.8,.2,1),
-        filter .6s ease;
+        0 25px 55px rgba(62, 39, 35, 0.23);
 }
 
 .image-scroll-container:hover
@@ -1024,7 +455,7 @@ body::after {
 
 
 /* =========================================================
-   IMAGE SHINE
+   IMAGE SHINE ANIMATION
 ========================================================= */
 
 .image-scroll-container::after {
@@ -1045,7 +476,7 @@ body::after {
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,255,255,.4),
+            rgba(255, 255, 255, 0.35),
             transparent
         );
 
@@ -1059,7 +490,7 @@ body::after {
 
     animation:
         imageShine
-        .9s
+        0.9s
         ease;
 }
 
@@ -1076,16 +507,326 @@ body::after {
 
 
 /* =========================================================
-   CAFE INFORMATION AREA
+   ⭐ FULL SCREEN IMAGE MODAL
+========================================================= */
+
+.image-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+
+    height: 100vh;
+
+    display: none;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        rgba(0, 0, 0, 0.96);
+
+    z-index: 99999;
+
+    padding: 0;
+
+    margin: 0;
+
+    box-sizing: border-box;
+
+    cursor: zoom-out;
+
+    animation:
+        modalFadeIn
+        0.3s
+        ease;
+}
+
+
+/* Modal visible */
+
+.image-modal.show {
+
+    display: flex;
+}
+
+
+/* =========================================================
+   FULL SCREEN GALLERY
+========================================================= */
+
+.gallery-slider {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow-x: auto;
+
+    overflow-y: hidden;
+
+    scroll-behavior: smooth;
+
+    padding: 0;
+
+    box-sizing: border-box;
+}
+
+
+/* Hide scrollbar */
+
+.gallery-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-slider {
+    scrollbar-width: none;
+}
+
+
+/* =========================================================
+   FULL SCREEN GALLERY IMAGE
+========================================================= */
+
+.gallery-slide {
+
+    flex-shrink: 0;
+
+    max-width: 95vw;
+
+    max-height: 90vh;
+
+    width: auto;
+
+    height: auto;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 20px 70px rgba(0, 0, 0, 0.65);
+
+    animation:
+        imageZoomIn
+        0.4s
+        cubic-bezier(.2, .8, .2, 1)
+        both;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.image-modal .close-btn {
+
+    position: fixed;
+
+    top: 25px;
+
+    right: 30px;
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.15);
+
+    color: white;
+
+    font-size: 32px;
+
+    cursor: pointer;
+
+    z-index: 100000;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+.image-modal .close-btn:hover {
+
+    background:
+        rgba(255, 255, 255, 0.3);
+
+    transform:
+        rotate(90deg)
+        scale(1.1);
+}
+
+
+/* =========================================================
+   MODAL ANIMATIONS
+========================================================= */
+
+@keyframes modalFadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes imageZoomIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.85);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1);
+    }
+}
+
+
+/* Prevent background scrolling */
+
+body.modal-open {
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   CAFE INFORMATION
 ========================================================= */
 
 .cafe-info {
 
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 20px;
+
+    max-width: 1200px;
+
+    margin: 30px auto;
+
     animation:
         infoContainer
         1s
-        .7s
+        0.7s
         both;
+}
+
+.cafe-info .info-item {
+
+    flex: 1 1 250px;
+
+    background-color: #fff3e0;
+
+    padding: 20px 25px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+
+    animation:
+        infoCard
+        0.7s
+        cubic-bezier(.2, .8, .2, 1)
+        both;
+}
+
+.cafe-info .info-item:nth-child(1) {
+    animation-delay: 0.75s;
+}
+
+.cafe-info .info-item:nth-child(2) {
+    animation-delay: 0.85s;
+}
+
+.cafe-info .info-item:nth-child(3) {
+    animation-delay: 0.95s;
+}
+
+.cafe-info .info-item:nth-child(4) {
+    animation-delay: 1.05s;
+}
+
+.cafe-info .info-item:nth-child(5) {
+    animation-delay: 1.15s;
+}
+
+.cafe-info .info-item:hover {
+
+    transform:
+        translateY(-8px)
+        scale(1.02);
+
+    box-shadow:
+        0 18px 35px rgba(62, 39, 35, 0.18);
+}
+
+.info-label {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    color: #5d4037;
+
+    transition:
+        transform 0.3s ease;
+}
+
+.info-item:hover .info-label {
+
+    transform:
+        translateX(5px);
+}
+
+.info-value {
+
+    font-size: 16px;
+
+    color: #6d4c41;
 }
 
 @keyframes infoContainer {
@@ -1105,65 +846,17 @@ body::after {
     }
 }
 
-
-/* =========================================================
-   INFORMATION CARDS
-========================================================= */
-
-.info-item {
-
-    position: relative;
-
-    overflow: hidden;
-
-    transition:
-        transform .35s cubic-bezier(.2,.8,.2,1),
-        box-shadow .35s ease,
-        background .35s ease;
-
-    animation:
-        infoCard
-        .7s
-        cubic-bezier(.2,.8,.2,1)
-        both;
-}
-
-
-/* stagger */
-
-.info-item:nth-child(1) {
-    animation-delay: .75s;
-}
-
-.info-item:nth-child(2) {
-    animation-delay: .85s;
-}
-
-.info-item:nth-child(3) {
-    animation-delay: .95s;
-}
-
-.info-item:nth-child(4) {
-    animation-delay: 1.05s;
-}
-
-.info-item:nth-child(5) {
-    animation-delay: 1.15s;
-}
-
 @keyframes infoCard {
 
     from {
-
         opacity: 0;
 
         transform:
             translateY(35px)
-            scale(.92);
+            scale(0.92);
     }
 
     to {
-
         opacity: 1;
 
         transform:
@@ -1173,144 +866,71 @@ body::after {
 }
 
 
-/* hover */
+/* =========================================================
+   RESERVATION BUTTON
+========================================================= */
 
-.info-item:hover {
+.reservation-btn {
 
-    transform:
-        translateY(-9px)
-        scale(1.02);
+    border: none;
 
-    box-shadow:
-        0 18px 35px rgba(62,39,35,.18);
-}
+    background: none;
 
+    color: #5d4037;
 
-/* glowing top line */
+    font-weight: bold;
 
-.info-item::before {
+    font-size: 16px;
 
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-
-    top: 0;
-
-    width: 0;
-
-    height: 3px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #8d6e63,
-            #c59d5f
-        );
+    cursor: pointer;
 
     transition:
-        width .4s ease;
+        color 0.3s ease,
+        transform 0.3s ease;
 }
 
-.info-item:hover::before {
-    width: 100%;
+.reservation-btn:hover {
+
+    color: #c59d5f;
+
+    transform:
+        translateY(-3px);
 }
 
 
 /* =========================================================
-   INFO LABEL
+   MAP BUTTON
 ========================================================= */
 
-.info-label {
-
-    transition:
-        transform .3s ease,
-        color .3s ease;
-}
-
-.info-item:hover .info-label {
-
-    transform:
-        translateX(5px);
-}
-
-
-/* =========================================================
-   RESERVATION + MAP BUTTONS
-========================================================= */
-
-.reservation-btn,
 .map-btn {
 
-    position: relative;
+    background: transparent;
 
-    overflow: hidden;
+    border: none;
+
+    color: #5d4037;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    padding: 0;
+
+    font-family: inherit;
 
     transition:
-        transform .3s ease,
-        box-shadow .3s ease;
+        color 0.3s ease,
+        transform 0.3s ease;
 }
 
-.reservation-btn:hover,
 .map-btn:hover {
 
-    transform:
-        translateY(-5px)
-        scale(1.03);
-
-    box-shadow:
-        0 12px 25px rgba(62,39,35,.2);
-}
-
-
-/* button shine */
-
-.reservation-btn::after,
-.map-btn::after {
-
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-
-    left: -120%;
-
-    width: 55%;
-
-    height: 100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.4),
-            transparent
-        );
+    color: #3e2723;
 
     transform:
-        skewX(-20deg);
-}
-
-.reservation-btn:hover::after,
-.map-btn:hover::after {
-
-    animation:
-        buttonShine
-        .7s
-        ease;
-}
-
-@keyframes buttonShine {
-
-    from {
-        left: -120%;
-    }
-
-    to {
-        left: 140%;
-    }
+        translateY(-3px);
 }
 
 
@@ -1320,79 +940,109 @@ body::after {
 
 .reservation-form {
 
+    display: none;
+
+    max-width: 500px;
+
+    margin: 30px auto;
+
+    padding: 25px;
+
+    background: #fff3e0;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.1);
+
     animation:
         formReveal
-        .6s
-        cubic-bezier(.2,.8,.2,1)
+        0.6s
+        cubic-bezier(.2, .8, .2, 1)
         both;
 }
 
-@keyframes formReveal {
+.reservation-form h2 {
 
-    from {
+    text-align: center;
 
-        opacity: 0;
-
-        transform:
-            translateY(25px)
-            scale(.97);
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
+    color: #5d4037;
 }
 
+.reservation-form form {
 
-/* =========================================================
-   FORM INPUTS
-========================================================= */
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
 
 .reservation-form input,
 .reservation-form select,
 .reservation-form textarea {
 
+    padding: 10px;
+
+    border-radius: 6px;
+
+    border: 1px solid #ccc;
+
     transition:
-        border-color .3s ease,
-        box-shadow .3s ease,
-        transform .25s ease;
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.25s ease;
 }
 
 .reservation-form input:focus,
 .reservation-form select:focus,
 .reservation-form textarea:focus {
 
+    outline: none;
+
     transform:
         translateY(-2px);
 
-    box-shadow:
-        0 0 0 4px rgba(197,157,95,.12);
-}
-
-
-/* =========================================================
-   PAYMENT OPTIONS
-========================================================= */
-
-.payment-options label {
-
-    transition:
-        transform .3s ease,
-        box-shadow .3s ease;
-}
-
-.payment-options label:hover {
-
-    transform:
-        translateY(-5px);
+    border-color: #c59d5f;
 
     box-shadow:
-        0 10px 25px rgba(62,39,35,.15);
+        0 0 0 4px rgba(197, 157, 95, 0.12);
+}
+
+.reservation-form button {
+
+    background: #3e2723;
+
+    color: white;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+@keyframes formReveal {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
 }
 
 
@@ -1400,11 +1050,20 @@ body::after {
    MAP
 ========================================================= */
 
+#map {
+
+    height: 400px;
+
+    width: 100%;
+
+    border-radius: 15px;
+}
+
 #mapSection {
 
     animation:
         mapReveal
-        .7s
+        0.7s
         ease
         both;
 }
@@ -1412,16 +1071,14 @@ body::after {
 @keyframes mapReveal {
 
     from {
-
         opacity: 0;
 
         transform:
             translateY(30px)
-            scale(.98);
+            scale(0.98);
     }
 
     to {
-
         opacity: 1;
 
         transform:
@@ -1432,22 +1089,127 @@ body::after {
 
 
 /* =========================================================
-   MENU SECTION
+   PAYMENT
+========================================================= */
+
+.payment-section {
+    margin-top: 20px;
+}
+
+.payment-title {
+
+    display: block;
+
+    font-weight: bold;
+
+    font-size: 18px;
+
+    color: #3e2723;
+
+    margin-bottom: 15px;
+}
+
+.payment-options {
+
+    display: flex;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+}
+
+.payment-card {
+
+    width: 120px;
+
+    height: 110px;
+
+    background: #fff3e0;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 8px;
+
+    cursor: pointer;
+
+    border: 2px solid transparent;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.payment-card:hover {
+
+    border-color: #5d4037;
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 10px 25px rgba(62, 39, 35, 0.15);
+}
+
+.payment-card input {
+    cursor: pointer;
+}
+
+.payment-card img {
+
+    width: 70px;
+
+    height: 40px;
+
+    object-fit: contain;
+}
+
+.cash-icon {
+    font-size: 35px;
+}
+
+
+/* =========================================================
+   MENU
 ========================================================= */
 
 .menu-section {
 
+    padding: 50px 8%;
+
+    text-align: center;
+
     animation:
         menuReveal
-        .9s
+        0.9s
         ease
         both;
+}
+
+.menu-title {
+
+    text-align: center;
+
+    font-size: 40px;
+
+    font-weight: 900;
+
+    color: #4e342e;
+
+    margin-bottom: 30px;
 }
 
 @keyframes menuReveal {
 
     from {
-
         opacity: 0;
 
         transform:
@@ -1455,7 +1217,6 @@ body::after {
     }
 
     to {
-
         opacity: 1;
 
         transform:
@@ -1468,31 +1229,51 @@ body::after {
    MENU CATEGORY BUTTONS
 ========================================================= */
 
+.menu-categories {
+    text-align: center;
+}
+
 .category-btn {
+
+    display: inline-block;
+
+    padding: 15px 30px;
+
+    margin: 10px;
+
+    background: #efebe9;
+
+    border-radius: 10px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    cursor: pointer;
 
     position: relative;
 
     overflow: hidden;
 
     transition:
-        transform .35s ease,
-        box-shadow .35s ease,
-        background .35s ease;
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        background 0.35s ease;
 }
 
 .category-btn:hover {
+
+    background: #d7ccc8;
 
     transform:
         translateY(-7px);
 
     box-shadow:
-        0 14px 30px rgba(62,39,35,.18);
+        0 14px 30px rgba(62, 39, 35, 0.18);
 }
 
 
-/* =========================================================
-   CATEGORY BUTTON SHINE
-========================================================= */
+/* Category shine */
 
 .category-btn::after {
 
@@ -1512,7 +1293,7 @@ body::after {
         linear-gradient(
             90deg,
             transparent,
-            rgba(255,255,255,.35),
+            rgba(255, 255, 255, 0.35),
             transparent
         );
 
@@ -1524,7 +1305,7 @@ body::after {
 
     animation:
         categoryShine
-        .8s
+        0.8s
         ease;
 }
 
@@ -1541,22 +1322,93 @@ body::after {
 
 
 /* =========================================================
+   MENU CATEGORY
+========================================================= */
+
+.menu-category {
+
+    display: none;
+
+    width: 80%;
+
+    margin: 30px auto;
+}
+
+
+/* =========================================================
    MENU TABLE
 ========================================================= */
 
 .menu-table {
 
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: white;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
     animation:
         tableReveal
-        .6s
+        0.6s
         ease
         both;
+}
+
+.menu-table th {
+
+    text-align: left;
+
+    padding: 15px;
+
+    background: #3e2723;
+
+    color: white;
+}
+
+.menu-table td {
+
+    padding: 15px;
+
+    border-bottom: 1px solid #ddd;
+
+    font-size: 18px;
+}
+
+.menu-table th:first-child,
+.menu-table td:first-child {
+    width: 70%;
+}
+
+.menu-table th:last-child,
+.menu-table td:last-child {
+
+    width: 30%;
+
+    text-align: right;
+}
+
+.menu-table tbody tr {
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+.menu-table tbody tr:hover {
+
+    background: #f8f5f2;
+
+    transform:
+        translateX(6px);
 }
 
 @keyframes tableReveal {
 
     from {
-
         opacity: 0;
 
         transform:
@@ -1564,7 +1416,6 @@ body::after {
     }
 
     to {
-
         opacity: 1;
 
         transform:
@@ -1574,37 +1425,24 @@ body::after {
 
 
 /* =========================================================
-   MENU ROW
+   NO MENU ITEM
 ========================================================= */
 
-.menu-table tr {
+.no-item {
 
-    transition:
-        transform .25s ease,
-        background .25s ease;
-}
+    background: white;
 
-.menu-table tbody tr:hover {
+    padding: 20px;
 
-    transform:
-        translateX(6px);
-}
+    text-align: center;
 
+    border-radius: 10px;
 
-/* =========================================================
-   PRICE HIGHLIGHT
-========================================================= */
+    font-size: 18px;
 
-.menu-table td:last-child {
+    font-weight: bold;
 
-    transition:
-        transform .3s ease;
-}
-
-.menu-table tbody tr:hover td:last-child {
-
-    transform:
-        scale(1.08);
+    color: #6d4c41;
 }
 
 
@@ -1614,17 +1452,40 @@ body::after {
 
 .reviews-section {
 
+    max-width: 800px;
+
+    margin: 40px auto;
+
+    padding: 20px;
+
+    background: #fff9f4;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.08);
+
     animation:
         reviewsReveal
-        .8s
+        0.8s
         ease
         both;
+}
+
+.reviews-section h2 {
+
+    text-align: center;
+
+    color: #5d4037;
+
+    margin-bottom: 30px;
+
+    font-size: 28px;
 }
 
 @keyframes reviewsReveal {
 
     from {
-
         opacity: 0;
 
         transform:
@@ -1632,7 +1493,6 @@ body::after {
     }
 
     to {
-
         opacity: 1;
 
         transform:
@@ -1642,14 +1502,24 @@ body::after {
 
 
 /* =========================================================
-   REVIEW CARDS
+   REVIEW ITEM
 ========================================================= */
 
 .review-item {
 
+    background: #fff;
+
+    padding: 15px 20px;
+
+    margin-bottom: 15px;
+
+    border-radius: 8px;
+
+    border-left: 4px solid #ff7043;
+
     transition:
-        transform .35s ease,
-        box-shadow .35s ease;
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
 }
 
 .review-item:hover {
@@ -1658,7 +1528,27 @@ body::after {
         translateY(-7px);
 
     box-shadow:
-        0 15px 30px rgba(62,39,35,.15);
+        0 15px 30px rgba(62, 39, 35, 0.15);
+}
+
+.review-item p {
+
+    margin: 5px 0;
+
+    line-height: 1.5;
+}
+
+.review-item strong {
+    color: #3e2723;
+}
+
+.review-date {
+
+    font-size: 12px;
+
+    color: #999;
+
+    text-align: right;
 }
 
 
@@ -1668,9 +1558,19 @@ body::after {
 
 .review-image {
 
+    width: 150px;
+
+    height: 120px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    margin-top: 10px;
+
     transition:
-        transform .5s ease,
-        filter .5s ease;
+        transform 0.5s ease,
+        filter 0.5s ease;
 }
 
 .review-image:hover {
@@ -1687,21 +1587,45 @@ body::after {
    REVIEW BUTTON
 ========================================================= */
 
+.review-button-container {
+
+    text-align: center;
+
+    margin-top: 20px;
+}
+
 #reviewBtn {
 
+    padding: 12px 25px;
+
+    font-size: 16px;
+
+    color: #fff;
+
+    background-color: #3e2723;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
     transition:
-        transform .3s ease,
-        box-shadow .3s ease;
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
 }
 
 #reviewBtn:hover {
+
+    background-color: #5d4037;
 
     transform:
         translateY(-4px)
         scale(1.02);
 
     box-shadow:
-        0 12px 25px rgba(62,39,35,.2);
+        0 12px 25px rgba(62, 39, 35, 0.2);
 }
 
 
@@ -1711,109 +1635,117 @@ body::after {
 
 #reviewFormContainer {
 
+    max-width: 500px;
+
+    margin: 20px auto;
+
+    background: #fff3e0;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.08);
+
     animation:
         reviewFormReveal
-        .6s
+        0.6s
         ease
         both;
+}
+
+#reviewFormContainer form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+#reviewFormContainer label {
+
+    font-weight: 500;
+
+    color: #3e2723;
+}
+
+#reviewFormContainer input,
+#reviewFormContainer select,
+#reviewFormContainer textarea {
+
+    padding: 10px;
+
+    border-radius: 6px;
+
+    border: 1px solid #ccc;
+
+    font-size: 14px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#reviewFormContainer input:focus,
+#reviewFormContainer select:focus,
+#reviewFormContainer textarea:focus {
+
+    outline: none;
+
+    border-color: #ff7043;
+
+    box-shadow:
+        0 0 0 3px rgba(255, 112, 67, 0.1);
+}
+
+#reviewFormContainer button {
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #3e2723;
+
+    color: #fff;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+#reviewFormContainer button:hover {
+
+    background: #5d4037;
+
+    transform:
+        translateY(-3px);
 }
 
 @keyframes reviewFormReveal {
 
     from {
-
         opacity: 0;
 
         transform:
             translateY(25px)
-            scale(.97);
+            scale(0.97);
     }
 
     to {
-
         opacity: 1;
 
         transform:
             translateY(0)
             scale(1);
     }
-}
-
-
-/* =========================================================
-   IMAGE MODAL
-========================================================= */
-
-.image-modal {
-
-    animation:
-        modalOpen
-        .35s
-        ease
-        both;
-}
-
-@keyframes modalOpen {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-
-/* =========================================================
-   GALLERY IMAGE
-========================================================= */
-
-.gallery-slide {
-
-    animation:
-        galleryOpen
-        .5s
-        cubic-bezier(.2,.8,.2,1)
-        both;
-}
-
-@keyframes galleryOpen {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            scale(.88);
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            scale(1);
-    }
-}
-
-
-/* =========================================================
-   CLOSE BUTTON
-========================================================= */
-
-.close-btn {
-
-    transition:
-        transform .3s ease,
-        opacity .3s ease;
-}
-
-.close-btn:hover {
-
-    transform:
-        rotate(90deg)
-        scale(1.15);
 }
 
 
@@ -1856,12 +1788,48 @@ body::after {
 
 @media (max-width: 768px) {
 
+    .navbar {
+        padding: 15px 20px;
+    }
+
+    .welcome-section {
+        padding: 35px 15px 25px;
+    }
+
     .welcome-section h1 {
-        animation:
-            titleReveal
-            .8s
-            ease
-            both;
+        font-size: 40px;
+    }
+
+    .about-section {
+
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 30px 20px;
+
+        gap: 25px;
+    }
+
+    .about-left,
+    .about-right {
+        width: 100%;
+    }
+
+    /* Main image */
+
+    .image-scroll-container {
+
+        width: 100%;
+
+        height: 300px;
+
+        border-radius: 16px;
+    }
+
+    .main-gallery-image {
+
+        border-radius: 16px;
     }
 
     .image-scroll-container:hover {
@@ -1870,11 +1838,75 @@ body::after {
             translateY(-3px);
     }
 
-    .info-item:hover {
+    /* Fullscreen modal */
 
-        transform:
-            translateY(-4px)
-            scale(1.01);
+    .image-modal {
+
+        padding: 10px;
+    }
+
+    .gallery-slide {
+
+        max-width: 96vw;
+
+        max-height: 85vh;
+
+        border-radius: 8px;
+    }
+
+    .image-modal .close-btn {
+
+        top: 15px;
+
+        right: 15px;
+
+        width: 42px;
+
+        height: 42px;
+
+        font-size: 27px;
+    }
+
+    .cafe-info {
+
+        flex-direction: column;
+
+        margin: 25px 15px;
+    }
+
+    .cafe-info .info-item {
+
+        width: 100%;
+
+        box-sizing: border-box;
+    }
+
+    .menu-section {
+
+        padding: 35px 15px;
+    }
+
+    .menu-title {
+
+        font-size: 32px;
+    }
+
+    .menu-category {
+
+        width: 100%;
+    }
+
+    .reviews-section,
+    #reviewFormContainer {
+
+        margin: 20px 10px;
+
+        padding: 15px;
+    }
+
+    #reviewBtn {
+
+        width: 100%;
     }
 
     .category-btn:hover {
@@ -1913,52 +1945,4 @@ body::after {
         scroll-behavior:
             auto !important;
     }
-}
-/* =====================================================
-   FIX IMAGE WHITE EMPTY AREA
-===================================================== */
-
-.image-scroll-container {
-    position: relative;
-    width: 100%;
-    height: 430px;
-
-    overflow: hidden;
-
-    border-radius: 22px;
-
-    padding: 0;
-    margin: 0;
-
-    background: transparent;
-
-    box-shadow:
-        0 18px 45px rgba(62, 39, 35, 0.18);
-}
-
-.main-gallery-image {
-    display: block;
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    margin: 0;
-    padding: 0;
-
-    border-radius: 22px;
-
-    transition:
-        transform 0.8s ease,
-        filter 0.5s ease;
-}
-
-.image-scroll-container:hover
-.main-gallery-image {
-    transform: scale(1.05);
-
-    filter:
-        brightness(1.05)
-        saturate(1.08);
 }
