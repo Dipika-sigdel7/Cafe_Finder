@@ -1017,6 +1017,14 @@ body.cafe-gallery-open {
         0 18px 35px rgba(62, 39, 35, 0.18);
 }
 
+/* =========================================================
+   LOCATION BUTTON - ONLY SIZE
+========================================================= */
+
+.cafe-info .info-item:first-child {
+    flex: 0 0 400px;
+}
+
 .info-label {
 
     font-size: 18px;
@@ -1041,6 +1049,21 @@ body.cafe-gallery-open {
 
     color: #6d4c41;
 }
+
+/* =========================================================
+   OPEN & CLOSE - INCREASE SIZE ONLY
+========================================================= */
+
+.cafe-info .info-item:nth-child(2),
+.cafe-info .info-item:nth-child(3),
+.cafe-info .info-item:nth-child(4),
+.cafe-info .info-item:nth-child(5) {
+
+    flex: 0 0 280px;
+
+    min-width: 280px;
+}
+
 
 @keyframes infoContainer {
 
@@ -2037,7 +2060,7 @@ body.cafe-gallery-open {
 
 
 /* =========================================================
-   REVIEWS
+   REVIEWS SECTION
 ========================================================= */
 
 .reviews-section {
@@ -2046,48 +2069,121 @@ body.cafe-gallery-open {
 
     margin: 40px auto;
 
-    padding: 20px;
+    padding: 25px;
 
     background: #fff9f4;
 
-    border-radius: 12px;
+    border-radius: 16px;
 
     box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.08);
+        0 8px 25px rgba(62, 39, 35, 0.10);
 
     animation:
         reviewsReveal
-        0.8s
-        ease
+        0.9s
+        0.2s
+        cubic-bezier(.2, .8, .2, 1)
         both;
+
+    position: relative;
+
+    overflow: hidden;
 }
 
-.reviews-section h2 {
 
+/* =========================================================
+   REVIEWS DECORATIVE GLOW
+========================================================= */
+
+.reviews-section::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    top: -90px;
+    right: -90px;
+
+    border-radius: 50%;
+
+    background: rgba(197, 157, 95, 0.12);
+
+    filter: blur(5px);
+
+    animation:
+        reviewGlow
+        6s
+        ease-in-out
+        infinite;
+}
+
+
+/* =========================================================
+   REVIEW TITLE
+========================================================= */
+
+.reviews-section h2 {
     text-align: center;
 
     color: #5d4037;
 
     margin-bottom: 30px;
 
-    font-size: 28px;
+    font-size: 30px;
+
+    font-family: "Georgia", serif;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    text-shadow:
+        2px 3px 5px rgba(62, 39, 35, 0.18);
+
+    animation:
+        reviewTitleReveal
+        0.8s
+        0.3s
+        cubic-bezier(.2, .8, .2, 1)
+        both;
 }
 
-@keyframes reviewsReveal {
 
-    from {
-        opacity: 0;
+/* Title underline */
 
-        transform:
-            translateY(35px);
-    }
+.reviews-section h2::after {
 
-    to {
-        opacity: 1;
+    content: "";
 
-        transform:
-            translateY(0);
-    }
+    display: block;
+
+    width: 0;
+
+    height: 3px;
+
+    margin: 10px auto 0;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8d6e63,
+            #c59d5f,
+            #8d6e63
+        );
+
+    animation:
+        reviewUnderline
+        0.8s
+        0.7s
+        ease
+        forwards;
 }
 
 
@@ -2097,40 +2193,116 @@ body.cafe-gallery-open {
 
 .review-item {
 
+    position: relative;
+
     background: #fff;
 
-    padding: 15px 20px;
+    padding: 18px 22px;
 
-    margin-bottom: 15px;
+    margin-bottom: 18px;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
     border-left: 4px solid #ff7043;
 
+    box-shadow:
+        0 4px 12px rgba(62, 39, 35, 0.06);
+
+    opacity: 0;
+
+    animation:
+        reviewItemReveal
+        0.7s
+        cubic-bezier(.2, .8, .2, 1)
+        forwards;
+
     transition:
         transform 0.35s ease,
-        box-shadow 0.35s ease;
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
 }
+
+
+/* =========================================================
+   STAGGER REVIEW ANIMATION
+========================================================= */
+
+.review-item:nth-child(1) {
+    animation-delay: 0.5s;
+}
+
+.review-item:nth-child(2) {
+    animation-delay: 0.65s;
+}
+
+.review-item:nth-child(3) {
+    animation-delay: 0.8s;
+}
+
+.review-item:nth-child(4) {
+    animation-delay: 0.95s;
+}
+
+.review-item:nth-child(5) {
+    animation-delay: 1.1s;
+}
+
+
+/* =========================================================
+   REVIEW HOVER
+========================================================= */
 
 .review-item:hover {
 
     transform:
-        translateY(-7px);
+        translateY(-8px)
+        scale(1.01);
+
+    border-left-color: #c59d5f;
 
     box-shadow:
         0 15px 30px rgba(62, 39, 35, 0.15);
 }
 
+
+/* =========================================================
+   REVIEW TEXT
+========================================================= */
+
 .review-item p {
 
     margin: 5px 0;
 
-    line-height: 1.5;
+    line-height: 1.6;
+
+    color: #5d4037;
+
+    transition:
+        transform 0.3s ease;
 }
 
-.review-item strong {
-    color: #3e2723;
+.review-item:hover p {
+
+    transform:
+        translateX(3px);
 }
+
+
+.review-item strong {
+
+    color: #3e2723;
+
+    font-weight: 700;
+
+    transition:
+        color 0.3s ease;
+}
+
+.review-item:hover strong {
+
+    color: #8d6e63;
+}
+
 
 .review-date {
 
@@ -2139,6 +2311,14 @@ body.cafe-gallery-open {
     color: #999;
 
     text-align: right;
+
+    transition:
+        color 0.3s ease;
+}
+
+.review-item:hover .review-date {
+
+    color: #8d6e63;
 }
 
 
@@ -2158,18 +2338,26 @@ body.cafe-gallery-open {
 
     margin-top: 10px;
 
+    box-shadow:
+        0 5px 15px rgba(62, 39, 35, 0.12);
+
     transition:
         transform 0.5s ease,
-        filter 0.5s ease;
+        filter 0.5s ease,
+        box-shadow 0.5s ease;
 }
 
 .review-image:hover {
 
     transform:
-        scale(1.06);
+        scale(1.07)
+        rotate(1deg);
 
     filter:
         brightness(1.06);
+
+    box-shadow:
+        0 12px 25px rgba(62, 39, 35, 0.20);
 }
 
 
@@ -2181,14 +2369,28 @@ body.cafe-gallery-open {
 
     text-align: center;
 
-    margin-top: 20px;
+    margin-top: 25px;
+
+    animation:
+        reviewButtonReveal
+        0.7s
+        1.1s
+        cubic-bezier(.2, .8, .2, 1)
+        both;
 }
+
 
 #reviewBtn {
 
-    padding: 12px 25px;
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 13px 28px;
 
     font-size: 16px;
+
+    font-weight: 700;
 
     color: #fff;
 
@@ -2196,9 +2398,12 @@ body.cafe-gallery-open {
 
     border: none;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
     cursor: pointer;
+
+    box-shadow:
+        0 6px 15px rgba(62, 39, 35, 0.18);
 
     transition:
         transform 0.3s ease,
@@ -2206,16 +2411,62 @@ body.cafe-gallery-open {
         background 0.3s ease;
 }
 
+
+/* Button shine */
+
+#reviewBtn::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -120%;
+
+    width: 60%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.25),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+}
+
+#reviewBtn:hover::before {
+
+    animation:
+        reviewButtonShine
+        0.8s
+        ease;
+}
+
+
 #reviewBtn:hover {
 
     background-color: #5d4037;
 
     transform:
-        translateY(-4px)
-        scale(1.02);
+        translateY(-5px)
+        scale(1.03);
 
     box-shadow:
-        0 12px 25px rgba(62, 39, 35, 0.2);
+        0 14px 28px rgba(62, 39, 35, 0.22);
+}
+
+
+#reviewBtn:active {
+
+    transform:
+        translateY(-1px)
+        scale(0.98);
 }
 
 
@@ -2227,23 +2478,24 @@ body.cafe-gallery-open {
 
     max-width: 500px;
 
-    margin: 20px auto;
+    margin: 25px auto;
 
     background: #fff3e0;
 
-    padding: 20px;
+    padding: 25px;
 
-    border-radius: 12px;
+    border-radius: 14px;
 
     box-shadow:
-        0 4px 10px rgba(0, 0, 0, 0.08);
+        0 8px 20px rgba(62, 39, 35, 0.10);
 
     animation:
         reviewFormReveal
-        0.6s
-        ease
+        0.7s
+        cubic-bezier(.2, .8, .2, 1)
         both;
 }
+
 
 #reviewFormContainer form {
 
@@ -2254,29 +2506,35 @@ body.cafe-gallery-open {
     gap: 15px;
 }
 
+
 #reviewFormContainer label {
 
-    font-weight: 500;
+    font-weight: 600;
 
     color: #3e2723;
 }
+
 
 #reviewFormContainer input,
 #reviewFormContainer select,
 #reviewFormContainer textarea {
 
-    padding: 10px;
+    padding: 11px;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
     border: 1px solid #ccc;
 
     font-size: 14px;
 
+    background: white;
+
     transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
 }
+
 
 #reviewFormContainer input:focus,
 #reviewFormContainer select:focus,
@@ -2284,11 +2542,15 @@ body.cafe-gallery-open {
 
     outline: none;
 
-    border-color: #ff7043;
+    transform:
+        translateY(-2px);
+
+    border-color: #c59d5f;
 
     box-shadow:
-        0 0 0 3px rgba(255, 112, 67, 0.1);
+        0 0 0 4px rgba(197, 157, 95, 0.12);
 }
+
 
 #reviewFormContainer button {
 
@@ -2304,29 +2566,41 @@ body.cafe-gallery-open {
 
     font-size: 16px;
 
+    font-weight: 600;
+
     cursor: pointer;
 
     transition:
         background 0.3s ease,
-        transform 0.3s ease;
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
+
 
 #reviewFormContainer button:hover {
 
     background: #5d4037;
 
     transform:
-        translateY(-3px);
+        translateY(-4px);
+
+    box-shadow:
+        0 10px 20px rgba(62, 39, 35, 0.18);
 }
 
-@keyframes reviewFormReveal {
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes reviewsReveal {
 
     from {
         opacity: 0;
 
         transform:
-            translateY(25px)
-            scale(0.97);
+            translateY(50px)
+            scale(0.96);
     }
 
     to {
@@ -2337,6 +2611,113 @@ body.cafe-gallery-open {
             scale(1);
     }
 }
+
+
+@keyframes reviewTitleReveal {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-25px)
+            scale(0.9);
+
+        filter: blur(6px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        filter: blur(0);
+    }
+}
+
+
+@keyframes reviewUnderline {
+
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 120px;
+    }
+}
+
+
+@keyframes reviewItemReveal {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(-35px)
+            scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(0)
+            scale(1);
+    }
+}
+
+
+@keyframes reviewButtonReveal {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes reviewButtonShine {
+
+    from {
+        left: -120%;
+    }
+
+    to {
+        left: 140%;
+    }
+}
+
+
+@keyframes reviewGlow {
+
+    0%,
+    100% {
+        transform:
+            translate(0, 0)
+            scale(1);
+    }
+
+    50% {
+        transform:
+            translate(-25px, 20px)
+            scale(1.15);
+    }
+}
+
+
 
 
 /* =========================================================
