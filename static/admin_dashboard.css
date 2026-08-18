@@ -1,0 +1,1994 @@
+/* =========================================================
+   ADMIN DASHBOARD
+   CAFE FINDER
+========================================================= */
+
+body.admin-dashboard {
+
+    margin: 0;
+    padding: 0;
+
+    font-family: "Poppins", sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8f5f2,
+            #efe7df
+        );
+
+    color: #3e2723;
+
+    min-height: 100vh;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   BACKGROUND DECORATION
+========================================================= */
+
+body.admin-dashboard::before {
+
+    content: "";
+
+    position: fixed;
+
+    width: 420px;
+    height: 420px;
+
+    top: -180px;
+    left: -150px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(197, 157, 95, 0.10);
+
+    filter: blur(50px);
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    animation:
+        adminFloatOne
+        12s
+        ease-in-out
+        infinite;
+}
+
+
+body.admin-dashboard::after {
+
+    content: "";
+
+    position: fixed;
+
+    width: 380px;
+    height: 380px;
+
+    right: -150px;
+    bottom: -160px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(141, 110, 99, 0.10);
+
+    filter: blur(50px);
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    animation:
+        adminFloatTwo
+        15s
+        ease-in-out
+        infinite;
+}
+
+
+@keyframes adminFloatOne {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(70px, 90px);
+    }
+}
+
+
+@keyframes adminFloatTwo {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-70px, -80px);
+    }
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.admin-header {
+
+    position: relative;
+
+    z-index: 2;
+
+    padding: 30px 7% 15px;
+
+    text-align: center;
+
+    animation:
+        adminHeaderReveal
+        0.8s
+        ease
+        both;
+}
+
+
+.admin-header h1 {
+
+    margin: 0;
+
+    font-family: Georgia, serif;
+
+    font-size: 38px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    color: #3e2723;
+
+    text-shadow:
+        2px 3px 5px rgba(62, 39, 35, 0.15);
+
+    position: relative;
+
+    display: inline-block;
+}
+
+
+/* Header underline */
+
+.admin-header h1::after {
+
+    content: "";
+
+    display: block;
+
+    width: 0;
+
+    height: 4px;
+
+    margin: 12px auto 0;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8d6e63,
+            #c59d5f,
+            #8d6e63
+        );
+
+    animation:
+        adminUnderline
+        0.8s
+        0.5s
+        ease
+        forwards;
+}
+
+
+@keyframes adminHeaderReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-30px)
+            scale(0.95);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes adminUnderline {
+
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 150px;
+    }
+}
+
+
+/* =========================================================
+   DASHBOARD CONTAINER
+========================================================= */
+
+.dashboard-container {
+
+    position: relative;
+
+    z-index: 1;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 30px;
+
+    max-width: 1350px;
+
+    margin: 30px auto 80px;
+
+    padding: 0 25px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   LEFT + RIGHT CARDS
+========================================================= */
+
+.add-cafe,
+.manage-menu {
+
+    flex: 1 1 50%;
+
+    width: 50%;
+
+    box-sizing: border-box;
+
+    background:
+        rgba(255, 255, 255, 0.95);
+
+    padding: 30px;
+
+    border-radius: 18px;
+
+    border:
+        1px solid rgba(141, 110, 99, 0.12);
+
+    box-shadow:
+        0 12px 35px rgba(62, 39, 35, 0.10);
+
+    animation:
+        dashboardCardReveal
+        0.9s
+        cubic-bezier(.2, .8, .2, 1)
+        both;
+}
+
+
+.add-cafe {
+
+    animation-delay: 0.15s;
+}
+
+
+.manage-menu {
+
+    animation-delay: 0.3s;
+}
+
+
+@keyframes dashboardCardReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(40px)
+            scale(0.97);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   SECTION HEADINGS
+========================================================= */
+
+.add-cafe h2,
+.manage-menu h2 {
+
+    margin-top: 0;
+
+    margin-bottom: 25px;
+
+    font-family: Georgia, serif;
+
+    font-size: 28px;
+
+    font-weight: 900;
+
+    color: #4e342e;
+
+    position: relative;
+
+    padding-bottom: 12px;
+}
+
+
+.add-cafe h2::after,
+.manage-menu h2::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 70px;
+
+    height: 4px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8d6e63,
+            #c59d5f
+        );
+}
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.cafe-form label,
+.admin-services label {
+
+    display: block;
+
+    margin-top: 14px;
+
+    margin-bottom: 7px;
+
+    color: #5d4037;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.cafe-form input,
+.cafe-form textarea,
+.cafe-form select,
+.admin-services input,
+.admin-services textarea,
+.admin-services select {
+
+    width: 100%;
+
+    padding: 12px 14px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid #d6ccc5;
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    color: #3e2723;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.2s ease;
+}
+
+
+/* Textarea */
+
+.cafe-form textarea,
+.admin-services textarea {
+
+    min-height: 100px;
+
+    resize: vertical;
+}
+
+
+/* Focus */
+
+.cafe-form input:focus,
+.cafe-form textarea:focus,
+.cafe-form select:focus,
+.admin-services input:focus,
+.admin-services textarea:focus,
+.admin-services select:focus {
+
+    outline: none;
+
+    border-color: #c59d5f;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(197, 157, 95, 0.13);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================================
+   FILE INPUT
+========================================================= */
+
+.cafe-form input[type="file"] {
+
+    padding: 10px;
+
+    background: #faf7f4;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   MAP
+========================================================= */
+
+#adminMap {
+
+    width: 100%;
+
+    height: 350px;
+
+    margin-top: 10px;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    border:
+        2px solid #eadfd7;
+
+    box-shadow:
+        0 8px 20px
+        rgba(62, 39, 35, 0.10);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+#adminMap:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 14px 28px
+        rgba(62, 39, 35, 0.14);
+}
+
+
+/* =========================================================
+   SERVICES
+========================================================= */
+
+.admin-services {
+
+    margin-top: 30px;
+
+    padding: 22px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffaf5,
+            #f8eee4
+        );
+
+    border:
+        1px solid #eadfd7;
+
+    box-shadow:
+        inset 0 0 20px
+        rgba(197, 157, 95, 0.05);
+}
+
+
+.admin-services h2 {
+
+    font-size: 22px;
+
+    margin-top: 0;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   SERVICE ICON SELECT
+========================================================= */
+
+.service-icon-select {
+
+    width: 100%;
+
+    padding: 12px 15px;
+
+    border:
+        1px solid #d6ccc5;
+
+    border-radius: 9px;
+
+    background: white;
+
+    color: #3e2723;
+
+    font-size: 16px;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.2s ease;
+}
+
+
+.service-icon-select:hover {
+
+    border-color: #8d6e63;
+}
+
+
+.service-icon-select:focus {
+
+    outline: none;
+
+    border-color: #c59d5f;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(197, 157, 95, 0.13);
+}
+
+
+/* =========================================================
+   MENU ITEMS SECTION
+========================================================= */
+
+.add-cafe h4 {
+
+    position: relative;
+
+    margin-top: 35px;
+    margin-bottom: 20px;
+
+    padding-bottom: 10px;
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    color: #3e2723;
+
+    letter-spacing: 1px;
+
+    text-align: left;
+
+    animation:
+        menuHeadingReveal
+        0.7s
+        ease
+        both;
+}
+
+
+/* Golden underline */
+
+.add-cafe h4::after {
+
+    content: "";
+
+    display: block;
+
+    width: 75px;
+
+    height: 4px;
+
+    margin-top: 8px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8d6e63,
+            #c59d5f,
+            #8d6e63
+        );
+
+    animation:
+        menuLineReveal
+        0.8s
+        0.3s
+        ease
+        both;
+}
+
+
+/* =========================================================
+   MENU ROW
+========================================================= */
+
+.menu-row {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 14px;
+
+    padding: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffaf6,
+            #faf3ed
+        );
+
+    border-radius: 12px;
+
+    border: 1px solid #eaded5;
+
+    box-shadow:
+        0 4px 12px rgba(62, 39, 35, 0.06);
+
+    overflow: hidden;
+
+    animation:
+        menuRowReveal
+        0.55s
+        cubic-bezier(.2, .8, .2, 1)
+        both;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+/* Left decorative line */
+
+.menu-row::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 4px;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #8d6e63,
+            #c59d5f
+        );
+
+    transform:
+        scaleY(0);
+
+    transform-origin: bottom;
+
+    transition:
+        transform 0.35s ease;
+}
+
+
+/* Hover */
+
+.menu-row:hover {
+
+    transform:
+        translateY(-4px)
+        translateX(3px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(62, 39, 35, 0.13);
+
+    border-color:
+        #c59d5f;
+}
+
+
+.menu-row:hover::before {
+
+    transform:
+        scaleY(1);
+}
+
+
+/* =========================================================
+   MENU INPUTS
+========================================================= */
+
+.menu-row input,
+.menu-row select {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 44px;
+
+    padding: 0 13px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d9ccc3;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #4e342e;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+
+/* Input hover */
+
+.menu-row input:hover,
+.menu-row select:hover {
+
+    border-color:
+        #b08968;
+
+    background:
+        #fffdfb;
+}
+
+
+/* Input focus */
+
+.menu-row input:focus,
+.menu-row select:focus {
+
+    outline: none;
+
+    border-color:
+        #8d6e63;
+
+    background:
+        #ffffff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(141, 110, 99, 0.12);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* Placeholder */
+
+.menu-row input::placeholder {
+
+    color: #9e8b80;
+
+    transition:
+        opacity 0.3s ease;
+}
+
+
+.menu-row input:focus::placeholder {
+
+    opacity: 0.5;
+}
+
+
+/* =========================================================
+   MENU ROW ANIMATION
+========================================================= */
+
+@keyframes menuRowReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateX(-35px)
+            scale(0.96);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateX(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   MENU HEADING ANIMATION
+========================================================= */
+
+@keyframes menuHeadingReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+@keyframes menuLineReveal {
+
+    from {
+
+        width: 0;
+
+        opacity: 0;
+    }
+
+    to {
+
+        width: 75px;
+
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.cafe-form button,
+.admin-services button {
+
+    position: relative;
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 13px 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6d4c41,
+            #3e2723
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.3px;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 14px
+        rgba(62, 39, 35, 0.15);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+}
+
+
+/* Button shine */
+
+.cafe-form button::before,
+.admin-services button::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.25),
+            transparent
+        );
+
+    transform:
+        skewX(-25deg);
+
+    transition:
+        left 0.6s ease;
+}
+
+
+.cafe-form button:hover::before,
+.admin-services button:hover::before {
+
+    left: 130%;
+}
+
+
+/* Button hover */
+
+.cafe-form button:hover,
+.admin-services button:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.02);
+
+    box-shadow:
+        0 12px 25px
+        rgba(62, 39, 35, 0.25);
+
+    background:
+        linear-gradient(
+            135deg,
+            #795548,
+            #4e342e
+        );
+}
+
+
+/* Button click */
+
+.cafe-form button:active,
+.admin-services button:active {
+
+    transform:
+        translateY(-1px)
+        scale(0.98);
+
+    box-shadow:
+        0 5px 12px
+        rgba(62, 39, 35, 0.18);
+}
+
+/* =========================================================
+   ADD MORE MENU ITEM BUTTON
+========================================================= */
+
+.add-menu-btn {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 14px 25px;
+
+    box-sizing: border-box;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #3e2723;
+
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    font-weight: 900;
+
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 15px rgba(62, 39, 35, 0.25);
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* =========================================================
+   SHINE EFFECT
+========================================================= */
+
+.add-menu-btn::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -120%;
+
+    width: 70%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.25),
+            transparent
+        );
+
+    transform: skewX(-25deg);
+
+    transition: left 0.6s ease;
+}
+
+
+.add-menu-btn:hover::before {
+
+    left: 130%;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.add-menu-btn:hover {
+
+    background: #241510;
+
+    color: #ffffff;
+
+    transform:
+        translateY(-4px)
+        scale(1.02);
+
+    box-shadow:
+        0 12px 25px rgba(62, 39, 35, 0.35);
+}
+
+
+/* =========================================================
+   CLICK
+========================================================= */
+
+.add-menu-btn:active {
+
+    transform:
+        translateY(-1px)
+        scale(0.97);
+
+    box-shadow:
+        0 5px 12px rgba(62, 39, 35, 0.18);
+}
+
+
+/* =========================================================
+   ENTRANCE ANIMATION
+========================================================= */
+
+@keyframes addMenuButtonReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(0.95);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+.add-menu-btn {
+
+    animation:
+        addMenuButtonReveal
+        0.6s
+        0.2s
+        cubic-bezier(.2, .8, .2, 1)
+        both;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .add-menu-btn {
+
+        width: 100%;
+
+        font-size: 15px;
+
+        padding: 13px 20px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE MENU
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .menu-row {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 10px;
+
+        padding: 13px;
+    }
+
+
+    .menu-row input,
+    .menu-row select {
+
+        width: 100%;
+
+        flex: none;
+    }
+
+
+    .add-cafe h4 {
+
+        font-size: 21px;
+    }
+
+
+    .cafe-form > button[type="button"] {
+
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   ADD CAFE BUTTON
+========================================================= */
+
+.add-cafe-btn {
+
+    background: #3e2723 !important;
+
+    color: #ffffff !important;
+
+    font-weight: 900 !important;
+
+    font-size: 17px !important;
+
+    padding: 14px 30px !important;
+
+    border: none !important;
+
+    border-radius: 10px !important;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 15px rgba(62, 39, 35, 0.25);
+
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+/* Hover */
+
+.add-cafe-btn:hover {
+
+    background: #241510 !important;
+
+    color: #ffffff !important;
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 12px 25px rgba(62, 39, 35, 0.35);
+}
+
+
+/* Click */
+
+.add-cafe-btn:active {
+
+    transform:
+        translateY(-1px)
+        scale(0.98);
+}
+
+
+/* =========================================================
+   EXISTING CAFE BOX
+========================================================= */
+
+.cafe-box {
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #faf7f4,
+            #f3ebe4
+        );
+
+    padding: 20px;
+
+    margin-bottom: 18px;
+
+    border-radius: 14px;
+
+    border:
+        1px solid #eadfd7;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+
+    animation:
+        cafeBoxReveal
+        0.6s
+        ease
+        both;
+}
+
+
+.cafe-box:hover {
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        rgba(197, 157, 95, 0.5);
+
+    box-shadow:
+        0 12px 28px
+        rgba(62, 39, 35, 0.12);
+}
+
+
+.cafe-box h3 {
+
+    margin: 0 0 5px;
+
+    font-family: Georgia, serif;
+
+    font-size: 22px;
+
+    font-weight: 900;
+
+    color: #4e342e;
+}
+
+
+@keyframes cafeBoxReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   PAYMENT INFORMATION
+========================================================= */
+
+.payment-section {
+
+    margin-top: 35px;
+
+    padding: 25px;
+
+    background: #fffaf5;
+
+    border-radius: 15px;
+
+    border: 1px solid rgba(197, 157, 95, 0.25);
+
+    box-shadow:
+        0 8px 20px rgba(62, 39, 35, 0.08);
+
+    animation:
+        paymentReveal
+        0.8s
+        0.5s
+        cubic-bezier(.2, .8, .2, 1)
+        both;
+}
+
+
+/* =========================================================
+   PAYMENT HEADING
+========================================================= */
+
+.payment-heading {
+
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.payment-heading h3 {
+
+    margin: 0 0 8px;
+
+    color: #3e2723;
+
+    font-family: Georgia, serif;
+
+    font-size: 25px;
+
+    font-weight: 900;
+}
+
+.payment-heading p {
+
+    margin: 0;
+
+    color: #795548;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   PAYMENT GRID
+========================================================= */
+
+.payment-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   PAYMENT CARD
+========================================================= */
+
+.payment-card {
+
+    background: #ffffff;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    border: 1px solid #eaded3;
+
+    box-shadow:
+        0 5px 15px rgba(62, 39, 35, 0.07);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.payment-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 12px 25px rgba(62, 39, 35, 0.14);
+}
+
+
+/* =========================================================
+   PAYMENT CARD HEADER
+========================================================= */
+
+.payment-card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid #eee0d5;
+}
+
+.payment-icon {
+
+    font-size: 28px;
+}
+
+.payment-card-header h4 {
+
+    margin: 0;
+
+    color: #5d4037;
+
+    font-size: 20px;
+
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   PAYMENT LABELS
+========================================================= */
+
+.payment-card label {
+
+    display: block;
+
+    margin-top: 12px;
+
+    margin-bottom: 6px;
+
+    color: #5d4037;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   PAYMENT INPUTS
+========================================================= */
+
+.payment-card input[type="text"],
+.payment-card input[type="file"] {
+
+    width: 100%;
+
+    padding: 11px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d8ccc4;
+
+    border-radius: 7px;
+
+    background: #fff;
+
+    font-size: 14px;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.payment-card input[type="text"]:focus {
+
+    outline: none;
+
+    border-color: #c59d5f;
+
+    box-shadow:
+        0 0 0 3px rgba(197, 157, 95, 0.15);
+}
+
+
+/* =========================================================
+   FILE INPUT
+========================================================= */
+
+.payment-card input[type="file"] {
+
+    cursor: pointer;
+
+    background: #faf7f4;
+}
+
+.payment-card input[type="file"]:hover {
+
+    border-color: #c59d5f;
+}
+
+
+/* =========================================================
+   PAYMENT ANIMATION
+========================================================= */
+
+@keyframes paymentReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(0.97);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .payment-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .payment-section {
+
+        padding: 20px;
+    }
+
+}
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.action-btn {
+
+    display: block;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    padding: 11px 15px;
+
+    background:
+        #c59d5f;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.action-btn:hover {
+
+    background:
+        #a67c45;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 7px 15px
+        rgba(62, 39, 35, 0.15);
+}
+
+
+/* =========================================================
+   DELETE BUTTON
+========================================================= */
+
+.delete-btn {
+
+    background:
+        #c62828;
+}
+
+
+.delete-btn:hover {
+
+    background:
+        #a61b1b;
+}
+
+
+/* =========================================================
+   POPUP MANAGER
+========================================================= */
+
+.popup-manager-btn {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: block;
+
+    width: fit-content;
+
+    margin: 20px auto;
+
+    padding: 13px 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6f4e37,
+            #4e342e
+        );
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.popup-manager-btn:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(62, 39, 35, 0.20);
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.logout-btn {
+
+    position: fixed;
+
+    z-index: 1000;
+
+    bottom: 20px;
+
+    right: 25px;
+
+    padding: 12px 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c59d5f,
+            #a67c45
+        );
+
+    color: white;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 7px 20px
+        rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+
+.logout-btn:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(0, 0, 0, 0.22);
+}
+
+
+/* =========================================================
+   LEAFLET POPUP
+========================================================= */
+
+.leaflet-popup-content-wrapper {
+
+    border-radius: 12px;
+}
+
+
+.leaflet-popup-content {
+
+    font-family: "Poppins", sans-serif;
+
+    color: #3e2723;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+body.admin-dashboard::-webkit-scrollbar {
+
+    width: 9px;
+}
+
+
+body.admin-dashboard::-webkit-scrollbar-track {
+
+    background: #eee5dd;
+}
+
+
+body.admin-dashboard::-webkit-scrollbar-thumb {
+
+    background:
+        linear-gradient(
+            #8d6e63,
+            #c59d5f
+        );
+
+    border-radius: 20px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .dashboard-container {
+
+        flex-direction: column;
+
+        padding: 0 15px;
+    }
+
+    .add-cafe,
+    .manage-menu {
+
+        width: 100%;
+
+        flex: none;
+    }
+
+    .admin-header {
+
+        padding-top: 25px;
+    }
+
+    .admin-header h1 {
+
+        font-size: 32px;
+    }
+
+    .menu-row {
+
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+    #adminMap {
+
+        height: 300px;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .add-cafe,
+    .manage-menu {
+
+        padding: 20px;
+
+        border-radius: 14px;
+    }
+
+    .admin-header h1 {
+
+        font-size: 27px;
+    }
+
+    .add-cafe h2,
+    .manage-menu h2 {
+
+        font-size: 24px;
+    }
+
+    .logout-btn {
+
+        right: 15px;
+
+        bottom: 15px;
+
+        padding: 10px 16px;
+
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+    }
+}

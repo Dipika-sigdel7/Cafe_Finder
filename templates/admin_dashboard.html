@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Dashboard</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='admin_dashboard.css') }}">
 <!-- Leaflet  CSS-->
 <link 
 rel="stylesheet"
@@ -14,199 +14,7 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 <script 
 src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
-<style>
-body.admin-dashboard {
-    font-family: 'Merienda One', cursive;
-    background: #f4f1ee;
-    margin: 0;
-    padding: 0;
-}
 
-/* Header */
-.admin-header {
-    background-color: transparent;
-    padding: 10px 20px;
-    text-align: left;
-}
-
-.admin-header h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;             /* bold text */
-    text-decoration: underline;    /* underline text */
-    color: #5a3e36;                /* same as admin login page */
-}
-
-/* Dashboard container - split into two columns */
-.dashboard-container {
-    display: flex;
-    gap: 30px;
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
-    align-items: flex-start;
-}
-
-/* Left column - Add Cafe */
-.add-cafe {
-   flex: 1;
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* Make Both Sides equal width */
-.add-cafe,
-.manage-menu {
-
-    width:50%;
-
-}
-
-/* Right column - Manage Menu */
-.manage-menu {
-   flex: 1;
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-
-/* Form inputs */
-.cafe-form input,
-.cafe-form textarea,
-.cafe-form select {
-
-    width:100%;
-    padding:10px;
-    margin:8px 0 15px;
-    border-radius:6px;
-    border:1px solid #ccc;
-
-}
-
-
-/* Logout button at bottom-right */
-.logout-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #c59d5f;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-.logout-btn:hover {
-    background: #a67c3d;
-}
-
-
-/* Manage Existing Cafe */
-.cafe-box{
-    background:#f7f3ef;
-    padding:20px;
-    margin-bottom:20px;
-    border-radius:12px;
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-/* Buttons */
-.action-btn {
-    display:block;
-    text-align:center;
-    margin-top:10px;
-    padding:10px;
-    background:#c59d5f;
-    color:white;
-    text-decoration:none;
-    border-radius:6px;
-}
-
-.action-btn:hover {
-    background:#a67c3d;
-}
-
-/*delete button*/
-.delete-btn {
-    background:red;
-}
-
-/* For menu rows */
-.menu-row {
-    display:flex;
-    gap:10px;
-    margin-bottom:15px;
-}
-
-.menu-row input,
-.menu-row select {
-   flex:1;
-}
-
-#adminMap{
-
-    height:400px;
-
-    width:100%;
-
-    margin-top:15px;
-
-    border-radius:10px;
-
-}
-
-/* ==============================
-   POPUP MANAGER BUTTON
-============================== */
-
-.popup-manager-btn {
-    display: block;
-    width: fit-content;
-    margin: 20px auto;
-    padding: 12px 24px;
-
-    background: #6f4e37;
-    color: white;
-
-    text-decoration: none;
-
-    border-radius: 8px;
-
-    font-size: 16px;
-    font-weight: 600;
-
-    transition: 0.3s;
-}
-
-.popup-manager-btn:hover {
-    background: #4e342e;
-    transform: translateY(-2px);
-}
-
-/* Responsive */
-@media(max-width:900px){
-
-    .dashboard-container {
-        flex-direction: column;
-    }
-
-    .add-cafe,
-    .manage-menu {
-        width:100%;
-        min-width: unset;
-    }
-
-}
-</style>
 </head>
 
 <body class="admin-dashboard">
@@ -256,23 +64,6 @@ body.admin-dashboard {
 
     <form action="{{ url_for('add_service') }}" method="POST">
 
-        <label>Select Cafe</label>
-
-        <select name="cafe_id" required>
-
-            <option value="">-- Select Cafe --</option>
-
-            {% for cafe in cafes %}
-
-            <option value="{{ cafe.id }}">
-                {{ cafe.name }}
-            </option>
-
-            {% endfor %}
-
-        </select>
-
-
         <label>Service Name</label>
 
         <input
@@ -293,13 +84,25 @@ body.admin-dashboard {
 
 
         <label>Service Icon</label>
+        <select name="service_icon" class="service-icon-select" required>
+    <option value="">Select Icon</option>
 
-        <input
-            type="text"
-            name="service_icon"
-            placeholder="☕"
-            maxlength="20"
-        >
+    <option value="☕">☕ Coffee</option>
+    <option value="🥡">🥡 Takeaway</option>
+    <option value="🛵">🛵 Delivery</option>
+    <option value="🪑">🪑 Table Reservation</option>
+    <option value="🎉">🎉 Events & Parties</option>
+    <option value="📶">📶 Free Wi-Fi</option>
+    <option value="🍽️">🍽️ Dine-In</option>
+    <option value="🎂">🎂 Birthday</option>
+    <option value="💻">💻 Workspace</option>
+    <option value="🎵">🎵 Live Music</option>
+    <option value="📅">📅 Booking</option>
+    <option value="🚗">🚗 Parking</option>
+    <option value="❄️">❄️ Air Conditioning</option>
+    <option value="🌿">🌿 Outdoor Seating</option>
+    <option value="🐾">🐾 Pet Friendly</option>
+</select>
 
 
         <button type="submit">
@@ -327,6 +130,7 @@ body.admin-dashboard {
             <option value="Drinks">☕ Drinks</option>
             <option value="Desserts">🍰 Desserts</option>
             <option value="Snacks">🍟 Snacks</option>
+            <option value="Today's Special">⭐ Today's Special</option>
         </select>
 
 
@@ -339,51 +143,93 @@ body.admin-dashboard {
 </div>
 
 
-<button type="button" onclick="addMenuItem()">
-    Add More Menu Item
+<button type="button" class="add-menu-btn" onclick="addMenuItem()">
+    ➕Add More Menu Item
 </button>
 
-<h3>Payment Information</h3>
+
+<!-- =====================================================
+     PAYMENT INFORMATION
+===================================================== -->
+
+<section class="payment-section">
+
+    <div class="payment-heading">
+        <h3>💳 Payment Information</h3>
+        <p>Add payment details customers can use for reservations.</p>
+    </div>
 
 
-<label>
-eSewa QR Code
-</label>
+    <div class="payment-grid">
 
-<input
-type="file"
-name="esewa_qr"
-accept="image/*">
+        <!-- eSewa -->
+        <div class="payment-card">
+
+            <div class="payment-card-header">
+                <span class="payment-icon">💚</span>
+                <h4>eSewa</h4>
+            </div>
+
+            <label for="esewa_qr">
+                eSewa QR Code
+            </label>
+
+            <input
+                type="file"
+                name="esewa_qr"
+                id="esewa_qr"
+                accept="image/*"
+            >
+
+            <label for="esewa_number">
+                eSewa Number
+            </label>
+
+            <input
+                type="text"
+                name="esewa_number"
+                id="esewa_number"
+                placeholder="98XXXXXXXX"
+            >
+
+        </div>
 
 
-<label>
-eSewa Number
-</label>
+        <!-- Khalti -->
+        <div class="payment-card">
 
-<input
-type="text"
-name="esewa_number"
-placeholder="98XXXXXXXX">
+            <div class="payment-card-header">
+                <span class="payment-icon">💜</span>
+                <h4>Khalti</h4>
+            </div>
 
+            <label for="khalti_qr">
+                Khalti QR Code
+            </label>
 
-<label>
-Khalti QR Code
-</label>
+            <input
+                type="file"
+                name="khalti_qr"
+                id="khalti_qr"
+                accept="image/*"
+            >
 
-<input
-type="file"
-name="khalti_qr"
-accept="image/*">
+            <label for="khalti_number">
+                Khalti Number
+            </label>
 
+            <input
+                type="text"
+                name="khalti_number"
+                id="khalti_number"
+                placeholder="98XXXXXXXX"
+            >
 
-<label>
-Khalti Number
-</label>
+        </div>
 
-<input
-type="text"
-name="khalti_number"
-placeholder="98XXXXXXXX">
+    </div>
+
+</section>
 
 <!-- Add Cafe Button -->
 <button type="submit" class="add-cafe-btn">
@@ -470,6 +316,8 @@ function addMenuItem() {
                 <option value="Desserts">🍰 Desserts</option>
 
                 <option value="Snacks">🍟 Snacks</option>
+
+                <option value="Today's Special">⭐ Today's Special</option>
 
             </select>
 
