@@ -279,12 +279,13 @@ body::after {
     position: relative;
 
     display: flex;
-
     align-items: flex-start;
 
     gap: 40px;
 
+    width: 100%;
     padding: 50px;
+    box-sizing: border-box;
 
     animation:
         sectionReveal
@@ -300,7 +301,10 @@ body::after {
 ========================================================= */
 
 .about-left {
-    flex: 1;
+   flex: 1;
+    width: 50%;
+
+    box-sizing: border-box;
 
     animation:
         slideFromLeft
@@ -336,388 +340,299 @@ body::after {
 /* =========================================================
    ABOUT RIGHT
 ========================================================= */
-
 .about-right {
-    flex: 2;
+    flex: 0 0 calc(50% - 20px);
 
-    overflow: visible;
+    width: calc(50% - 20px);
 
-    animation:
-        slideFromRight
-        1s
-        0.5s
-        cubic-bezier(.2, .8, .2, 1)
-        both;
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
 }
 
-@keyframes slideFromRight {
+/* =====================================================
+   IMAGE WRAPPER
+===================================================== */
 
-    from {
-        opacity: 0;
+.about-image-wrapper {
+    width: 100%;
 
-        transform:
-            translateX(70px)
-            scale(0.92);
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    to {
-        opacity: 1;
-
-        transform:
-            translateX(0)
-            scale(1);
-    }
+    box-sizing: border-box;
 }
 
 
-/* =========================================================
-   ⭐ MAIN CAFE IMAGE
-========================================================= */
+/* =====================================================
+   MAIN IMAGE
+   ONLY ONE IMAGE IS SHOWN
+===================================================== */
 
-.image-scroll-container {
-
+.cafe-main-image {
     position: relative;
 
     width: 100%;
+    height: 350px;
 
-    height: 430px;
-
-    padding: 0;
-
-    margin: 0;
+    min-width: 350px;
+    max-width: 350px;
 
     overflow: hidden;
 
-    background: transparent;
+    border-radius: 15px;
 
-    border-radius: 22px;
+    background: #eee;
 
-    box-shadow:
-        0 15px 40px rgba(62, 39, 35, 0.15);
+    cursor: pointer;
 
-    cursor: zoom-in;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 
-    transition:
-        transform 0.5s ease,
-        box-shadow 0.5s ease;
+    box-sizing: border-box;
 }
 
-
-/* Main image */
-
-.main-gallery-image {
+.cafe-main-image img {
+    width: 100%;
+    height: 100%;
 
     display: block;
 
-    width: 100%;
-
-    height: 100%;
-
-    padding: 0;
-
-    margin: 0;
-
     object-fit: cover;
 
-    border: none;
+    transition: transform 0.3s ease;
+}
 
-    border-radius: 22px;
-
-    cursor: zoom-in;
-
-    transition:
-        transform 0.8s cubic-bezier(.2, .8, .2, 1),
-        filter 0.5s ease;
+.cafe-main-image:hover img {
+    transform: scale(1.03);
 }
 
 
-/* Image hover */
+/* =====================================================
+   CLICK TO VIEW TEXT
+===================================================== */
 
-.image-scroll-container:hover {
-
-    transform:
-        translateY(-8px);
-
-    box-shadow:
-        0 25px 55px rgba(62, 39, 35, 0.23);
-}
-
-.image-scroll-container:hover
-.main-gallery-image {
-
-    transform:
-        scale(1.08);
-
-    filter:
-        brightness(1.08)
-        saturate(1.08);
-}
-
-
-/* =========================================================
-   IMAGE SHINE ANIMATION
-========================================================= */
-
-.image-scroll-container::after {
-
-    content: "";
-
+.image-view-text {
     position: absolute;
 
-    top: 0;
+    bottom: 15px;
+    left: 50%;
 
-    left: -130%;
+    transform: translateX(-50%);
 
-    width: 55%;
+    padding: 8px 18px;
 
-    height: 100%;
+    border-radius: 20px;
 
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.35),
-            transparent
-        );
+    background: rgba(0, 0, 0, 0.65);
 
-    transform:
-        skewX(-20deg);
+    color: white;
+
+    font-size: 14px;
+
+    white-space: nowrap;
 
     pointer-events: none;
 }
 
-.image-scroll-container:hover::after {
 
-    animation:
-        imageShine
-        0.9s
-        ease;
-}
+/* =====================================================
+   FULL SCREEN GALLERY
+===================================================== */
 
-@keyframes imageShine {
-
-    from {
-        left: -130%;
-    }
-
-    to {
-        left: 150%;
-    }
-}
-
-
-/* =========================================================
-   ⭐ FULL SCREEN IMAGE MODAL
-========================================================= */
-
-.image-modal {
+.cafe-gallery-modal {
+    display: none;
 
     position: fixed;
 
-    inset: 0;
+    top: 0;
+    left: 0;
 
     width: 100vw;
-
     height: 100vh;
 
-    display: none;
+    background: rgba(0, 0, 0, 0.96);
 
-    justify-content: center;
+    z-index: 999999;
 
-    align-items: center;
-
-    background:
-        rgba(0, 0, 0, 0.96);
-
-    z-index: 99999;
-
-    padding: 0;
-
-    margin: 0;
-
-    box-sizing: border-box;
-
-    cursor: zoom-out;
-
-    animation:
-        modalFadeIn
-        0.3s
-        ease;
+    overflow: hidden;
 }
 
 
-/* Modal visible */
+/* OPEN */
 
-.image-modal.show {
-
-    display: flex;
+.cafe-gallery-modal.active {
+    display: block;
 }
 
 
-/* =========================================================
-   FULL SCREEN GALLERY
-========================================================= */
+/* =====================================================
+   HORIZONTAL GALLERY
+===================================================== */
 
-.gallery-slider {
+.cafe-gallery-content {
+    width: 100vw;
+    height: 100vh;
 
     display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 20px;
-
-    width: 100%;
-
-    height: 100%;
+    flex-direction: row;
 
     overflow-x: auto;
-
     overflow-y: hidden;
+
+    scroll-snap-type: x mandatory;
 
     scroll-behavior: smooth;
 
     padding: 0;
+    margin: 0;
 
     box-sizing: border-box;
 }
 
 
-/* Hide scrollbar */
+/* =====================================================
+   EACH IMAGE SLIDE
+===================================================== */
 
-.gallery-slider::-webkit-scrollbar {
-    display: none;
-}
+.cafe-gallery-slide {
+    min-width: 100vw;
+    width: 100vw;
+    height: 100vh;
 
-.gallery-slider {
-    scrollbar-width: none;
-}
-
-
-/* =========================================================
-   FULL SCREEN GALLERY IMAGE
-========================================================= */
-
-.gallery-slide {
-
-    flex-shrink: 0;
-
-    max-width: 95vw;
-
-    max-height: 90vh;
-
-    width: auto;
-
-    height: auto;
-
-    object-fit: contain;
-
-    border-radius: 10px;
-
-    box-shadow:
-        0 20px 70px rgba(0, 0, 0, 0.65);
-
-    animation:
-        imageZoomIn
-        0.4s
-        cubic-bezier(.2, .8, .2, 1)
-        both;
-}
-
-
-/* =========================================================
-   CLOSE BUTTON
-========================================================= */
-
-.image-modal .close-btn {
-
-    position: fixed;
-
-    top: 25px;
-
-    right: 30px;
-
-    width: 48px;
-
-    height: 48px;
+    flex: 0 0 100vw;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
-    border: none;
+    scroll-snap-align: center;
 
+    box-sizing: border-box;
+
+    padding: 50px;
+}
+
+
+/* =====================================================
+   POPUP IMAGE
+===================================================== */
+
+.cafe-gallery-image {
+    display: block;
+
+    max-width: 95vw;
+    max-height: 90vh;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+
+    border-radius: 8px;
+}
+
+
+/* =====================================================
+   CLOSE BUTTON
+===================================================== */
+
+.cafe-gallery-close {
+    position: fixed;
+
+    top: 20px;
+    right: 25px;
+
+    width: 50px;
+    height: 50px;
+
+    padding: 0;
+
+    border: none;
     border-radius: 50%;
 
-    background:
-        rgba(255, 255, 255, 0.15);
+    background: white;
 
-    color: white;
+    color: #333;
 
-    font-size: 32px;
+    font-size: 34px;
 
     cursor: pointer;
 
-    z-index: 100000;
+    z-index: 1000000;
 
-    transition:
-        background 0.3s ease,
-        transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.image-modal .close-btn:hover {
-
-    background:
-        rgba(255, 255, 255, 0.3);
-
-    transform:
-        rotate(90deg)
-        scale(1.1);
+.cafe-gallery-close:hover {
+    transform: scale(1.08);
 }
 
 
-/* =========================================================
-   MODAL ANIMATIONS
-========================================================= */
+/* =====================================================
+   HORIZONTAL SCROLLBAR
+===================================================== */
 
-@keyframes modalFadeIn {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+.cafe-gallery-content::-webkit-scrollbar {
+    height: 8px;
 }
 
-@keyframes imageZoomIn {
+.cafe-gallery-content::-webkit-scrollbar-track {
+    background: transparent;
+}
 
-    from {
-        opacity: 0;
+.cafe-gallery-content::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.45);
 
-        transform:
-            scale(0.85);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            scale(1);
-    }
+    border-radius: 10px;
 }
 
 
-/* Prevent background scrolling */
+/* =====================================================
+   STOP BACKGROUND SCROLL
+===================================================== */
 
-body.modal-open {
+body.cafe-gallery-open {
     overflow: hidden;
 }
 
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .cafe-main-image {
+        height: 280px;
+    }
+
+    .cafe-gallery-slide {
+        padding: 20px;
+    }
+
+    .cafe-gallery-image {
+        max-width: 95vw;
+        max-height: 85vh;
+    }
+
+    .cafe-gallery-close {
+        top: 15px;
+        right: 15px;
+
+        width: 42px;
+        height: 42px;
+
+        font-size: 28px;
+    }
+}
 
 /* =========================================================
    CAFE INFORMATION

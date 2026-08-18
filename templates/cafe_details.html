@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ cafe.name }}</title>
 
-
     <link
-        rel="stylesheet"
-        href="{{ url_for('static', filename='style.css') }}"
-    >
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
 
     <link
       rel="stylesheet"
@@ -53,9 +52,9 @@
 
     <!-- Your JavaScript -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
-
   </head>
   <body>
+
     <!-- Welcome section -->
     <section class="welcome-section">
       <h1>Welcome to {{ cafe.name }}</h1>
@@ -63,44 +62,66 @@
 
     <!-- About Section -->
     <div class="about-section" id="about">
+
+      <!-- Left -->
       <div class="about-left">
         <h2>About Us</h2>
         <p>{{ cafe.description }}</p>
       </div>
 
-      <!-- Image Section -->
+      <!-- RIGHT -->
       <div class="about-right">
         {% if images %}
 
-        <!-- Show Only First Image -->
-        <div class="image-scroll-container">
-          <img
-            src="{{ url_for('static', filename=images[0].image_path) }}"
-            alt="{{ cafe.name }}"
-            class="main-gallery-image"
-            onclick="openGallery()"
-          />
-        </div>
-
-        <!-- Full Gallery Popup -->
-        <div id="imagemodal" class="image-modal">
-          <span class="close-btn" onclick="closeGallery()"> &times; </span>
-
-          <div class="gallery-slider">
-            {% for img in images %}
-
+        <!--  =====================================================
+     Only First image visible
+===================================================== -->
+        <div class="about-image-wrapper">
+          <div class="cafe-main-image" onclick="openGallery()">
             <img
-              src="{{ url_for('static', filename=img.image_path) }}"
-              class="gallery-slide"
+              src="{{ url_for('static', filename=images[0].image_path) }}"
+              alt="{{ cafe.name }}"
             />
+
+            <div class="image-view-text">Click to view photos</div>
+          </div>
+        </div>
+        </div>
+        {% endif %}
+        </div>
+      </section>
+
+        <!-- =====================================================
+     FULL SCREEN GALLERY
+===================================================== -->
+        {% if images %}
+        <div id="imagemodal" class="cafe-gallery-modal">
+          <button
+            type="button"
+            class="cafe-gallery-close"
+            onclick="closeGallery()"
+          >
+            &times;
+          </button>
+          
+          <!-- Gallery images -->
+          <div class="cafe-gallery-content">
+            {% for image in images %}
+
+            <div class="cafe-gallery-slide">
+              <img
+                src="{{ url_for('static', filename=image.image_path) }}"
+                alt="{{ cafe.name }}"
+                class="cafe-gallery-image"
+              />
+            </div>
 
             {% endfor %}
           </div>
         </div>
 
         {% endif %}
-      </div>
-    </div>
+
     <!-- Cafe Info Section -->
     <div class="cafe-info">
       <div class="info-item">
@@ -547,15 +568,50 @@
         });
     </script>
 
-    <!-- Image Gallery -->
+    <!-- Images -->
     <script>
       function openGallery() {
-        document.getElementById("imagemodal").style.display = "block";
+        const modal = document.getElementById("imagemodal");
+
+        if (!modal) {
+          console.log("Gallery modal not found");
+          return;
+        }
+
+        modal.classList.add("active");
+
+        document.body.classList.add("cafe-gallery-open");
       }
 
       function closeGallery() {
-        document.getElementById("imagemodal").style.display = "none";
+        const modal = document.getElementById("imagemodal");
+
+        if (!modal) {
+          return;
+        }
+
+        modal.classList.remove("active");
+
+        document.body.classList.remove("cafe-gallery-open");
       }
+
+      /* Close when clicking outside */
+
+      document.addEventListener("click", function (event) {
+        const modal = document.getElementById("imagemodal");
+
+        if (modal && event.target === modal) {
+          closeGallery();
+        }
+      });
+
+      /* Close with ESC key */
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeGallery();
+        }
+      });
     </script>
 
     <script>
@@ -571,10 +627,8 @@
           form.style.display = "none";
         }
       }
-
-
-</script>
-<script>
+    </script>
+    <script>
       //  For Map
       let map;
       let mapLoaded = false;
