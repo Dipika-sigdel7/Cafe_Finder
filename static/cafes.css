@@ -1,0 +1,498 @@
+/* =========================================================
+   CAFES PAGE
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+
+    font-family: "Poppins", sans-serif;
+
+    background: #f8f5f2;
+
+    color: #3e2723;
+
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
+
+.cafes-page {
+
+    width: 100%;
+
+    max-width: 1000px;
+
+    margin: auto;
+
+    padding: 70px 25px;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.cafes-heading {
+
+    text-align: center;
+
+    margin-bottom: 45px;
+
+    animation:
+        cafesHeadingReveal
+        0.8s
+        ease
+        both;
+}
+
+.coffee-icon {
+
+    display: block;
+
+    font-size: 45px;
+
+    margin-bottom: 10px;
+
+    animation:
+        coffeeFloat
+        3s
+        ease-in-out
+        infinite;
+}
+
+.cafes-heading h1 {
+
+    font-family: Georgia, serif;
+
+    font-size: 46px;
+
+    font-weight: 900;
+
+    color: #3e2723;
+
+    position: relative;
+
+    display: inline-block;
+}
+
+
+/* Underline */
+
+.cafes-heading h1::after {
+
+    content: "";
+
+    display: block;
+
+    width: 120px;
+
+    height: 4px;
+
+    margin: 12px auto 0;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8d6e63,
+            #c59d5f,
+            #8d6e63
+        );
+}
+
+.cafes-heading p {
+
+    margin-top: 18px;
+
+    font-size: 16px;
+
+    color: #6d4c41;
+}
+
+
+/* =========================================================
+   CAFE LIST
+========================================================= */
+
+.cafes-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   CAFE NAME CARD
+========================================================= */
+
+.cafe-name-card {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+    padding: 22px 25px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    text-decoration: none;
+
+    color: inherit;
+
+    border-left: 5px solid #c59d5f;
+
+    box-shadow:
+        0 6px 18px rgba(62, 39, 35, 0.09);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+
+    animation:
+        cafeCardReveal
+        0.7s
+        cubic-bezier(.2, .8, .2, 1)
+        both;
+}
+
+
+/* Stagger */
+
+.cafe-name-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.cafe-name-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.cafe-name-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.cafe-name-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.cafe-name-card:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.cafe-name-card:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.cafe-name-card:hover {
+
+    transform:
+        translateX(8px);
+
+    border-color: #8d6e63;
+
+    box-shadow:
+        0 12px 30px rgba(62, 39, 35, 0.16);
+}
+
+
+/* =========================================================
+   CAFE ICON
+========================================================= */
+
+.cafe-name-icon {
+
+    width: 60px;
+
+    height: 60px;
+
+    min-width: 60px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-right: 20px;
+
+    border-radius: 50%;
+
+    background: #fff3e0;
+
+    font-size: 28px;
+
+    transition:
+        transform 0.35s ease;
+}
+
+.cafe-name-card:hover .cafe-name-icon {
+
+    transform:
+        rotate(-8deg)
+        scale(1.08);
+}
+
+
+/* =========================================================
+   CAFE NAME
+========================================================= */
+
+.cafe-name-content {
+
+    flex: 1;
+}
+
+.cafe-name-content h2 {
+
+    font-family: Georgia, serif;
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    color: #3e2723;
+
+    margin-bottom: 6px;
+
+    transition:
+        color 0.3s ease;
+}
+
+.cafe-name-card:hover h2 {
+
+    color: #8d6e63;
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.cafe-name-content p {
+
+    font-size: 14px;
+
+    color: #795548;
+}
+
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.cafe-arrow {
+
+    width: 45px;
+
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f5eee7;
+
+    color: #5d4037;
+
+    font-size: 25px;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease;
+}
+
+.cafe-name-card:hover .cafe-arrow {
+
+    transform:
+        translateX(5px);
+
+    background: #3e2723;
+
+    color: white;
+}
+
+
+/* =========================================================
+   NO CAFES
+========================================================= */
+
+.no-cafes {
+
+    text-align: center;
+
+    padding: 60px 20px;
+
+    background: white;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.no-cafe-icon {
+
+    font-size: 50px;
+
+    margin-bottom: 15px;
+}
+
+.no-cafes h2 {
+
+    font-family: Georgia, serif;
+
+    margin-bottom: 8px;
+}
+
+.no-cafes p {
+
+    color: #795548;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes cafesHeadingReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(-30px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+@keyframes cafeCardReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(0.97);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+@keyframes coffeeFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .cafes-page {
+
+        padding:
+            45px 15px;
+    }
+
+    .cafes-heading h1 {
+
+        font-size: 36px;
+    }
+
+    .cafes-heading p {
+
+        font-size: 14px;
+    }
+
+    .cafe-name-card {
+
+        padding: 17px;
+    }
+
+    .cafe-name-icon {
+
+        width: 50px;
+
+        height: 50px;
+
+        min-width: 50px;
+
+        font-size: 23px;
+
+        margin-right: 14px;
+    }
+
+    .cafe-name-content h2 {
+
+        font-size: 19px;
+    }
+
+    .cafe-name-content p {
+
+        font-size: 12px;
+    }
+
+    .cafe-arrow {
+
+        width: 38px;
+
+        height: 38px;
+
+        font-size: 20px;
+    }
+}
