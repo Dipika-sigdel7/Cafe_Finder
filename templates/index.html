@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>nextpage</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+
+    <!-- for AI chat box -->
+    <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='ai_chat.css') }}"
+/>
   </head>
   <body>
     <header>
@@ -81,6 +87,8 @@ document.getElementById("searchBtn").addEventListener("click", function() {
         return;
     }
 
+    
+
     // Fetch from backend
     fetch(`/search_cafe?name=${encodeURIComponent(query)}`)
         .then(response => response.json())
@@ -98,8 +106,155 @@ document.getElementById("searchBtn").addEventListener("click", function() {
         });
 });
 
-
-
 </script>
+
+<!-- =====================================================
+     CAFE FINDER AI CHAT
+===================================================== -->
+
+<!-- Floating AI Button -->
+
+<button
+    id="aiChatButton"
+    class="ai-chat-button"
+    aria-label="Open Cafe Finder AI"
+>
+    🤖
+</button>
+
+
+<!-- AI Chat Window -->
+
+<div
+    id="aiChatWindow"
+    class="ai-chat-window"
+>
+
+    <!-- Chat Header -->
+
+    <div class="ai-chat-header">
+
+        <div class="ai-chat-header-left">
+
+            <div class="ai-chat-avatar">
+                🤖
+            </div>
+
+            <div>
+
+                <div class="ai-chat-title">
+                    Cafe Finder AI
+                </div>
+
+                <div class="ai-chat-status">
+                    Online • Ready to help
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Close Button -->
+
+        <button
+            id="aiChatClose"
+            class="ai-chat-close"
+            aria-label="Close chat"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <!-- Chat Messages -->
+
+    <div
+        id="aiChatMessages"
+        class="ai-chat-messages"
+    >
+
+        <!-- First AI Message -->
+
+        <div class="ai-message">
+
+            <div class="ai-message-text">
+
+                👋 Hello! I'm Cafe Finder AI.
+
+                <br><br>
+
+                I can help you find cafes,
+                menus, offers and more.
+
+                <br><br>
+
+                Try asking:
+
+                <br>
+
+                • Which cafes have discounts?
+
+                <br>
+
+                • What cafes are open?
+
+                <br>
+
+                • Show me drinks.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Typing Indicator -->
+
+    <div
+        id="aiTyping"
+        class="ai-typing"
+    >
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </div>
+
+
+    <!-- Input Area -->
+
+    <div class="ai-chat-input-area">
+
+        <input
+            type="text"
+            id="aiChatInput"
+            class="ai-chat-input"
+            placeholder="Ask about cafes..."
+            autocomplete="off"
+        />
+
+
+        <button
+            id="aiChatSend"
+            class="ai-chat-send"
+            aria-label="Send message"
+        >
+            ➤
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- AI Chat JavaScript -->
+
+<script
+    src="{{ url_for('static', filename='ai_chat.js') }}"></script>
+
   </body>
 </html>
