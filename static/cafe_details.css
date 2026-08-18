@@ -1,0 +1,1964 @@
+     /* Welcome Section */
+
+      .welcome-section {
+        text-align: center;
+        padding: 50px 20px 30px;
+        /* margin: 20px auto; */
+        background: transparent;
+      }
+
+      .welcome-section h1 {
+        color: #4e342e;
+        font-size: 60px;
+        font-weight: 900;
+        letter-spacing: 2px;
+
+        font-family: "Georgia", serif;
+
+        text-transform: capitalize;
+
+        margin: 0;
+
+        /* elegant shadow */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Decorative line below text */
+      .welcome-section h1::after {
+        content: "";
+        display: block;
+
+        width: 180px;
+        height: 4px;
+
+        background: #8d6e63;
+
+        margin: 20px auto 0;
+
+        border-radius: 10px;
+      }
+
+      /* GENERAL RESET */
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        background: #f8f5f2;
+        color: #333;
+      }
+
+      /* NAVBAR */
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 40px;
+        background-color: #3e2723;
+      }
+
+      .navbar .logo {
+        color: #fff;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+      }
+
+      .nav-links a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .nav-links a:hover {
+        color: #d7ccc8;
+      }
+
+      /* ABOUT SECTION WITH IMAGE */
+
+      .about-section {
+        display: flex;
+        align-items: flex-start;
+        gap: 40px;
+        padding: 50px;
+      }
+
+      /* Left Decoration */
+      .about-left {
+        flex: 1;
+      }
+
+      .about-left p {
+        line-height: 1.8;
+        font-size: 18px;
+      }
+
+      /* Right Image Area */
+      .about-right {
+        flex: 2;
+        overflow: visible1;
+      }
+
+      /* Image container */
+      .image-scroll-container {
+        width: 100%;
+        overflow: hidden;
+      }
+
+      /* First image shown in About section */
+      .main-gallery-image {
+        width: 500px;
+        height: 350px;
+        object-fit: cover;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .main-gallery-image:hover {
+        transform: scale(1.05);
+      }
+
+      /* For image Popup */
+      .image-modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+      }
+
+      .close-btn {
+        position: absolute;
+        right: 30px;
+        top: 20px;
+        color: white;
+        font-size: 40px;
+        cursor: pointer;
+        z-index: 10000;
+      }
+      /* Gallery popup images */
+      .gallery-slider {
+        display: flex;
+        align-items: center;
+        gap: 20;
+        width: 100%;
+        height: 100%;
+        overflow-x: scroll;
+        scroll-behavior: smooth;
+        padding: 40px;
+      }
+      /* Hide scrollbar */
+      .gallery-slider::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Multiple images */
+      .gallery-slide {
+        min-width: 80%;
+        height: 80%;
+        flex-shrink: 0;
+        object-fit: contain;
+        border-radius: 10px;
+      }
+
+      /* CAFE INFO */
+      .cafe-info {
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        gap: 20px;
+
+        max-width: 1200px;
+
+        margin: 30px auto;
+      }
+
+      .cafe-info .info-item {
+        flex: 1;
+
+        background-color: #fff3e0;
+
+        padding: 20px;
+
+        border-radius: 10px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 10px;
+
+        min-width: 200px;
+      }
+
+      .cafe-info .info-item {
+        flex: 1 1 250px; /* responsive width */
+        background-color: #fff3e0;
+        padding: 20px 25px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+
+      .cafe-info .info-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+      }
+
+      .cafe-info .info-label {
+        font-size: 18px;
+        font-weight: bold;
+        color: #5d4037;
+      }
+
+      .cafe-info .info-value {
+        font-size: 16px;
+        color: #6d4c41;
+      }
+
+      /* Reservation Button */
+      .reservation-btn {
+        border: none;
+        background: none;
+        color: #5d4037;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .reservation-btn:hover {
+        color: #c59d5f;
+      }
+
+      /* Reservation Form */
+
+      .reservation-form {
+        display: none;
+
+        max-width: 500px;
+
+        margin: 30px auto;
+
+        padding: 25px;
+
+        background: #fff3e0;
+
+        border-radius: 12px;
+
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .reservation-form h2 {
+        text-align: center;
+
+        color: #5d4037;
+      }
+
+      .reservation-form form {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 12px;
+      }
+
+      .reservation-form input,
+      .reservation-form textarea {
+        padding: 10px;
+
+        border-radius: 6px;
+
+        border: 1px solid #ccc;
+      }
+
+      .reservation-form button {
+        background: #3e2723;
+
+        color: white;
+
+        padding: 12px;
+
+        border: none;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+
+        font-weight: bold;
+      }
+
+      /* Map Button */
+
+      .map-btn {
+        background: transparent;
+        border: none;
+        color: #5d4037;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 0;
+        font-family: inherit;
+        transition: color 0.3s;
+      }
+
+      .map-btn:hover {
+        color: #3e2723;
+      }
+
+      #map {
+        height: 400px;
+        width: 100%;
+        border-radius: 15px;
+      }
+
+      /* Responsive for smaller screens */
+      @media (max-width: 768px) {
+        .about-section {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .scroll-img {
+          min-width: 260px;
+          height: 200px;
+        }
+      }
+
+      /* Reviews Section */
+      .reviews-section {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background: #fff9f4;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      .reviews-section h2 {
+        text-align: center;
+        color: #5d4037;
+        margin-bottom: 30px;
+        font-size: 28px;
+      }
+
+      /* Individual Review */
+      .review-item {
+        background: #fff;
+        padding: 15px 20px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border-left: 4px solid #ff7043;
+        transition: 0.3s;
+      }
+
+      .review-item:hover {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .review-item p {
+        margin: 5px 0;
+        line-height: 1.5;
+      }
+
+      .review-item strong {
+        color: #3e2723;
+      }
+
+      /* Review Date */
+      .review-date {
+        font-size: 12px;
+        color: #999;
+        text-align: right;
+      }
+
+      /* Review Button */
+      .review-button-container {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      #reviewBtn {
+        padding: 12px 25px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #3e2723;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      #reviewBtn:hover {
+        background-color: #5d4037;
+      }
+
+      /* Review Form */
+      #reviewFormContainer {
+        max-width: 500px;
+        margin: 20px auto;
+        background: #fff3e0;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+      }
+
+      #reviewFormContainer form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      #reviewFormContainer label {
+        font-weight: 500;
+        color: #3e2723;
+      }
+
+      #reviewFormContainer input,
+      #reviewFormContainer select,
+      #reviewFormContainer textarea {
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        transition: 0.2s;
+      }
+
+      #reviewFormContainer input:focus,
+      #reviewFormContainer select:focus,
+      #reviewFormContainer textarea:focus {
+        outline: none;
+        border-color: #ff7043;
+      }
+
+      #reviewFormContainer button {
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: #3e2723;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      #reviewFormContainer button:hover {
+        background: #5d4037;
+      }
+
+      .review-image {
+        width: 150px;
+        height: 120px;
+
+        object-fit: cover;
+
+        border-radius: 10px;
+
+        margin-top: 10px;
+      }
+
+      /* Payment Section */
+
+      .payment-section {
+        margin-top: 20px;
+      }
+
+      .payment-title {
+        display: block;
+        font-weight: bold;
+        font-size: 18px;
+        color: #3e2723;
+        margin-bottom: 15px;
+      }
+
+      .payment-options {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .payment-card {
+        width: 120px;
+        height: 110px;
+
+        background: #fff3e0;
+
+        border-radius: 12px;
+
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        gap: 8px;
+
+        cursor: pointer;
+
+        border: 2px solid transparent;
+
+        transition: 0.3s;
+      }
+
+      .payment-card:hover {
+        border-color: #5d4037;
+        transform: translateY(-3px);
+      }
+
+      .payment-card input {
+        cursor: pointer;
+      }
+
+      .payment-card img {
+        width: 70px;
+        height: 40px;
+
+        object-fit: contain;
+      }
+
+      .cash-icon {
+        font-size: 35px;
+      }
+      /* Menu Section */
+      .menu-section {
+        padding: 50px 8%;
+        text-align: center;
+      }
+
+      .menu-title {
+        text-align: center;
+        font-size: 40px;
+        font-weight: 900;
+        color: #4e342e;
+        margin-bottom: 30px;
+      }
+
+      /*   CATEGORY buttons */
+      .menu-categories {
+        text-align: center;
+      }
+
+      .category-btn {
+        display: inline-block;
+        padding: 15px30px;
+        margin: 10px;
+
+        background: #efebe9;
+
+        border-radius: 10px;
+
+        font-size: 20px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+      }
+
+      .category-btn:hover {
+        background: #d7ccc8;
+      }
+
+      /* Hide menu initially */
+      .menu-category {
+        display: none;
+
+        width: 80%;
+
+        margin: 30px auto;
+      }
+
+      /* MENU TABLE */
+      .menu-table {
+        width: 100%;
+
+        border-collapse: collapse;
+
+        background: white;
+
+        border-radius: 10px;
+
+        overflow: hidden;
+      }
+
+      .menu-table th {
+        text-align: left;
+        padding: 15px;
+        background: #3e2723;
+        color: white;
+      }
+
+      .menu-table td {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        font-size: 18px;
+      }
+
+      /*  Equal Spacing */
+      .menu-table th:first-child,
+      .menu-table td:first-child {
+        width: 70%;
+      }
+
+      .menu-table th:last-child,
+      .menu-table td:last-child {
+        width: 30%;
+
+        text-align: right;
+      }
+
+      .no-item {
+        background: white;
+
+        padding: 20px;
+
+        text-align: center;
+
+        border-radius: 10px;
+
+        font-size: 18px;
+
+        font-weight: bold;
+
+        color: #6d4c41;
+      }
+
+      /* Equal column width */
+      .menu-table th:first-child,
+      .menu-table td:first-child {
+        width: 70%;
+      }
+
+      .menu-table th:last-child,
+      .menu-table td:last-child {
+        width: 30%;
+
+        text-align: right;
+      }
+
+      .menu-table tr:hover {
+        background: #f8f5f2;
+      }
+
+      /* Responsive */
+      @media (max-width: 600px) {
+        .reviews-section,
+        #reviewFormContainer {
+          margin: 20px 10px;
+          padding: 15px;
+        }
+        #reviewBtn {
+          width: 100%;
+        }
+      }
+
+/* =========================================================
+   ☕ CAFE FINDER - PREMIUM CAFE DETAILS DESIGN
+   No HTML changes required
+========================================================= */
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   PAGE BACKGROUND ANIMATION
+========================================================= */
+
+body::before {
+    content: "";
+    position: fixed;
+
+    width: 450px;
+    height: 450px;
+
+    top: -180px;
+    left: -180px;
+
+    border-radius: 50%;
+
+    background: rgba(197, 157, 95, 0.08);
+
+    filter: blur(40px);
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    animation: floatingCircle1 12s ease-in-out infinite;
+}
+
+body::after {
+    content: "";
+
+    position: fixed;
+
+    width: 400px;
+    height: 400px;
+
+    right: -180px;
+    bottom: -150px;
+
+    border-radius: 50%;
+
+    background: rgba(141, 110, 99, 0.08);
+
+    filter: blur(45px);
+
+    pointer-events: none;
+
+    z-index: -1;
+
+    animation: floatingCircle2 15s ease-in-out infinite;
+}
+
+@keyframes floatingCircle1 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(80px, 100px);
+    }
+}
+
+@keyframes floatingCircle2 {
+
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(-70px, -80px);
+    }
+}
+
+
+/* =========================================================
+   WELCOME SECTION
+========================================================= */
+
+.welcome-section {
+    position: relative;
+
+    animation: pageTitle 1s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.welcome-section h1 {
+    position: relative;
+
+    letter-spacing: 1px;
+
+    animation:
+        titleReveal 1.1s cubic-bezier(.2,.8,.2,1) both,
+        titleFloat 5s ease-in-out 1.5s infinite;
+}
+
+
+/* title entrance */
+
+@keyframes titleReveal {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateY(-45px)
+            scale(.9);
+
+        filter: blur(12px);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        filter: blur(0);
+    }
+}
+
+
+/* subtle floating title */
+
+@keyframes titleFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+
+/* =========================================================
+   TITLE DECORATION
+========================================================= */
+
+.welcome-section::after {
+
+    content: "";
+
+    display: block;
+
+    width: 0;
+    height: 4px;
+
+    margin: 18px auto;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #8d6e63,
+            #c59d5f,
+            #8d6e63,
+            transparent
+        );
+
+    animation:
+        underlineGrow
+        1s ease
+        .5s
+        forwards;
+
+    box-shadow:
+        0 0 15px rgba(197,157,95,.3);
+}
+
+@keyframes underlineGrow {
+
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 180px;
+    }
+}
+
+
+/* =========================================================
+   ABOUT SECTION
+========================================================= */
+
+.about-section {
+    position: relative;
+
+    animation:
+        sectionReveal
+        1s
+        .25s
+        cubic-bezier(.2,.8,.2,1)
+        both;
+}
+
+@keyframes sectionReveal {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(45px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   ABOUT TEXT
+========================================================= */
+
+.about-left {
+
+    animation:
+        slideFromLeft
+        1s
+        .4s
+        cubic-bezier(.2,.8,.2,1)
+        both;
+}
+
+@keyframes slideFromLeft {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(-70px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(0);
+    }
+}
+
+
+/* =========================================================
+   ABOUT IMAGE CONTAINER
+========================================================= */
+
+.about-right {
+
+    animation:
+        slideFromRight
+        1s
+        .5s
+        cubic-bezier(.2,.8,.2,1)
+        both;
+}
+
+@keyframes slideFromRight {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateX(70px)
+            scale(.92);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateX(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   MAIN IMAGE
+========================================================= */
+
+.image-scroll-container {
+
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 15px 40px rgba(62,39,35,.15);
+
+    transition:
+        box-shadow .5s ease,
+        transform .5s ease;
+}
+
+.image-scroll-container:hover {
+
+    transform:
+        translateY(-8px);
+
+    box-shadow:
+        0 25px 55px rgba(62,39,35,.23);
+}
+
+
+.main-gallery-image {
+
+    transition:
+        transform .8s cubic-bezier(.2,.8,.2,1),
+        filter .6s ease;
+}
+
+.image-scroll-container:hover
+.main-gallery-image {
+
+    transform:
+        scale(1.08);
+
+    filter:
+        brightness(1.08)
+        saturate(1.08);
+}
+
+
+/* =========================================================
+   IMAGE SHINE
+========================================================= */
+
+.image-scroll-container::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -130%;
+
+    width: 55%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.4),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+
+    pointer-events: none;
+}
+
+.image-scroll-container:hover::after {
+
+    animation:
+        imageShine
+        .9s
+        ease;
+}
+
+@keyframes imageShine {
+
+    from {
+        left: -130%;
+    }
+
+    to {
+        left: 150%;
+    }
+}
+
+
+/* =========================================================
+   CAFE INFORMATION AREA
+========================================================= */
+
+.cafe-info {
+
+    animation:
+        infoContainer
+        1s
+        .7s
+        both;
+}
+
+@keyframes infoContainer {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   INFORMATION CARDS
+========================================================= */
+
+.info-item {
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform .35s cubic-bezier(.2,.8,.2,1),
+        box-shadow .35s ease,
+        background .35s ease;
+
+    animation:
+        infoCard
+        .7s
+        cubic-bezier(.2,.8,.2,1)
+        both;
+}
+
+
+/* stagger */
+
+.info-item:nth-child(1) {
+    animation-delay: .75s;
+}
+
+.info-item:nth-child(2) {
+    animation-delay: .85s;
+}
+
+.info-item:nth-child(3) {
+    animation-delay: .95s;
+}
+
+.info-item:nth-child(4) {
+    animation-delay: 1.05s;
+}
+
+.info-item:nth-child(5) {
+    animation-delay: 1.15s;
+}
+
+@keyframes infoCard {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(35px)
+            scale(.92);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* hover */
+
+.info-item:hover {
+
+    transform:
+        translateY(-9px)
+        scale(1.02);
+
+    box-shadow:
+        0 18px 35px rgba(62,39,35,.18);
+}
+
+
+/* glowing top line */
+
+.info-item::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0;
+
+    width: 0;
+
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #8d6e63,
+            #c59d5f
+        );
+
+    transition:
+        width .4s ease;
+}
+
+.info-item:hover::before {
+    width: 100%;
+}
+
+
+/* =========================================================
+   INFO LABEL
+========================================================= */
+
+.info-label {
+
+    transition:
+        transform .3s ease,
+        color .3s ease;
+}
+
+.info-item:hover .info-label {
+
+    transform:
+        translateX(5px);
+}
+
+
+/* =========================================================
+   RESERVATION + MAP BUTTONS
+========================================================= */
+
+.reservation-btn,
+.map-btn {
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.reservation-btn:hover,
+.map-btn:hover {
+
+    transform:
+        translateY(-5px)
+        scale(1.03);
+
+    box-shadow:
+        0 12px 25px rgba(62,39,35,.2);
+}
+
+
+/* button shine */
+
+.reservation-btn::after,
+.map-btn::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -120%;
+
+    width: 55%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.4),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+}
+
+.reservation-btn:hover::after,
+.map-btn:hover::after {
+
+    animation:
+        buttonShine
+        .7s
+        ease;
+}
+
+@keyframes buttonShine {
+
+    from {
+        left: -120%;
+    }
+
+    to {
+        left: 140%;
+    }
+}
+
+
+/* =========================================================
+   RESERVATION FORM
+========================================================= */
+
+.reservation-form {
+
+    animation:
+        formReveal
+        .6s
+        cubic-bezier(.2,.8,.2,1)
+        both;
+}
+
+@keyframes formReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(.97);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   FORM INPUTS
+========================================================= */
+
+.reservation-form input,
+.reservation-form select,
+.reservation-form textarea {
+
+    transition:
+        border-color .3s ease,
+        box-shadow .3s ease,
+        transform .25s ease;
+}
+
+.reservation-form input:focus,
+.reservation-form select:focus,
+.reservation-form textarea:focus {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 0 0 4px rgba(197,157,95,.12);
+}
+
+
+/* =========================================================
+   PAYMENT OPTIONS
+========================================================= */
+
+.payment-options label {
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.payment-options label:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 10px 25px rgba(62,39,35,.15);
+}
+
+
+/* =========================================================
+   MAP
+========================================================= */
+
+#mapSection {
+
+    animation:
+        mapReveal
+        .7s
+        ease
+        both;
+}
+
+@keyframes mapReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(.98);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   MENU SECTION
+========================================================= */
+
+.menu-section {
+
+    animation:
+        menuReveal
+        .9s
+        ease
+        both;
+}
+
+@keyframes menuReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(45px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   MENU CATEGORY BUTTONS
+========================================================= */
+
+.category-btn {
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        background .35s ease;
+}
+
+.category-btn:hover {
+
+    transform:
+        translateY(-7px);
+
+    box-shadow:
+        0 14px 30px rgba(62,39,35,.18);
+}
+
+
+/* =========================================================
+   CATEGORY BUTTON SHINE
+========================================================= */
+
+.category-btn::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: -100%;
+
+    width: 60%;
+
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.35),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+}
+
+.category-btn:hover::after {
+
+    animation:
+        categoryShine
+        .8s
+        ease;
+}
+
+@keyframes categoryShine {
+
+    from {
+        left: -100%;
+    }
+
+    to {
+        left: 140%;
+    }
+}
+
+
+/* =========================================================
+   MENU TABLE
+========================================================= */
+
+.menu-table {
+
+    animation:
+        tableReveal
+        .6s
+        ease
+        both;
+}
+
+@keyframes tableReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   MENU ROW
+========================================================= */
+
+.menu-table tr {
+
+    transition:
+        transform .25s ease,
+        background .25s ease;
+}
+
+.menu-table tbody tr:hover {
+
+    transform:
+        translateX(6px);
+}
+
+
+/* =========================================================
+   PRICE HIGHLIGHT
+========================================================= */
+
+.menu-table td:last-child {
+
+    transition:
+        transform .3s ease;
+}
+
+.menu-table tbody tr:hover td:last-child {
+
+    transform:
+        scale(1.08);
+}
+
+
+/* =========================================================
+   REVIEWS
+========================================================= */
+
+.reviews-section {
+
+    animation:
+        reviewsReveal
+        .8s
+        ease
+        both;
+}
+
+@keyframes reviewsReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(35px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   REVIEW CARDS
+========================================================= */
+
+.review-item {
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+}
+
+.review-item:hover {
+
+    transform:
+        translateY(-7px);
+
+    box-shadow:
+        0 15px 30px rgba(62,39,35,.15);
+}
+
+
+/* =========================================================
+   REVIEW IMAGE
+========================================================= */
+
+.review-image {
+
+    transition:
+        transform .5s ease,
+        filter .5s ease;
+}
+
+.review-image:hover {
+
+    transform:
+        scale(1.06);
+
+    filter:
+        brightness(1.06);
+}
+
+
+/* =========================================================
+   REVIEW BUTTON
+========================================================= */
+
+#reviewBtn {
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+#reviewBtn:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.02);
+
+    box-shadow:
+        0 12px 25px rgba(62,39,35,.2);
+}
+
+
+/* =========================================================
+   REVIEW FORM
+========================================================= */
+
+#reviewFormContainer {
+
+    animation:
+        reviewFormReveal
+        .6s
+        ease
+        both;
+}
+
+@keyframes reviewFormReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(.97);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   IMAGE MODAL
+========================================================= */
+
+.image-modal {
+
+    animation:
+        modalOpen
+        .35s
+        ease
+        both;
+}
+
+@keyframes modalOpen {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   GALLERY IMAGE
+========================================================= */
+
+.gallery-slide {
+
+    animation:
+        galleryOpen
+        .5s
+        cubic-bezier(.2,.8,.2,1)
+        both;
+}
+
+@keyframes galleryOpen {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(.88);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.close-btn {
+
+    transition:
+        transform .3s ease,
+        opacity .3s ease;
+}
+
+.close-btn:hover {
+
+    transform:
+        rotate(90deg)
+        scale(1.15);
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f5eee7;
+}
+
+::-webkit-scrollbar-thumb {
+
+    background:
+        linear-gradient(
+            #8d6e63,
+            #c59d5f
+        );
+
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+    background:
+        linear-gradient(
+            #6d4c41,
+            #a67c45
+        );
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .welcome-section h1 {
+        animation:
+            titleReveal
+            .8s
+            ease
+            both;
+    }
+
+    .image-scroll-container:hover {
+
+        transform:
+            translateY(-3px);
+    }
+
+    .info-item:hover {
+
+        transform:
+            translateY(-4px)
+            scale(1.01);
+    }
+
+    .category-btn:hover {
+
+        transform:
+            translateY(-4px);
+    }
+
+    .review-item:hover {
+
+        transform:
+            translateY(-4px);
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            0.01ms !important;
+
+        scroll-behavior:
+            auto !important;
+    }
+}
+/* =====================================================
+   FIX IMAGE WHITE EMPTY AREA
+===================================================== */
+
+.image-scroll-container {
+    position: relative;
+    width: 100%;
+    height: 430px;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    padding: 0;
+    margin: 0;
+
+    background: transparent;
+
+    box-shadow:
+        0 18px 45px rgba(62, 39, 35, 0.18);
+}
+
+.main-gallery-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    margin: 0;
+    padding: 0;
+
+    border-radius: 22px;
+
+    transition:
+        transform 0.8s ease,
+        filter 0.5s ease;
+}
+
+.image-scroll-container:hover
+.main-gallery-image {
+    transform: scale(1.05);
+
+    filter:
+        brightness(1.05)
+        saturate(1.08);
+}
