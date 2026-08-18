@@ -934,6 +934,51 @@ def front():
     return render_template("front.html")
 
 
+
+# for service
+@app.route("/admin/add_service", methods=["POST"])
+def add_service():
+
+    if "admin_id" not in session:
+        return redirect(url_for("admin_login"))
+
+    cafe_id = request.form.get("cafe_id")
+    service_name = request.form.get("service_name")
+    service_description = request.form.get("service_description")
+    service_icon = request.form.get("service_icon")
+
+    if not cafe_id or not service_name or not service_description:
+        flash("Please fill all required service fields.", "error")
+        return redirect(url_for("admin_dashboard"))
+
+    db = get_db()
+    cursor = db.cursor()
+
+    cursor.execute("""
+        INSERT INTO cafe_services
+        (
+            cafe_id,
+            service_name,
+            service_description,
+            service_icon
+        )
+        VALUES (%s, %s, %s, %s)
+    """, (
+        cafe_id,
+        service_name,
+        service_description,
+        service_icon
+    ))
+
+    db.commit()
+    cursor.close()
+    db.close()
+
+    flash("Service added successfully.", "success")
+
+    return redirect(url_for("admin_dashboard"))
+
+
 # Cafe Home Page
 @app.route("/home")
 def home():

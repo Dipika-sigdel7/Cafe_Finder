@@ -249,6 +249,67 @@ body.admin-dashboard {
             <input 
             type="file" name="images" id="images" multiple accept="image/*">
 
+            <!-- for services -->
+           <section class="admin-services">
+
+    <h2>Manage Services</h2>
+
+    <form action="{{ url_for('add_service') }}" method="POST">
+
+        <label>Select Cafe</label>
+
+        <select name="cafe_id" required>
+
+            <option value="">-- Select Cafe --</option>
+
+            {% for cafe in cafes %}
+
+            <option value="{{ cafe.id }}">
+                {{ cafe.name }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+
+        <label>Service Name</label>
+
+        <input
+            type="text"
+            name="service_name"
+            placeholder="Example: Dine-In"
+            required
+        >
+
+
+        <label>Service Description</label>
+
+        <textarea
+            name="service_description"
+            placeholder="Describe this service..."
+            required
+        ></textarea>
+
+
+        <label>Service Icon</label>
+
+        <input
+            type="text"
+            name="service_icon"
+            placeholder="☕"
+            maxlength="20"
+        >
+
+
+        <button type="submit">
+            + Add Service
+        </button>
+
+    </form>
+
+</section>  
+
 <!-- For Menu -->
 <h4>Menu Items</h4>
 

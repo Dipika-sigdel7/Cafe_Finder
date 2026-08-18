@@ -133,78 +133,62 @@
      SERVICES SECTION
 ========================================================= -->
 
+<!-- =====================================================
+     SERVICES SECTION
+===================================================== -->
+
 <section class="services-section" id="services">
 
     <div class="services-heading">
+
         <h2>Our Services</h2>
-        <p>Everything you need for a comfortable café experience.</p>
+
+        <p>
+            Everything you need for a comfortable café experience.
+        </p>
+
     </div>
+
 
     <div class="services-container">
 
-        <!-- Dine In -->
-        <div class="service-card">
-            <div class="service-icon">☕</div>
-            <h3>Dine-In</h3>
-            <p>
-                Enjoy freshly prepared food and beverages
-                in a comfortable café environment.
-            </p>
-        </div>
+        {% if services %}
 
-        <!-- Takeaway -->
-        <div class="service-card">
-            <div class="service-icon">🥡</div>
-            <h3>Takeaway</h3>
-            <p>
-                Order your favorite food and drinks
-                and take them with you.
-            </p>
-        </div>
+            {% for service in services %}
 
-        <!-- Delivery -->
-        <div class="service-card">
-            <div class="service-icon">🛵</div>
-            <h3>Food Delivery</h3>
-            <p>
-                Get your favorite café meals delivered
-                directly to your location.
-            </p>
-        </div>
+            <div class="service-card">
 
-        <!-- Reservation -->
-        <div class="service-card">
-            <div class="service-icon">🪑</div>
-            <h3>Table Reservation</h3>
-            <p>
-                Reserve your table in advance and
-                enjoy a hassle-free visit.
-            </p>
-        </div>
+                <div class="service-icon">
+                    {{ service.service_icon or "☕" }}
+                </div>
 
-        <!-- Events -->
-        <div class="service-card">
-            <div class="service-icon">🎉</div>
-            <h3>Events & Parties</h3>
-            <p>
-                Perfect space for birthdays, meetings,
-                celebrations and special events.
-            </p>
-        </div>
+                <h3>
+                    {{ service.service_name }}
+                </h3>
 
-        <!-- WiFi -->
-        <div class="service-card">
-            <div class="service-icon">📶</div>
-            <h3>Free Wi-Fi</h3>
-            <p>
-                Stay connected while enjoying your
-                favorite coffee and food.
-            </p>
-        </div>
+                <p>
+                    {{ service.service_description }}
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="no-services">
+
+                <p>
+                    No services available for this café.
+                </p>
+
+            </div>
+
+        {% endif %}
 
     </div>
 
-</section> 
+</section>
 
     <!-- Cafe Info Section -->
     <div class="cafe-info">
