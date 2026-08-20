@@ -15,44 +15,456 @@
   </head>
 
   <body>
-    <header>
-      <ul class="nav-links">
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('cafes') }}">Cafes</a></li> 
-        <li><a href="{{  url_for('about') }}">About</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="{{ url_for('admin_login') }}" class="login-btn">Login</a></li>
-      </ul>
-    </header>
+<header class="main-header">
+
+    <div class="header-inner">
+
+        <!-- LOGO -->
+        <a href="{{ url_for('home') }}" class="brand">
+            <span class="brand-icon">☕</span>
+            <span class="brand-name">
+                <span>Cafe</span>Finder
+            </span>
+        </a>
+
+        <!-- NAVIGATION -->
+        <nav class="main-nav">
+
+            <a href="{{ url_for('home') }}" class="active">
+                Home
+            </a>
+
+            <a href="{{ url_for('cafes') }}">
+                Cafes
+            </a>
+
+            <a href="{{ url_for('about') }}">
+                About
+            </a>
+
+            <a href="#">
+                Contact
+            </a>
+
+        </nav>
+
+        <!-- LOGIN -->
+        <a
+            href="{{ url_for('admin_login') }}"
+            class="header-login"
+        >
+            <span>♙</span>
+            Login
+        </a>
+
+    </div>
+
+</header>
+
+
+<main id="main-content">
+
+    <!-- =================================================
+         HERO
+    ================================================== -->
+
+    <section class="hero-section">
+
+        <!-- LEFT CONTENT -->
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                ☕ &nbsp; DISCOVER &nbsp;•&nbsp; EXPLORE &nbsp;•&nbsp; ENJOY
+            </div>
+
+            <h1>
+                Find Your Perfect
+                <br>
+                <span>Cafe</span> Experience
+            </h1>
+
+            <p class="hero-description">
+                Explore the best cafes around you, read reviews,
+                see menus, and find your new favorite spot.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    href="{{ url_for('cafes') }}"
+                    class="hero-btn primary"
+                >
+                    Explore Cafes
+                    <span>→</span>
+                </a>
+
+                <a
+                    href="#"
+                    class="hero-btn secondary"
+                >
+                    View on Map
+                    <span>📍</span>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT IMAGE -->
+
+        <div class="hero-image-area">
+
+            <div class="hero-image-wrapper">
+
+                <img
+                    src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1000&q=85"
+                    alt="Beautiful Cafe"
+                >
+
+            </div>
+
+
+            <!-- FLOATING CARD -->
+
+            <div class="coffee-card">
+
+                <div class="coffee-card-icon">
+                    ☕
+                </div>
+
+                <div class="coffee-card-text">
+
+                    <strong>
+                        Good Coffee
+                    </strong>
+
+                    <span>
+                        Great Mood
+                    </span>
+
+                </div>
+
+                <div class="heart">
+                    ♥
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- DECORATIVE COFFEE BEANS -->
+
+        <span class="bean bean-1">☕</span>
+        <span class="bean bean-2">•</span>
+        <span class="bean bean-3">•</span>
+        <span class="bean bean-4">•</span>
+
+    </section>
+
+
+    <!-- =================================================
+         SEARCH
+    ================================================== -->
+
+    <section class="search-section">
+
+        <div class="search-container">
+
+            <h2>
+                <span>☕</span>
+                Search for a Cafe
+            </h2>
+
+            <div class="search-row">
+
+                <div class="search-input-wrapper">
+
+                    <span class="search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Enter Cafe Name, Location or Cuisine..."
+                    >
+
+                </div>
+
+                <button
+                    id="searchBtn"
+                    class="search-button"
+                >
+                    <span>⌕</span>
+                    Search
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         FEATURES
+    ================================================== -->
+
+    <section class="features-section">
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                📍
+            </div>
+
+            <div>
+                <h3>Find Near You</h3>
+                <p>Discover cafes nearby</p>
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ☆
+            </div>
+
+            <div>
+                <h3>Top Rated</h3>
+                <p>Top rated by visitors</p>
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ☕
+            </div>
+
+            <div>
+                <h3>Best Menus</h3>
+                <p>Explore delicious menus</p>
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ▤
+            </div>
+
+            <div>
+                <h3>Real Reviews</h3>
+                <p>Read real customer reviews</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         RECOMMENDATION
+    ================================================== -->
+
+    <section class="recommendation-section">
+
+        <div class="recommendation-heading">
+
+            <div class="handpicked">
+                ♨ &nbsp; HANDPICKED FOR YOU
+            </div>
+
+            <h2>
+                Our Recommendation
+            </h2>
+
+            <div class="heading-line"></div>
+
+        </div>
+
+
+        <div class="recommendation-wrapper">
+
+            <button class="carousel-arrow left-arrow">
+                ‹
+            </button>
+
+
+            <div class="recommendation-list">
+
+                {% for cafe in cafes[:5] %}
+
+                <a
+                    href="{{ url_for('cafe_details', cafe_id=cafe.id) }}"
+                    class="cafe-card"
+                >
+
+                    <div class="cafe-card-image">
+
+                        {% if cafe.image_path %}
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename=cafe.image_path
+                            ) }}"
+                            alt="{{ cafe.name }}"
+                        >
+
+                        {% else %}
+
+                        <img
+                            src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=700&q=80"
+                            alt="{{ cafe.name }}"
+                        >
+
+                        {% endif %}
+
+                        <span class="card-heart">
+                            ♥
+                        </span>
+
+                    </div>
+
+
+                    <div class="cafe-card-info">
+
+                        <h3>
+                            {{ cafe.name }}
+                        </h3>
+
+                        <div class="cafe-meta">
+
+                            <span class="rating">
+                                ★ 4.8
+                            </span>
+
+                            <span>
+                                {{ cafe.location }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+                {% endfor %}
+
+            </div>
+
+
+            <button class="carousel-arrow right-arrow">
+                ›
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
 
     <div id="main-content">
-      <section class="coffee-section">
-        <div class="coffee-left">
-          <h1>Welcome to Cafe Finder</h1>
+  <section class="coffee-section">
+
+    <div class="coffee-left">
+
+        <div class="hero-badge">
+            ☕ DISCOVER • EXPLORE • ENJOY
         </div>
 
-        <div class="coffee-center">
-          <img
-            src="https://thumbs.dreamstime.com/b/cup-coffee-white-background-takeaway-cup-coffee-white-background-falling-coffee-beans-white-background-151775196.jpg"
-            alt="Coffee Cup"
-          />
+        <h1>
+            Find Your Perfect
+            <span>Cafe</span>
+            Experience
+        </h1>
+
+        <p>
+            Explore the best cafes around you, read reviews,
+            see menus, and find your new favorite spot.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="{{ url_for('cafes') }}" class="btn primary-btn">
+                Explore Cafes →
+            </a>
+
+            <a href="#" class="btn secondary-btn">
+                View on Map 📍
+            </a>
+
         </div>
 
-        <div class="coffee-right">
-          <p>
-            Here you can explore all the amazing cafes and enjoy your perfect
-            cup
-          </p>
+    </div>
+
+
+    <div class="coffee-center">
+
+        <img
+            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700"
+            alt="Coffee"
+        >
+
+        <div class="floating-card">
+
+            <div class="cup">☕</div>
+
+            <div>
+
+                <strong>Good Coffee</strong>
+
+                <p>Great Mood</p>
+
+            </div>
+
+            ❤️
+
         </div>
-      </section>
+
+    </div>
+
+</section>
 
         <!-- Search Section -->
-  <section class="search-section" style="text-align:center; margin:50px 0;">
-    <h2 style="font-size:28px; color:#5d4037; margin-bottom:20px;">Search for a Cafe</h2>
-    <input type="text" id="searchInput" placeholder="Enter Cafe Name" style="padding:10px 15px; border-radius:5px; border:1px solid #ccc; width:250px; max-width:80%;">
-    <button class="search-btn" id="searchBtn" style="padding:10px 20px; border:none; border-radius:5px; background:#c59d5f; color:white; font-weight:bold; cursor:pointer;">Search</button>
-  </section>
 
+<section class="search-section">
+
+    <div class="search-box">
+
+        <h2>☕ Search for a Cafe</h2>
+
+        <div class="search-row">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Enter Cafe Name, Location or Cuisine..."
+            >
+
+            <button
+                class="search-btn"
+                id="searchBtn"
+            >
+                Search
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
       <!-- Our Recommendation Section -->
 <section class="recommendation-section">
 
