@@ -347,47 +347,6 @@ header nav {
 }
 
 
-/* Small badge */
-
-.coffee-left::before {
-
-    content:
-        "☕  DISCOVER  •  EXPLORE  •  ENJOY";
-
-    display: inline-block;
-
-    padding:
-        7px 15px;
-
-    margin-bottom:
-        18px;
-
-    border-radius:
-        30px;
-
-    background:
-        #f4e7d5;
-
-    color:
-        #9b631c;
-
-    font-size:
-        12px;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        .5px;
-
-    animation:
-        badgeAppear
-        1s
-        .7s
-        ease
-        both;
-}
-
 
 @keyframes badgeAppear {
 
