@@ -10,17 +10,15 @@
     <div class="login-container">
         <h2>Login</h2>
 
-        <!-- CORRECTED: JavaScript Popup for Flash Messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                <script>
-                    {% for category, message in messages %}
-                        alert("{{ message }}");
-                    {% endfor %}
-                </script>
-            {% endif %}
-        {% endwith %}
-        <!-- END CORRECTED -->
+        <!-- NEW BULLETPROOF POPUP -->
+        {% if success_msg %}
+            <script>
+                alert("{{ success_msg }}");
+                // Optional: clear the URL so if they refresh, it doesn't pop up again
+                window.history.replaceState(null, null, window.location.pathname);
+            </script>
+        {% endif %}
+        <!-- END POPUP -->
 
         {% if error %}
             <p class="error-message">{{ error }}</p>

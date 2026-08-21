@@ -26,62 +26,56 @@ def get_db():
     )
 
 
-# Login Route
+
+# =========================================================
+# USER LOGIN
+# =========================================================
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    error = None
 
     if request.method == "POST":
-
-        login = request.form.get("login", "").strip()
+        login_input = request.form.get("login", "").strip()
         password = request.form.get("password", "")
 
-        if not login_input or not password_input:
-            return render_template( "login.html", error="Username/Email and password are required." )
+        if not login_input or not password:
+            error = "Username/Email and password are required."
+        else:
+            db = get_db()
+            cursor = db.cursor(dictionary=True)
 
-        db = get_db()
-        cursor = db.cursor(dictionary=True)
+            try:
+                # CHECK THE 'users' TABLE
+                cursor.execute(
+                    "SELECT id, username, email, password FROM users WHERE username = %s OR email = %s LIMIT 1",
+                    (login_input, login_input)
+                )
+                user = cursor.fetchone()
 
-        try:
-            cursor.execute(
-                """
-                SELECT *
-                FROM users
-                WHERE username = %s OR email = %s
-                """,
-                (login, login),
-            )
+                # VERIFY THE ENCRYPTED PASSWORD
+                if user and check_password_hash(user["password"], password):
+                    # Login successful
+                    session["user_id"] = user["id"]
+                    session["username"] = user["username"]
+                    
+                    # Redirect to your home page
+                    return redirect(url_for("home")) 
+                else:
+                    error = "Invalid Username/Email or Password."
 
-            user = cursor.fetchone()
+            except Exception as e:
+                print("User login error:", e)
+                error = "Login failed. Please try again."
+            finally:
+                cursor.close()
+                db.close()
 
-            # Verify user exists AND the password matches the hash
-            if user and check_password_hash(user["password"], password):
-
-                # Log the user in by saving their ID in the session
-                session["user_id"] = user["id"]
-                session["username"] = user["username"]
-
-                # Redirect to your home page or dashboard after logging in
-                return redirect(url_for('home')) # Change 'home' to your actual main page route name
-
-            else:
-                return render_template("login.html", error="Invalid username/email or password.")
-
-        except Exception as e:
-            print("Login error:", e)
-            return render_template("login.html", error="An error occurred. Please try again.")
-
-        finally:
-            cursor.close()
-            db.close()
-
-    # If it's a GET request, just show the login page
-    return render_template("login.html")
+    # Renders the HTML with the flash message popup
+    return render_template("login.html", error=error)
 
 # =========================================================
 # REGISTER
 # =========================================================
-
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
@@ -142,7 +136,7 @@ def register():
 
             db.commit()
 
-            # CREATE FLASH MESSAGE
+            # CREATE FLASH MESSAGE FOR THE POPUP
             flash("Account created successfully. Please login.", "success")
 
             # Go to existing login page
@@ -164,7 +158,6 @@ def register():
             db.close()
 
     return render_template("register.html")
-
 
 # =========================================================
 # ADMIN LOGIN
