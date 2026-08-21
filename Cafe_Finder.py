@@ -1001,6 +1001,12 @@ def about():
     return render_template("about.html")
 
 
+# contact
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+
 # update price
 @app.route("/admin/update_price/<int:item_id>/<price>")
 def update_price(item_id, price):

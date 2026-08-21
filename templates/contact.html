@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us - Cafe Finder</title>
+     <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='contact.css') }}"/>
+
+     <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}"/>
+</head>
+
+
+<body>
+
+<section class="contact-section">
+
+    <div class="contact-container">
+
+        <!-- Contact Information -->
+        <div class="contact-info">
+
+            <h1>Let's <span>Connect</span> </h1>
+
+            <p>
+                Have a question, suggestion, or want to recommend
+                a cafe? We'd love to hear from you!
+            </p>
+
+            <div class="info-item">
+                <strong>📍 Location</strong>
+                Itahari, Nepal
+            </div>
+
+            <div class="info-item">
+                <strong>📧 Email</strong>
+                cafefinder@gmail.com
+            </div>
+
+            <div class="info-item">
+                <strong>📞 Phone</strong>
+                +977 98XXXXXXXX
+            </div>
+
+        </div>
+
+
+        <!-- Contact Form -->
+        <div class="contact-form">
+
+            <h2>Send us a Message</h2>
+
+            <form onsubmit="showMessage(event)">
+
+                <input
+                    type="text"
+                    placeholder="Your Name"
+                    required
+                >
+
+                <input
+                    type="email"
+                    placeholder="Your Email"
+                    required
+                >
+
+                <textarea
+                    placeholder="Write your message..."
+                    required
+                ></textarea>
+
+                <button type="submit">
+                    Send Message
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+    function showMessage(event) {
+        event.preventDefault();
+
+        alert("Thank you for contacting Cafe Finder! ");
+
+        event.target.reset();
+    }
+</script>
+
+</body>
+</html>
+
