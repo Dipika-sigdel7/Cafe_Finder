@@ -53,6 +53,8 @@
     <!-- Your JavaScript -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
   </head>
+
+
   <body>
 
     <!-- Welcome section -->
@@ -622,6 +624,22 @@
         </button>
       </form>
     </div>
+
+    <footer class="cafe-footer">
+      
+    <div class="footer-contact">
+        {% if cafe.phone %}
+            <a href="tel:{{ cafe.phone }}" class="footer-phone">
+                📞 {{ cafe.phone }}
+            </a>
+        {% else %}
+            <span class="footer-phone">
+                📞 Not available
+            </span>
+        {% endif %}
+    </div>
+
+</footer>
 
     <!-- Show and hide the review form when the user clicks -->
     <script>

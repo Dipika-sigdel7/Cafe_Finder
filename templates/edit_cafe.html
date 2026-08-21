@@ -53,7 +53,23 @@ name="location"
 value="{{ cafe.location }}"
 >
 
+<div class="form-group">
 
+    <label for="phone">
+        Cafe Contact Number
+    </label>
+
+    <input
+        type="tel"
+        id="phone"
+        name="phone"
+        value="{{ cafe.phone or '' }}"
+        placeholder="Enter cafe phone number"
+        maxlength="30"
+        required
+    >
+
+</div>
 
 <label>Open Time</label>
 

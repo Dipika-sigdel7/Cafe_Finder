@@ -760,6 +760,7 @@ def admin_dashboard():
         name = request.form["name"].strip()
         description = request.form["description"].strip()
         location = request.form["location"].strip()
+        phone=request.form["phone"].strip()
         open_time = request.form["open_time"].strip()
         close_time = request.form["close_time"].strip()
         latitude = request.form.get("latitude")
@@ -813,6 +814,7 @@ def admin_dashboard():
                     name,
                     description,
                     location,
+                    phone,
                     open_time,
                     close_time,
                     latitude,
