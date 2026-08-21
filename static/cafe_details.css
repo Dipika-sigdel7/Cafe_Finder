@@ -134,208 +134,55 @@ body::after {
 }
 
 
-/* =========================================================
-   WELCOME / HERO SECTION
-========================================================= */
 
+/* =========================================================
+   WELCOME SECTION (HERO)
+========================================================= */
 .welcome-section {
-
-    position: relative;
-
-    width: 100%;
-
-    min-height: 440px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    text-align: center;
-
-    box-sizing: border-box;
-
-    overflow: hidden;
-
-    /* lighter Background image */
-    background-image:
-        linear-gradient(
-            rgba(35, 22, 17, 0.28),
-            rgba(35, 22, 17, 0.28)
-        ),
-        url("https://www.sipandsqueeze.in/images/hero-interior.png");
-
-    background-size: cover;
-
-    background-position: center;
-
-    background-repeat: no-repeat;
-
-    animation:
-        welcomeReveal
-        1s
-        ease
-        both;
+  position: relative;
+  height: 60vh;
+  min-height: 400px;
+  /* Add a default fallback background image here if needed, 
+     but keeping the dark overlay to ensure text readability */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                    url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2000&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 20px;
 }
-
-
-/* =========================================================
-   BACKGROUND IMAGE ZOOM
-========================================================= */
-
-.welcome-section::before {
-
-    content: "";
-
-    position: absolute;
-
-    inset: -20px;
-
-    background: url("https://www.sipandsqueeze.in/images/hero-interior.png");
-
-    background-size: cover;
-
-    background-position: center;
-
-    z-index: 0;
-
-    opacity: 0.35;
-
-    animation:
-        welcomeBackground
-        14s
-        ease-in-out
-        infinite alternate;
-
-    pointer-events: none;
-}
-
-
-/* =========================================================
-   SOFT OVERLAY
-========================================================= */
-
-.welcome-section::after {
-
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255, 248, 240, 0.12),
-            rgba(62, 39, 35, 0.18),
-            rgba(255, 248, 240, 0.08)
-        );
-
-    z-index: 1;
-
-    pointer-events: none;
-}
-
-
-/* =========================================================
-   WELCOME TITLE
-========================================================= */
 
 .welcome-section h1 {
-
-    position: relative;
-
-    z-index: 3;
-
-    margin: 0;
-
-    padding: 30px 50px;
-
-    color: #ffffff;
-
-    font-family: "Georgia", serif;
-
-    font-size: 64px;
-
-    font-weight: 900;
-
-    letter-spacing: 3px;
-
-    text-transform: capitalize;
-
-    text-shadow:
-        3px 4px 8px rgba(0, 0, 0, 0.45);
-
-    animation:
-        welcomeTitle
-        1.2s
-        0.2s
-        cubic-bezier(.2, .8, .2, 1)
-        both;
+  font-family: var(--font-heading);
+  color: #ffffff;
+  font-size: 3.5rem;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
 }
 
-
-
-/* =========================================================
-   SMALL GOLD DECORATION ABOVE TITLE
-========================================================= */
-
+/* Adds the coffee cup icon and gold line seen in your reference image */
 .welcome-section h1::before {
-
-    content: "☕";
-
-    display: block;
-
-    font-size: 42px;
-
-    margin-bottom: 15px;
-
-    animation:
-        coffeeFloat
-        3s
-        ease-in-out
-        infinite;
+  content: "☕";
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
-/* =========================================================
-   GOLDEN TITLE UNDERLINE
-========================================================= */
 
 .welcome-section h1::after {
-
-    content: "";
-
-    display: block;
-
-    width: 0;
-
-    height: 4px;
-
-    margin: 20px auto 0;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            #c59d5f,
-            #f5d58a,
-            #c59d5f,
-            transparent
-        );
-    
-    
-    box-shadow:
-        0 0 12px rgba(197, 157, 95, 0.5);
-
-    animation:
-        welcomeUnderline
-        1s
-        1s
-        ease
-        forwards;
+  content: "";
+  display: block;
+  width: 150px;
+  height: 3px;
+  background-color: var(--accent-color);
+  margin: 20px auto 0;
+  border-radius: 2px;
 }
+
 
 /* =========================================================
    TITLE ANIMATION

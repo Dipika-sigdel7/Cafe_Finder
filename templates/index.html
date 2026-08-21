@@ -375,124 +375,11 @@
 
 </main>
 
-    <div id="main-content">
-  <section class="coffee-section">
-
-    <div class="coffee-left">
-
-        <div class="hero-badge">
-            ☕ DISCOVER • EXPLORE • ENJOY
-        </div>
-
-        <h1>
-            Find Your Perfect
-            <span>Cafe</span>
-            Experience
-        </h1>
-
-        <p>
-            Explore the best cafes around you, read reviews,
-            see menus, and find your new favorite spot.
-        </p>
-
-        <div class="hero-buttons">
-
-            <a href="{{ url_for('cafes') }}" class="btn primary-btn">
-                Explore Cafes →
-            </a>
-
-            <a href="#" class="btn secondary-btn">
-                View on Map 📍
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="coffee-center">
-
-        <img
-            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=700"
-            alt="Coffee"
-        >
-
-        <div class="floating-card">
-
-            <div class="cup">☕</div>
-
-            <div>
-
-                <strong>Good Coffee</strong>
-
-                <p>Great Mood</p>
-
-            </div>
-
-            ❤️
-
-        </div>
-
-    </div>
-
-</section>
-
-        <!-- Search Section -->
-
-<section class="search-section">
-
-    <div class="search-box">
-
-        <h2>☕ Search for a Cafe</h2>
-
-        <div class="search-row">
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Enter Cafe Name, Location or Cuisine..."
-            >
-
-            <button
-                class="search-btn"
-                id="searchBtn"
-            >
-                Search
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-      <!-- Our Recommendation Section -->
-<section class="recommendation-section">
-
-    <h2 class="section-title">Our Recommendation</h2>
-
-    <ul class="recommendation-list">
-
-        {% for cafe in cafes[:5] %}
-
-        <li>
-    <a 
-    href="{{ url_for('cafe_details', cafe_id=cafe.id) }}"
-    class="recommendation-link">
-
-        {{ cafe.name }}
-
-    </a>
-</li>
-        {% endfor %}
-
-    </ul>
-
-</section>
-
-
-
+<!-- =====================================================
+     SCRIPTS
+===================================================== -->
 <!-- For search button -->
-    <script>
+<script>
 document.getElementById("searchBtn").addEventListener("click", function() {
     const query = document.getElementById("searchInput").value.trim();
 
@@ -500,8 +387,6 @@ document.getElementById("searchBtn").addEventListener("click", function() {
         alert("Please enter a cafe name!");
         return;
     }
-
-    
 
     // Fetch from backend
     fetch(`/search_cafe?name=${encodeURIComponent(query)}`)
@@ -515,11 +400,10 @@ document.getElementById("searchBtn").addEventListener("click", function() {
             }
         })
         .catch(error => { 
-        console.error("Error:", error);
-                    alert("Something went wrong. Please try again.");
+            console.error("Error:", error);
+            alert("Something went wrong. Please try again.");
         });
 });
-
 </script>
 
 <!-- =====================================================
