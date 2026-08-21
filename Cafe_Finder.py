@@ -70,8 +70,10 @@ def login():
                 cursor.close()
                 db.close()
 
-    # Renders the HTML with the flash message popup
-    return render_template("login.html", error=error)
+    
+    # CATCH THE REGISTRATION VARIABLE FROM THE URL
+    is_registered = request.args.get("registered")
+    return render_template("login.html", error=error,registered=is_registered)
 
 # =========================================================
 # REGISTER
@@ -140,7 +142,7 @@ def register():
             flash("Account created successfully. Please login.", "success")
 
             # Go to existing login page
-            return redirect(url_for("login"))
+            return redirect(url_for("login",registered=True))
 
         except Exception as e:
 

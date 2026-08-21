@@ -10,15 +10,14 @@
     <div class="login-container">
         <h2>Login</h2>
 
-        <!-- NEW BULLETPROOF POPUP -->
-        {% if success_msg %}
+        <!-- 100% FOOLPROOF POPUP (NO COOKIES REQUIRED) -->
+        {% if registered %}
             <script>
-                alert("{{ success_msg }}");
-                // Optional: clear the URL so if they refresh, it doesn't pop up again
+                alert("Account created successfully. Please login.");
+                // This line removes the variable from the URL so it doesn't pop up again if they refresh
                 window.history.replaceState(null, null, window.location.pathname);
             </script>
         {% endif %}
-        <!-- END POPUP -->
 
         {% if error %}
             <p class="error-message">{{ error }}</p>
