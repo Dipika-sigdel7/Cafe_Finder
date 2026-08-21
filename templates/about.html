@@ -1,922 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>About Cafe Finder</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-scroll-behavior:smooth;
-}
-
-body{
-background:linear-gradient(to bottom,#FFFDFB,#F7EFE6,#FFFDFB);
-overflow-x:hidden;
-}
-/*=========================
-NAVBAR
-=========================*/
-
-nav{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    padding:15px 8%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:rgba(0,0,0,0.4);
-    backdrop-filter:blur(8px);
-    z-index:1000;
-}
-
-.logo{
-
-font-size:30px;
-font-weight:bold;
-color:white;
-
-}
-
-nav ul{
-
-display:flex;
-list-style:none;
-gap:40px;
-
-}
-
-nav ul li a{
-
-text-decoration:none;
-color:white;
-font-size:17px;
-font-weight:500;
-transition:.3s;
-
-}
-
-nav ul li a:hover{
-
-color:#e6b980;
-
-}
-
-/*=========================
-HERO
-=========================*/
-
-.hero{
-
-height:100vh;
-
-background:
-linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
-url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1800");
-
-background-size:cover;
-background-position:center;
-
-display:flex;
-justify-content:center;
-align-items:center;
-text-align:center;
-
-padding:20px;
-
-}
-
-
-
-.hero-content{
-    max-width:700px;
-    padding:0 20px;
-    margin-top:80px;
-animation:fadeUp 1.5s;
-}
-
-
-
-.hero h1{
-    font-size:58px;
-    line-height:1.2;
-    margin-bottom:20px;
-    color:whitesmoke;
-}
-
-
-
-.hero span{
-
- color:#e6b980;
-
-}
-
-
-
-.hero p{
-    font-size:18px;
-    line-height:1.8;
-    margin-bottom:35px;
-    color:lightsalmon;
-}
-
-
-
-.hero-btn{
-
-display:inline-block;
-padding:16px 45px;
-
-background:linear-gradient(135deg,#d4a574,#8b5e3c);
-
-border-radius:50px;
-
-text-decoration:none;
-
-color:rgb(255, 255, 255);
-
-font-size:18px;
-
-font-weight:bold;
-
-transition:.4s;
-
-box-shadow:0 10px 25px rgba(0,0,0,.25);
-
-}
-
-.hero-btn:hover{
-
-transform:translateY(-6px);
-
-box-shadow:0 15px 30px rgba(0,0,0,.35);
-
-}
-
-/*=========================*/
-
-section{
-
-padding:90px 10%;
-
-}
-
-.title{
-
-text-align:center;
-
-font-size:42px;
-
-color:#5b3a29;
-
-margin-bottom:60px;
-
-font-weight:700;
-
-}
-
-@keyframes fadeUp{
-
-from{
-
-opacity:0;
-transform:translateY(60px);
-
-}
-
-to{
-
-opacity:1;
-transform:translateY(0);
-
-}
-
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Cafe Finder</title>
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- About Page CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='about.css') }}"
+    >
 </head>
 
 <body>
 
-<nav>
+    <!-- =========================
+         NAVBAR
+    ========================= -->
 
-<div class="logo">
- Cafe Finder
-</div>
+    <nav class="navbar">
 
-<ul>
+        <div class="logo">
+            Cafe Finder
+        </div>
 
-<li><a href="{{ url_for('home') }}">Home</a></li>
+        <ul class="nav-links">
 
-<li><a href="{{ url_for('cafes') }}">Cafes</a></li>
+            <li>
+                <a href="{{ url_for('home') }}">
+                    Home
+                </a>
+            </li>
 
-<li><a href="{{ url_for('about') }}">About</a></li>
+            <li>
+                <a href="{{ url_for('cafes') }}">
+                    Cafes
+                </a>
+            </li>
 
-</ul>
+            <li>
+                <a href="{{ url_for('about') }}" class="active">
+                    About
+                </a>
+            </li>
 
-</nav>
+        </ul>
 
-<section class="hero">
+    </nav>
 
-<div class="hero-content">
 
-<h1>Discover Your <span>Perfect Cafe</span></h1>
+    <!-- =========================
+         HERO SECTION
+    ========================= -->
 
-<p>
+    <section class="hero">
 
-Every coffee has a story, and every café has its own unique atmosphere.
-Cafe Finder helps you explore beautiful places where memories begin,
-conversations flow, and every sip feels special.
+        <div class="hero-content">
 
-</p>
+            <h1>
+                Discover Your
+                <span>Perfect Cafe</span>
+            </h1>
 
-<a href="{{ url_for('home') }}" class="hero-btn">
+            <p>
+                Every coffee has a story, and every café has its own
+                unique atmosphere. Cafe Finder helps you explore
+                beautiful places where memories begin, conversations
+                flow, and every sip feels special.
+            </p>
 
-Explore Cafes →
+            <a
+                href="{{ url_for('home') }}"
+                class="hero-btn"
+            >
+                Explore Cafes →
+            </a>
 
-</a>
+        </div>
 
-</div>
+    </section>
 
-</section>
-<!-- 
-        OUR STORY
- -->
 
-<section>
+    <!-- =========================
+         OUR STORY
+    ========================= -->
 
-<h2 class="title">Our Story</h2>
+    <section class="section">
 
-<div class="story">
+        <h2 class="title">
+            Our Story
+        </h2>
 
-<div class="story-text">
+        <div class="story">
 
-<h3> Brewing More Than Coffee</h3>
+            <div class="story-text">
 
-<p>
+                <h3>
+                    Brewing More Than Coffee
+                </h3>
 
-Cafe Finder was created with one simple idea:
-help people discover cafés that match their mood,
-whether it's studying, working, meeting friends,
-or enjoying a peaceful cup of coffee.
+                <p>
+                    Cafe Finder was created with one simple idea:
+                    help people discover cafés that match their mood,
+                    whether it's studying, working, meeting friends,
+                    or enjoying a peaceful cup of coffee.
 
-We believe every café has its own personality,
-and every visit should become a memorable experience.
+                    We believe every café has its own personality,
+                    and every visit should become a memorable experience.
+                </p>
 
-</p>
+            </div>
 
-</div>
+            <div class="story-image">
 
-<div class="story-image">
+                <img
+                    src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=900"
+                    alt="Cafe"
+                >
 
-<img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=900" alt="Cafe">
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </section>
 
-</section>
 
-<style>
+    <!-- =========================
+         MISSION & VISION
+    ========================= -->
 
-.story{
+    <section class="section">
 
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
-align-items:center;
-gap:60px;
+        <h2 class="title">
+            Mission & Vision
+        </h2>
 
-}
+        <div class="mission-grid">
 
-.story img{
+            <div class="mission-card">
 
-width:100%;
-border-radius:25px;
-box-shadow:0 20px 40px rgba(0,0,0,.2);
+                <h1>🎯</h1>
 
-transition:.4s;
+                <h3>
+                    Our Mission
+                </h3>
 
-}
+                <p>
+                    To help coffee lovers discover the best cafés
+                    through a modern and user-friendly platform.
+                </p>
 
-.story img:hover{
+            </div>
 
-transform:scale(1.04);
 
-}
+            <div class="mission-card">
 
-.story-text h3{
+                <h1>🌍</h1>
 
-font-size:36px;
-color:#5d4037;
-margin-bottom:20px;
+                <h3>
+                    Our Vision
+                </h3>
 
-}
+                <p>
+                    To become the most trusted café discovery platform,
+                    bringing people together through unforgettable
+                    coffee experiences.
+                </p>
 
-.story-text p{
+            </div>
 
-font-size:18px;
-line-height:2;
-color:#555;
+        </div>
 
-}
+    </section>
 
-</style>
 
-<!-- =========================
-MISSION & VISION
-========================= -->
+    <!-- =========================
+         FEATURES
+    ========================= -->
 
-<section>
+    <section class="section">
 
-<h2 class="title">Mission & Vision</h2>
+        <h2 class="title">
+            Why Choose Cafe Finder?
+        </h2>
 
-<div class="mission-grid">
+        <div class="feature-grid">
 
-<div class="mission-card">
+            <div class="feature-card">
 
-<h1>🎯</h1>
+                <div class="circle">
+                    ☕
+                </div>
 
-<h3>Our Mission</h3>
+                <h3>
+                    Explore Cafés
+                </h3>
 
-<p>
+                <p>
+                    Browse unique cafés with complete details.
+                </p>
 
-To help coffee lovers discover the best cafés
-through a modern and user-friendly platform.
+            </div>
 
-</p>
 
-</div>
+            <div class="feature-card">
 
-<div class="mission-card">
+                <div class="circle">
+                    🔍
+                </div>
 
-<h1>🌍</h1>
+                <h3>
+                    Smart Search
+                </h3>
 
-<h3>Our Vision</h3>
+                <p>
+                    Find your favorite café within seconds.
+                </p>
 
-<p>
+            </div>
 
-To become the most trusted café discovery platform,
-bringing people together through unforgettable coffee experiences.
 
-</p>
+            <div class="feature-card">
 
-</div>
+                <div class="circle">
+                    ⭐
+                </div>
 
-</div>
+                <h3>
+                    Recommendations
+                </h3>
 
-</section>
+                <p>
+                    Discover cafés loved by coffee enthusiasts.
+                </p>
 
-<style>
+            </div>
 
-.mission-grid{
 
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:40px;
+            <div class="feature-card">
 
-}
+                <div class="circle">
+                    📍
+                </div>
 
-.mission-card{
+                <h3>
+                    Easy Navigation
+                </h3>
 
-background:white;
+                <p>
+                    Locate cafés quickly and effortlessly.
+                </p>
 
-padding:45px;
+            </div>
 
-border-radius:25px;
+        </div>
 
-text-align:center;
+    </section>
 
-box-shadow:0 15px 35px rgba(0,0,0,.1);
 
-transition:.4s;
+    <!-- =========================
+         COFFEE QUOTE
+    ========================= -->
 
-}
+    <section class="quote-section">
 
-.mission-card:hover{
+        <div class="quote-box">
 
-transform:translateY(-12px);
+            <h2>
+                "Coffee is always a good idea"
+            </h2>
 
-}
+            <p>
+                Every cup tells a story, every café creates memories,
+                and every visit becomes an experience worth sharing.
+            </p>
 
-.mission-card h1{
+        </div>
 
-font-size:60px;
-margin-bottom:20px;
+    </section>
 
-}
 
-.mission-card h3{
+    <!-- =========================
+         OUR VALUES
+    ========================= -->
 
-font-size:28px;
-color:#5d4037;
-margin-bottom:20px;
+    <section class="section">
 
-}
+        <h2 class="title">
+            Our Values
+        </h2>
 
-.mission-card p{
+        <div class="values">
 
-font-size:17px;
-line-height:1.8;
+            <div class="value-card">
 
-}
+                <h1>🤝</h1>
 
-</style>
+                <h3>
+                    Community
+                </h3>
 
-<!-- =========================
-FEATURES
-========================= -->
+                <p>
+                    Connecting coffee lovers with cafés
+                    they'll truly enjoy.
+                </p>
 
-<section>
+            </div>
 
-<h2 class="title">Why Choose Cafe Finder?</h2>
 
-<div class="feature-grid">
+            <div class="value-card">
 
-<div class="feature-card">
+                <h1>❤️</h1>
 
-<div class="circle">☕</div>
+                <h3>
+                    Passion
+                </h3>
 
-<h3>Explore Cafés</h3>
+                <p>
+                    We believe coffee is more than a drink—
+                    it's an experience.
+                </p>
 
-<p>
+            </div>
 
-Browse unique cafés with complete details.
 
-</p>
+            <div class="value-card">
 
-</div>
+                <h1>🌱</h1>
 
-<div class="feature-card">
+                <h3>
+                    Growth
+                </h3>
 
-<div class="circle">🔍</div>
+                <p>
+                    Continuously adding more cafés
+                    for everyone to explore.
+                </p>
 
-<h3>Smart Search</h3>
+            </div>
 
-<p>
+        </div>
 
-Find your favorite café within seconds.
+    </section>
 
-</p>
 
-</div>
+    <!-- =========================
+         CALL TO ACTION
+    ========================= -->
 
-<div class="feature-card">
+    <section class="cta">
 
-<div class="circle">⭐</div>
+        <h2>
+            Ready to Find Your Next Favorite Café?
+        </h2>
 
-<h3>Recommendations</h3>
+        <p>
+            Start exploring and discover cozy cafés,
+            great coffee, and unforgettable moments.
+        </p>
 
-<p>
+        <a href="{{ url_for('cafes') }}">
+            Explore Cafes
+        </a>
 
-Discover cafés loved by coffee enthusiasts.
+    </section>
 
-</p>
 
-</div>
+    <!-- =========================
+         FOOTER
+    ========================= -->
 
-<div class="feature-card">
+    <footer>
 
-<div class="circle">📍</div>
+        <h2>
+            ☕ Cafe Finder
+        </h2>
 
-<h3>Easy Navigation</h3>
+        <p>
+            Helping coffee lovers discover the perfect café,
+            one cup at a time.
+        </p>
 
-<p>
+        <hr>
 
-Locate cafés quickly and effortlessly.
+        <p class="copy">
+            © 2026 Cafe Finder • Designed with ❤️
+        </p>
 
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<style>
-
-.feature-grid{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
-
-}
-
-.feature-card{
-
-background:white;
-
-padding:35px;
-
-border-radius:20px;
-
-text-align:center;
-
-transition:.4s;
-
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-
-}
-
-.feature-card:hover{
-
-background:#6f4e37;
-
-color:white;
-
-transform:translateY(-12px);
-
-}
-
-.circle{
-
-width:90px;
-
-height:90px;
-
-background:#d4a574;
-
-margin:auto;
-
-border-radius:50%;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
-font-size:40px;
-
-margin-bottom:25px;
-
-}
-
-.feature-card h3{
-
-margin-bottom:15px;
-
-}
-
-.feature-card p{
-
-line-height:1.8;
-
-}
-
-</style>
-<!-- =========================
-      COFFEE QUOTE SECTION
-========================= -->
-
-<section class="quote-section">
-
-<div class="quote-box">
-
-<h2>"Coffee is always a good idea"</h2>
-
-<p>
-
-Every cup tells a story, every café creates memories,
-and every visit becomes an experience worth sharing.
-
-</p>
-
-</div>
-
-</section>
-
-<style>
-
-.quote-section{
-
-padding:120px 10%;
-
-background:
-linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
-url("https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1600");
-
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
-
-}
-
-.quote-box{
-
-max-width:900px;
-margin:auto;
-text-align:center;
-color:white;
-
-}
-
-.quote-box h2{
-
-font-size:48px;
-margin-bottom:30px;
-font-weight:700;
-
-}
-
-.quote-box p{
-
-font-size:22px;
-line-height:2;
-
-}
-
-</style>
-
-<!-- =========================
-OUR VALUES
-========================= -->
-
-<section>
-
-<h2 class="title">Our Values</h2>
-
-<div class="values">
-
-<div class="value-card">
-
-<h1>🤝</h1>
-
-<h3>Community</h3>
-
-<p>
-
-Connecting coffee lovers with cafés they'll truly enjoy.
-
-</p>
-
-</div>
-
-<div class="value-card">
-
-<h1>❤️</h1>
-
-<h3>Passion</h3>
-
-<p>
-
-We believe coffee is more than a drink—
-it's an experience.
-
-</p>
-
-</div>
-
-<div class="value-card">
-
-<h1>🌱</h1>
-
-<h3>Growth</h3>
-
-<p>
-
-Continuously adding more cafés
-for everyone to explore.
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<style>
-
-.values{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-
-gap:35px;
-
-}
-
-.value-card{
-
-background:#fff8f3;
-
-padding:40px;
-
-border-radius:25px;
-
-text-align:center;
-
-box-shadow:0 12px 25px rgba(0,0,0,.08);
-
-transition:.4s;
-
-}
-
-.value-card:hover{
-
-background:#6F4E37;
-
-color:white;
-
-transform:scale(1.05);
-
-}
-
-.value-card h1{
-
-font-size:55px;
-
-margin-bottom:15px;
-
-}
-
-.value-card h3{
-
-margin-bottom:15px;
-
-font-size:26px;
-
-}
-
-.value-card p{
-
-line-height:1.8;
-
-}
-
-</style>
-
-<!-- =========================
-CALL TO ACTION
-========================= -->
-
-<section class="cta">
-
-<h2>Ready to Find Your Next Favorite Café?</h2>
-
-<p>
-
-Start exploring and discover cozy cafés,
-great coffee, and unforgettable moments.
-
-</p>
-
-<a href="{{ url_for('cafes') }}">
-
-Explore Cafes
-
-</a>
-
-</section>
-
-<style>
-
-.cta{
-
-text-align:center;
-
-padding:100px 10%;
-
-background:linear-gradient(135deg,#5D4037,#8D6E63);
-
-color:white;
-
-}
-
-.cta h2{
-
-font-size:45px;
-
-margin-bottom:20px;
-
-}
-
-.cta p{
-
-font-size:20px;
-
-margin-bottom:40px;
-
-}
-
-.cta a{
-
-display:inline-block;
-
-padding:18px 45px;
-
-background:white;
-
-color:#5D4037;
-
-text-decoration:none;
-
-font-weight:bold;
-
-border-radius:50px;
-
-transition:.4s;
-
-}
-
-.cta a:hover{
-
-transform:translateY(-5px);
-
-background:#f5e6d8;
-
-}
-
-</style>
-
-<!-- =========================
-FOOTER
-========================= -->
-
-<footer>
-
-<h2>☕ Cafe Finder</h2>
-
-<p>
-
-Helping coffee lovers discover the perfect café,
-one cup at a time.
-
-</p>
-
-<hr>
-
-<p class="copy">
-
-© 2026 Cafe Finder • Designed with ❤️
-
-</p>
-
-</footer>
-
-<style>
-
-footer{
-
-background:#2d1f18;
-
-color:white;
-
-padding:60px 10%;
-
-text-align:center;
-
-}
-
-footer h2{
-
-font-size:38px;
-
-margin-bottom:20px;
-
-}
-
-footer p{
-
-font-size:18px;
-
-line-height:1.8;
-
-}
-
-footer hr{
-
-width:150px;
-
-margin:30px auto;
-
-border:1px solid rgba(255,255,255,.2);
-
-}
-
-.copy{
-
-opacity:.7;
-
-font-size:15px;
-
-}
-
-</style>
+    </footer>
 
 </body>
 

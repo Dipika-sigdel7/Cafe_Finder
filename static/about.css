@@ -1,0 +1,880 @@
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(
+        to bottom,
+        #FFFDFB,
+        #F7EFE6,
+        #FFFDFB
+    );
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    padding: 15px 8%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.4);
+
+    backdrop-filter: blur(8px);
+
+    z-index: 1000;
+}
+
+
+/* LOGO */
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+
+
+/* NAVIGATION */
+
+.nav-links {
+    display: flex;
+
+    list-style: none;
+
+    gap: 40px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 500;
+
+    transition: 0.3s;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+    color: #e6b980;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.55),
+            rgba(0, 0, 0, 0.55)
+        ),
+        url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1800");
+
+    background-size: cover;
+
+    background-position: center;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 20px;
+}
+
+
+/* HERO CONTENT */
+
+.hero-content {
+    max-width: 700px;
+
+    padding: 0 20px;
+
+    margin-top: 80px;
+
+    animation: fadeUp 1.5s ease;
+}
+
+
+/* HERO TITLE */
+
+.hero h1 {
+    font-size: 58px;
+
+    line-height: 1.2;
+
+    margin-bottom: 20px;
+
+    color: whitesmoke;
+}
+
+
+/* HIGHLIGHT */
+
+.hero h1 span {
+    color: #e6b980;
+}
+
+
+/* HERO TEXT */
+
+.hero p {
+    font-size: 18px;
+
+    line-height: 1.8;
+
+    margin-bottom: 35px;
+
+    color: lightsalmon;
+}
+
+
+/* HERO BUTTON */
+
+.hero-btn {
+    display: inline-block;
+
+    padding: 16px 45px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d4a574,
+            #8b5e3c
+        );
+
+    border-radius: 50px;
+
+    text-decoration: none;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    transition: 0.4s;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.hero-btn:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 15px 30px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   GENERAL SECTION
+========================================================= */
+
+.section {
+    padding: 90px 10%;
+}
+
+
+/* SECTION TITLE */
+
+.title {
+    text-align: center;
+
+    font-size: 42px;
+
+    color: #5b3a29;
+
+    margin-bottom: 60px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(60px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   OUR STORY
+========================================================= */
+
+.story {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(350px, 1fr)
+        );
+
+    align-items: center;
+
+    gap: 60px;
+}
+
+
+/* STORY IMAGE */
+
+.story-image img {
+    width: 100%;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.2);
+
+    transition: 0.4s;
+}
+
+.story-image img:hover {
+    transform: scale(1.04);
+}
+
+
+/* STORY TITLE */
+
+.story-text h3 {
+    font-size: 36px;
+
+    color: #5d4037;
+
+    margin-bottom: 20px;
+}
+
+
+/* STORY TEXT */
+
+.story-text p {
+    font-size: 18px;
+
+    line-height: 2;
+
+    color: #555;
+}
+
+
+/* =========================================================
+   MISSION & VISION
+========================================================= */
+
+.mission-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(320px, 1fr)
+        );
+
+    gap: 40px;
+}
+
+
+/* MISSION CARD */
+
+.mission-card {
+    background: white;
+
+    padding: 45px;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.1);
+
+    transition: 0.4s;
+}
+
+.mission-card:hover {
+    transform: translateY(-12px);
+}
+
+
+/* MISSION ICON */
+
+.mission-card h1 {
+    font-size: 60px;
+
+    margin-bottom: 20px;
+}
+
+
+/* MISSION TITLE */
+
+.mission-card h3 {
+    font-size: 28px;
+
+    color: #5d4037;
+
+    margin-bottom: 20px;
+}
+
+
+/* MISSION TEXT */
+
+.mission-card p {
+    font-size: 17px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.feature-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(250px, 1fr)
+        );
+
+    gap: 30px;
+}
+
+
+/* FEATURE CARD */
+
+.feature-card {
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    transition: 0.4s;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* FEATURE HOVER */
+
+.feature-card:hover {
+    background: #6f4e37;
+
+    color: white;
+
+    transform: translateY(-12px);
+}
+
+
+/* FEATURE CIRCLE */
+
+.circle {
+    width: 90px;
+
+    height: 90px;
+
+    background: #d4a574;
+
+    margin: 0 auto 25px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 40px;
+}
+
+
+/* FEATURE TITLE */
+
+.feature-card h3 {
+    margin-bottom: 15px;
+}
+
+
+/* FEATURE TEXT */
+
+.feature-card p {
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   COFFEE QUOTE
+========================================================= */
+
+.quote-section {
+    padding: 120px 10%;
+
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, 0.65),
+            rgba(0, 0, 0, 0.65)
+        ),
+        url("https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1600");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed;
+}
+
+
+/* QUOTE BOX */
+
+.quote-box {
+    max-width: 900px;
+
+    margin: auto;
+
+    text-align: center;
+
+    color: white;
+}
+
+
+/* QUOTE TITLE */
+
+.quote-box h2 {
+    font-size: 48px;
+
+    margin-bottom: 30px;
+
+    font-weight: 700;
+}
+
+
+/* QUOTE TEXT */
+
+.quote-box p {
+    font-size: 22px;
+
+    line-height: 2;
+}
+
+
+/* =========================================================
+   OUR VALUES
+========================================================= */
+
+.values {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(280px, 1fr)
+        );
+
+    gap: 35px;
+}
+
+
+/* VALUE CARD */
+
+.value-card {
+    background: #fff8f3;
+
+    padding: 40px;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 12px 25px rgba(0, 0, 0, 0.08);
+
+    transition: 0.4s;
+}
+
+
+/* VALUE HOVER */
+
+.value-card:hover {
+    background: #6f4e37;
+
+    color: white;
+
+    transform: scale(1.05);
+}
+
+
+/* VALUE ICON */
+
+.value-card h1 {
+    font-size: 55px;
+
+    margin-bottom: 15px;
+}
+
+
+/* VALUE TITLE */
+
+.value-card h3 {
+    margin-bottom: 15px;
+
+    font-size: 26px;
+}
+
+
+/* VALUE TEXT */
+
+.value-card p {
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   CALL TO ACTION
+========================================================= */
+
+.cta {
+    text-align: center;
+
+    padding: 100px 10%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #5D4037,
+            #8D6E63
+        );
+
+    color: white;
+}
+
+
+/* CTA TITLE */
+
+.cta h2 {
+    font-size: 45px;
+
+    margin-bottom: 20px;
+}
+
+
+/* CTA TEXT */
+
+.cta p {
+    font-size: 20px;
+
+    margin-bottom: 40px;
+}
+
+
+/* CTA BUTTON */
+
+.cta a {
+    display: inline-block;
+
+    padding: 18px 45px;
+
+    background: white;
+
+    color: #5D4037;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    border-radius: 50px;
+
+    transition: 0.4s;
+}
+
+.cta a:hover {
+    transform: translateY(-5px);
+
+    background: #f5e6d8;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    background: #2d1f18;
+
+    color: white;
+
+    padding: 60px 10%;
+
+    text-align: center;
+}
+
+
+/* FOOTER TITLE */
+
+footer h2 {
+    font-size: 38px;
+
+    margin-bottom: 20px;
+}
+
+
+/* FOOTER TEXT */
+
+footer p {
+    font-size: 18px;
+
+    line-height: 1.8;
+}
+
+
+/* FOOTER LINE */
+
+footer hr {
+    width: 150px;
+
+    margin: 30px auto;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
+/* COPYRIGHT */
+
+footer .copy {
+    opacity: 0.7;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .navbar {
+        padding: 15px 5%;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .nav-links {
+        gap: 18px;
+    }
+
+    .nav-links li a {
+        font-size: 14px;
+    }
+
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .hero-btn {
+        padding: 14px 32px;
+
+        font-size: 16px;
+    }
+
+
+    .section {
+        padding: 70px 6%;
+    }
+
+    .title {
+        font-size: 34px;
+
+        margin-bottom: 40px;
+    }
+
+
+    .story {
+        grid-template-columns: 1fr;
+
+        gap: 35px;
+    }
+
+    .story-text h3 {
+        font-size: 30px;
+    }
+
+    .story-text p {
+        font-size: 16px;
+    }
+
+
+    .mission-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .values {
+        grid-template-columns: 1fr;
+    }
+
+
+    .quote-section {
+        padding: 90px 6%;
+    }
+
+    .quote-box h2 {
+        font-size: 34px;
+    }
+
+    .quote-box p {
+        font-size: 18px;
+    }
+
+
+    .cta {
+        padding: 80px 6%;
+    }
+
+    .cta h2 {
+        font-size: 34px;
+    }
+
+    .cta p {
+        font-size: 17px;
+    }
+
+
+    footer {
+        padding: 50px 6%;
+    }
+
+    footer h2 {
+        font-size: 30px;
+    }
+
+    footer p {
+        font-size: 16px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .navbar {
+        padding: 12px 4%;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .nav-links li a {
+        font-size: 12px;
+    }
+
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero p {
+        font-size: 15px;
+
+        line-height: 1.7;
+    }
+
+
+    .title {
+        font-size: 30px;
+    }
+
+
+    .mission-card,
+    .feature-card,
+    .value-card {
+        padding: 30px 22px;
+    }
+
+
+    .quote-box h2 {
+        font-size: 28px;
+    }
+
+    .quote-box p {
+        font-size: 16px;
+    }
+
+
+    .cta h2 {
+        font-size: 29px;
+    }
+
+}
