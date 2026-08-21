@@ -1007,26 +1007,93 @@ def home():
 
 
 
-# AI chat
+# =========================================================
+#   AI CAFE ASSISTANT ROUTE
+# =========================================================
 @app.route('/api/chat', methods=['POST'])
 def chat():
     try:
-        user_message = request.json.get('message')
+        data = request.get_json() or {}
+        user_message = data.get('message', '').strip()
         
-        # Give the AI a persona so it acts like a Cafe Finder
-        prompt = f"You are a helpful Cafe Finder assistant. Keep your answers brief. The user says: {user_message}"
-        
-        # 2. We use the new, updated way to generate content
-        response = client.models.generate_content(
-            model='gemini-1.5-flash',
-            contents=prompt
-        )
-        
-        return jsonify({"reply": response.text})
-        
+        if not user_message:
+            return jsonify({"reply": "Please type a question about our cafes!"})
+
+        msg_lower = user_message.lower()
+
+        # 1. Instant greeting responses
+        greetings = ["hello", "hi", "hey", "hola", "hi there", "hello there"]
+        if msg_lower in greetings or msg_lower.startswith(("hi ", "hello ")):
+            return jsonify({"reply": "Hi! How may I help you find the best cafe today?"})
+
+        # 2. Your Cafe Data (The AI uses this to give accurate answers)
+        cafe_database_info = """
+        AVAILABLE CAFES:
+        1. Brew & Bite:
+           - Location: Downtown Mall
+           - Timings: 8:00 AM - 8:00 PM
+           - Discounts: 10% student discount with student ID.
+           - Popular Items: Caramel Latte, Cappuccino, Butter Croissants, Brownies.
+           
+        2. The Roastery:
+           - Location: Uptown High Street
+           - Timings: 7:00 AM - 10:00 PM
+           - Discounts: Buy 1 Get 1 Free on all Iced Coffees every Friday.
+           - Popular Items: Pour-over Espresso, Cold Brew, Club Sandwiches, New York Cheesecake.
+           
+        3. Midnight Mocha:
+           - Location: University Avenue
+           - Timings: Open 24/7
+           - Discounts: Free chocolate chip cookie with any large mocha order.
+           - Popular Items: Dark Chocolate Mocha, Hot Chocolate, Paninis, Energy Smoothies.
+        """
+
+        prompt = f"""
+        You are 'Cafe Finder AI', an expert assistant for our cafe discovery platform.
+        Answer the user's question accurately, concisely, and warmly based ONLY on the following cafe data:
+
+        {cafe_database_info}
+
+        User Question: {user_message}
+        """
+
+        # 3. Ask Gemini AI for a dynamic response
+        try:
+            response = client.models.generate_content(
+                model='gemini-1.5-flash',
+                contents=prompt
+            )
+            if response and response.text:
+                return jsonify({"reply": response.text.strip()})
+        except Exception as ai_err:
+            print("Gemini API issue (using smart fallback):", ai_err)
+
+        # 4. Smart Fallback (Guarantees an answer if the API key fails)
+        if any(w in msg_lower for w in ["discount", "offer", "deal", "cheap"]):
+            return jsonify({
+                "reply": "Here are our active offers:\n• Brew & Bite: 10% student discount.\n• The Roastery: Buy 1 Get 1 Free on Iced Coffees on Fridays.\n• Midnight Mocha: Free cookie with large mochas!"
+            })
+        elif any(w in msg_lower for w in ["open", "time", "hours", "late"]):
+            return jsonify({
+                "reply": "'Midnight Mocha' is open 24/7! 'The Roastery' is open 7 AM – 10 PM, and 'Brew & Bite' is open 8 AM – 8 PM."
+            })
+        elif any(w in msg_lower for w in ["drink", "coffee", "menu", "food"]):
+            return jsonify({
+                "reply": "Popular drinks include Caramel Lattes at Brew & Bite, Cold Brew at The Roastery, and Dark Chocolate Mochas at Midnight Mocha."
+            })
+        elif any(w in msg_lower for w in ["best", "explore", "recommend"]):
+            return jsonify({
+                "reply": "For artisan coffee, visit 'The Roastery'. For late-night study sessions, 'Midnight Mocha' (open 24/7) is the top choice!"
+            })
+        else:
+            return jsonify({
+                "reply": "I can help you find open cafes, check special discounts, or explore menus. What are you looking for?"
+            })
+
     except Exception as e:
-        print("Error:", e)
-        return jsonify({"reply": "Sorry, my brain is having technical difficulties!"}), 500
+        print("Chat Error:", e)
+        return jsonify({"reply": "Hi! How may I help you explore cafes today?"})
+
 
 # About Page
 @app.route("/about")
