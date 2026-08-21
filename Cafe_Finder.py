@@ -35,44 +35,47 @@ def login():
         login = request.form.get("login", "").strip()
         password = request.form.get("password", "")
 
-        if not login or not password:
-            return render_template(
-                "login.html", error="Username/Email and password are required."
-            )
+        if not login_input or not password_input:
+            return render_template( "login.html", error="Username/Email and password are required." )
 
         db = get_db()
         cursor = db.cursor(dictionary=True)
 
-        cursor.execute(
-            """
-            SELECT *
-            FROM users
-            WHERE username = %s OR email = %s
-            """,
-            (login, login),
-        )
-
-        user = cursor.fetchone()
-
-        cursor.close()
-        db.close()
-
-        if user and check_password_hash(user["password"], password):
-
-            session["user_id"] = user["id"]
-            session["username"] = user["username"]
-
-            flash("Login successful!", "success")
-
-            return redirect(url_for("home"))
-
-        else:
-            return render_template(
-                "login.html", error="Invalid username/email or password."
+        try:
+            cursor.execute(
+                """
+                SELECT *
+                FROM users
+                WHERE username = %s OR email = %s
+                """,
+                (login, login),
             )
 
-    return render_template("login.html")
+            user = cursor.fetchone()
 
+            # Verify user exists AND the password matches the hash
+            if user and check_password_hash(user["password"], password):
+
+                # Log the user in by saving their ID in the session
+                session["user_id"] = user["id"]
+                session["username"] = user["username"]
+
+                # Redirect to your home page or dashboard after logging in
+                return redirect(url_for('home')) # Change 'home' to your actual main page route name
+
+            else:
+                return render_template("login.html", error="Invalid username/email or password.")
+
+        except Exception as e:
+            print("Login error:", e)
+            return render_template("login.html", error="An error occurred. Please try again.")
+
+        finally:
+            cursor.close()
+            db.close()
+
+    # If it's a GET request, just show the login page
+    return render_template("login.html")
 
 # =========================================================
 # REGISTER
@@ -143,7 +146,7 @@ def register():
             flash("Account created successfully. Please login.", "success")
 
             # Go to existing login page
-            return redirect(url_for("admin_login"))
+            return redirect(url_for("login"))
 
         except Exception as e:
 
