@@ -16,3 +16,8 @@ env/
 # OS files
 .DS_Store
 .cache/
+
+# Environment variables / secrets
+.env
+.env.*
+!.env.example

@@ -97,59 +97,53 @@ function addMessage(message, sender) {
 
 
 /* =========================================================
-   SEND MESSAGE
+   SEND MESSAGE (UPDATED WITH FETCH)
 ========================================================= */
 
-function sendMessage() {
+async function sendMessage() {
 
-    const message =
-        aiChatInput.value.trim();
-
+    const message = aiChatInput.value.trim();
 
     if (message === "") {
-
         return;
-
     }
 
-
-    /* Show user's message */
-
+    /* Show user's message and clear input */
     addMessage(message, "user");
-
-
-    /* Clear input */
-
     aiChatInput.value = "";
 
-
-    /* Show typing indicator */
-
+    /* Show typing indicator and scroll to bottom */
     aiTyping.style.display = "block";
+    aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
 
+    try {
+        /* Make a POST request to your Flask backend */
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: message })
+        });
 
-    aiChatMessages.scrollTop =
-        aiChatMessages.scrollHeight;
+        const data = await response.json();
 
-
-    /*
-       TEMPORARY RESPONSE
-
-       We will replace this with
-       Flask + AI API later.
-    */
-
-    setTimeout(function () {
-
+        /* Hide typing indicator */
         aiTyping.style.display = "none";
 
-        addMessage(
-            "I'm your Cafe Finder AI assistant. I can help you find cafes, menus, offers and other information.",
-            "ai"
-        );
+        /* Show the AI's real response */
+        if (response.ok) {
+            // Assuming your Flask app sends back JSON like: { "reply": "Hello!" }
+            addMessage(data.reply, "ai");
+        } else {
+            addMessage("Oops! The server returned an error.", "ai");
+        }
 
-    }, 1000);
-
+    } catch (error) {
+        console.error("Chat Error:", error);
+        aiTyping.style.display = "none";
+        addMessage("Sorry, I can't connect to the server right now.", "ai");
+    }
 }
 
 

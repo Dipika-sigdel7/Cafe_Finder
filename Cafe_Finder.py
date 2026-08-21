@@ -1,11 +1,22 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session,jsonify
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 from werkzeug.utils import secure_filename
+from dotenv import load_dotenv
+import google.generativeai as genai
+
+load_dotenv()
+
 
 app = Flask(__name__)
 app.secret_key = "cafe-finder-secret-key"
+
+# 1. We use the new genai.Client and your copied API key
+# Gemini AI client
+client = genai.Client(
+    api_key=os.getenv("GOOGLE_API_KEY")
+)
 
 
 # Database Connection
@@ -994,6 +1005,28 @@ def home():
 
     return render_template("index.html", cafes=cafes)
 
+
+
+# AI chat
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    try:
+        user_message = request.json.get('message')
+        
+        # Give the AI a persona so it acts like a Cafe Finder
+        prompt = f"You are a helpful Cafe Finder assistant. Keep your answers brief. The user says: {user_message}"
+        
+        # 2. We use the new, updated way to generate content
+        response = client.models.generate_content(
+            model='gemini-1.5-flash',
+            contents=prompt
+        )
+        
+        return jsonify({"reply": response.text})
+        
+    except Exception as e:
+        print("Error:", e)
+        return jsonify({"reply": "Sorry, my brain is having technical difficulties!"}), 500
 
 # About Page
 @app.route("/about")
