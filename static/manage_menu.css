@@ -1,0 +1,170 @@
+
+
+body{
+    font-family:Arial;
+    padding:40px;
+}
+
+/* M ain Container*/
+.menu-container{
+    width:600px;
+    max-width:700px;
+    margin:auto;
+}
+
+/* Menu List */
+.menu-list{
+    max-height:400px;
+    overflow-y:auto;
+    border:1px solid #ccc;
+    border-radius:8px;
+    padding:15px;
+    background:#fff;
+}
+
+/* Menu Item */
+.menu-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    border-bottom:1px solid #ddd;
+    padding:15px 0;
+}
+ 
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+/* Buttons */
+button{
+    padding:7px 12px;
+    margin:3px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+
+.edit{
+    background:green;
+    color:white;
+}
+
+.edit:hover {
+    background: #006400;
+}
+
+.delete{
+    background:red;
+    color:white;
+}
+
+.delete:hover {
+    background: #c00000;
+}
+
+/* Add Box */
+.add-box{
+    margin-top:30px;
+    border:1px solid #ccc;
+    border-radius: 8px;
+    padding:20px;
+    background: #fff;
+}
+
+/* Inputs */
+input{
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+/* Tablet (768px) */
+@media (max-width: 768px) {
+
+    body {
+        padding: 25px 15px;
+    }
+
+    .menu-container {
+        max-width: 100%;
+    }
+
+    .menu-item {
+        gap: 10px;
+    }
+
+    button {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Mobile (480px) */
+@media (max-width: 480px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .menu-list {
+        padding: 10px;
+    }
+
+    .menu-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu-item div:last-child {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .menu-item button {
+        flex: 1;
+        margin: 0;
+    }
+
+    .add-box {
+        padding: 15px;
+    }
+
+    input {
+        font-size: 14px;
+    }
+
+    button {
+        width: 100%;
+        font-size: 14px;
+    }
+}
+
+/* Small Phones (320px) */
+@media (max-width: 320px) {
+
+    body {
+        padding: 10px;
+    }
+
+    .menu-item {
+        padding: 10px 0;
+    }
+
+    button {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    input {
+        font-size: 13px;
+    }
+}
